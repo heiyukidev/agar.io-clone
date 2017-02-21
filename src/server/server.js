@@ -285,6 +285,7 @@ io.on('connection', function(socket) {
             } else {
                 player.cells = [];
                 player.massTotal = 0;
+                player.massMax = 0;
             }
             player.hue = Math.round(Math.random() * 360);
             currentPlayer = player;
@@ -539,6 +540,9 @@ function tickPlayer(currentPlayer) {
             ///////Heiyuki Code
             console.log('user who died had ' + collision.bUser.massMax);
             collision.aUser.mass += collision.bUser.mass;
+            if (collision.aUser.massMax < collision.aUser.mass) {
+                collision.aUser.massMax = collision.aUser.mass;
+            }
         }
     }
 
