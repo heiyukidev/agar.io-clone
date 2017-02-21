@@ -244,7 +244,6 @@ io.on('connection', function(socket) {
         h: c.defaultPlayerMass,
         cells: cells,
         massTotal: massTotal,
-        massMax: massTotal,
         hue: Math.round(Math.random() * 360),
         type: type,
         lastHeartbeat: new Date().getTime(),
@@ -285,7 +284,6 @@ io.on('connection', function(socket) {
             } else {
                 player.cells = [];
                 player.massTotal = 0;
-                player.massMax = 0;
             }
             player.hue = Math.round(Math.random() * 360);
             currentPlayer = player;
@@ -415,7 +413,6 @@ io.on('connection', function(socket) {
                     id: currentPlayer.id,
                     num: i,
                     masa: masa,
-                    massMax: currentPlayer.massMax,
                     hue: currentPlayer.hue,
                     target: {
                         x: currentPlayer.x - currentPlayer.cells[i].x + currentPlayer.target.x,
@@ -504,8 +501,7 @@ function tickPlayer(currentPlayer) {
                         x: user.cells[i].x,
                         y: user.cells[i].y,
                         num: i,
-                        mass: user.cells[i].mass,
-                        massMax: user.cells[i].massMax
+                        mass: user.cells[i].mass
                     };
                     playerCollisions.push(response);
                 }
@@ -530,21 +526,13 @@ function tickPlayer(currentPlayer) {
                     io.emit('playerDied', {
                         name: collision.bUser.name
                     });
-
+                    //heiyuki Code
                     sockets[collision.bUser.id].emit('RIP');
                 }
             }
             currentPlayer.massTotal += collision.bUser.mass;
-            if (currentPlayer.massMax < currentPlayer.massTotal) {
-                currentPlayer.massMax = currentPlayer.massTotal;
-            }
-
-            ///////Heiyuki Code
-            console.log('user who died had ' + collision.bUser.massMax);
+            
             collision.aUser.mass += collision.bUser.mass;
-            if (collision.aUser.massMax < collision.aUser.mass) {
-                collision.aUser.massMax = collision.aUser.mass;
-            }
         }
     }
 
@@ -593,9 +581,6 @@ function tickPlayer(currentPlayer) {
         masaGanada += (foodEaten.length * c.foodMass);
         currentCell.mass += masaGanada;
         currentPlayer.massTotal += masaGanada;
-        if (currentPlayer.massMax < currentPlayer.massTotal) {
-            currentPlayer.massMax = currentPlayer.massTotal;
-        }
         currentCell.radius = util.massToRadius(currentCell.mass);
         playerCircle.r = currentCell.radius;
 
