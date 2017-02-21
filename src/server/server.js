@@ -415,6 +415,7 @@ io.on('connection', function(socket) {
                     id: currentPlayer.id,
                     num: i,
                     masa: masa,
+                    massMax: currentPlayer.massMax,
                     hue: currentPlayer.hue,
                     target: {
                         x: currentPlayer.x - currentPlayer.cells[i].x + currentPlayer.target.x,
@@ -503,7 +504,8 @@ function tickPlayer(currentPlayer) {
                         x: user.cells[i].x,
                         y: user.cells[i].y,
                         num: i,
-                        mass: user.cells[i].mass
+                        mass: user.cells[i].mass,
+                        massMax: user.cells[i].massMax
                     };
                     playerCollisions.push(response);
                 }
