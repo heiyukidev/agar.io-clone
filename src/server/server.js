@@ -532,7 +532,7 @@ function tickPlayer(currentPlayer) {
             }
             currentPlayer.massTotal += collision.bUser.mass;
             ///////Heiyuki Code
-            console.log('user who died had ' + collision.bUser.mass);
+            console.log('user who died had ' + collision.bUser.massTotal);
             collision.aUser.mass += collision.bUser.mass;
         }
     }
