@@ -244,6 +244,7 @@ io.on('connection', function(socket) {
         h: c.defaultPlayerMass,
         cells: cells,
         massTotal: massTotal,
+        massMax: massTotal,
         hue: Math.round(Math.random() * 360),
         type: type,
         lastHeartbeat: new Date().getTime(),
@@ -531,8 +532,12 @@ function tickPlayer(currentPlayer) {
                 }
             }
             currentPlayer.massTotal += collision.bUser.mass;
+            if (currentPlayer.massMax < currentPlayer.massTotal) {
+                currentPlayer.massMax = currentPlayer.massTotal;
+            }
+
             ///////Heiyuki Code
-            console.log('user who died had ' + collision.bUser.massTotal);
+            console.log('user who died had ' + collision.bUser.massMax);
             collision.aUser.mass += collision.bUser.mass;
         }
     }
@@ -582,6 +587,9 @@ function tickPlayer(currentPlayer) {
         masaGanada += (foodEaten.length * c.foodMass);
         currentCell.mass += masaGanada;
         currentPlayer.massTotal += masaGanada;
+        if (currentPlayer.massMax < currentPlayer.massTotal) {
+            currentPlayer.massMax = currentPlayer.massTotal;
+        }
         currentCell.radius = util.massToRadius(currentCell.mass);
         playerCircle.r = currentCell.radius;
 
