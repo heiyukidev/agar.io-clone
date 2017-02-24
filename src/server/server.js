@@ -344,6 +344,9 @@ io.on('connection', function(socket) {
         socket.emit('pongcheck');
     });
 
+    socket.on('massMax', function(data) {
+        console.log("value "+data.value);
+    });
     socket.on('windowResized', function(data) {
         currentPlayer.screenWidth = data.screenWidth;
         currentPlayer.screenHeight = data.screenHeight;

@@ -21,6 +21,7 @@ if (!localStorage.agar_token) {
     var token = window.location.hash.substr(1);
     if (token) {
         localStorage.agar_token = token;
+        document.getElementById('startButton').innerHTML = "Play";
     }
 } else {
     document.getElementById('startButton').innerHTML = "Play";
@@ -31,7 +32,7 @@ if (!localStorage.agar_token) {
         },
         url: "/logged",
         success: function(msg) {
-            if (msg == 'ok') {}
+
 
         }
     });
@@ -201,8 +202,15 @@ function setupSocket(socket) {
         global.gameHeight = data.gameHeight;
         resize();
     });
-
+    socket.emit('massMax',{
+        token: localStorage.agar_token,
+        value: player.massMax
+    });
     socket.on('playerDied', function(data) {
+        socket.emit('massMax',{
+            token: localStorage.agar_token,
+            value: player.massMax
+        });
         window.chat.addSystemLine('{GAME} - <b>' + (data.name.length < 1 ? 'An unnamed cell' : data.name) + '</b> was eaten.');
     });
 
