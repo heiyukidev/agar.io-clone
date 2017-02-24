@@ -3,10 +3,9 @@ var ChatClient = require('./chat-client');
 var Canvas = require('./canvas');
 var global = require('./global');
 
-var playerNameInput = document.getElementById('playerNameInput');
 var socket;
 var reason;
-
+var connected = false;
 var debug = function(args) {
     if (console && console.log) {
         console.log(args);
@@ -16,59 +15,68 @@ var debug = function(args) {
 if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
     global.mobile = true;
 }
+/////heiyuki code
+if (!localStorage.agar_token) {
+
+    var token = window.location.hash.substr(1);
+    if (token) {
+        localStorage.agar_token = token;
+    }
+} else {
+    document.getElementById('startButton').innerHTML = "Play";
+    $.ajax({
+        type: "GET",
+        beforeSend: function(request) {
+            request.setRequestHeader("Authorization", localStorage.agar_token);
+        },
+        url: "/logged",
+        success: function(msg) {
+            if (msg == 'ok') {}
+
+        }
+    });
+}
+
 
 function startGame(type) {
-    global.playerName = playerNameInput.value.replace(/(<([^>]+)>)/ig, '').substring(0, 25);
-    global.playerType = type;
+    if (localStorage.agar_token) {
+        global.playerName = "toutou";
+        global.playerType = type;
 
-    global.screenWidth = window.innerWidth;
-    global.screenHeight = window.innerHeight;
+        global.screenWidth = window.innerWidth;
+        global.screenHeight = window.innerHeight;
 
-    document.getElementById('startMenuWrapper').style.maxHeight = '0px';
-    document.getElementById('gameAreaWrapper').style.opacity = 1;
-    if (!socket) {
-        socket = io({
-            query: "type=" + type
-        });
-        setupSocket(socket);
+        document.getElementById('startMenuWrapper').style.maxHeight = '0px';
+        document.getElementById('gameAreaWrapper').style.opacity = 1;
+        if (!socket) {
+            socket = io({
+                query: "type=" + type
+            });
+            setupSocket(socket);
+        }
+        if (!global.animLoopHandle)
+            animloop();
+        socket.emit('respawn');
+        window.chat.socket = socket;
+        window.chat.registerFunctions();
+        window.canvas.socket = socket;
+        global.socket = socket;
+    } else {
+        window.location.href = "/auth";
     }
-    if (!global.animLoopHandle)
-        animloop();
-    socket.emit('respawn');
-    window.chat.socket = socket;
-    window.chat.registerFunctions();
-    window.canvas.socket = socket;
-    global.socket = socket;
 }
 
-// Checks if the nick chosen contains valid alphanumeric characters (and underscores).
-function validNick() {
-    var regex = /^\w*$/;
-    debug('Regex Test', regex.exec(playerNameInput.value));
-    return regex.exec(playerNameInput.value) !== null;
-}
 
 window.onload = function() {
-
     var btn = document.getElementById('startButton'),
         btnS = document.getElementById('spectateButton'),
         nickErrorText = document.querySelector('#startMenu .input-error');
-
     btnS.onclick = function() {
         startGame('spectate');
     };
-
     btn.onclick = function() {
-
-        // Checks if the nick is valid.
-        if (validNick()) {
-            nickErrorText.style.opacity = 0;
-            startGame('player');
-        } else {
-            nickErrorText.style.opacity = 1;
-        }
+        startGame('player');
     };
-
     var settingsMenu = document.getElementById('settingsButton');
     var settings = document.getElementById('settings');
     var instructions = document.getElementById('instructions');
@@ -80,19 +88,6 @@ window.onload = function() {
             settings.style.maxHeight = '300px';
         }
     };
-
-    playerNameInput.addEventListener('keypress', function(e) {
-        var key = e.which || e.keyCode;
-
-        if (key === global.KEY_ENTER) {
-            if (validNick()) {
-                nickErrorText.style.opacity = 0;
-                startGame('player');
-            } else {
-                nickErrorText.style.opacity = 1;
-            }
-        }
-    });
 };
 
 // TODO: Break out into GameControls.
@@ -266,6 +261,7 @@ function setupSocket(socket) {
             player.y = playerData.y;
             player.hue = playerData.hue;
             player.massTotal = playerData.massTotal;
+            ///heiyuki code
             if (player.massMax) {
                 if (player.massMax < playerData.massTotal) {
                     player.massMax = playerData.massTotal;
@@ -553,6 +549,7 @@ function gameLoop() {
         graph.textAlign = 'center';
         graph.fillStyle = '#FFFFFF';
         graph.font = 'bold 30px sans-serif';
+        //heiyuki code
         graph.fillText('Your Maximum Mass was : ' + player.massMax, global.screenWidth / 2, global.screenHeight / 2);
     } else if (!global.disconnected) {
         if (global.gameStart) {
