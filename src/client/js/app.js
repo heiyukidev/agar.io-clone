@@ -16,13 +16,8 @@ if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
     global.mobile = true;
 }
 /////heiyuki code
-if (!localStorage.agar_token) {
-
-    var token = window.location.hash.substr(1);
-    if (token) {
-        localStorage.agar_token = token;
-    }
-} else {
+function getUsername() {
+    document.getElementById('username').innerHTML = 'Loading...';
     document.getElementById('startButton').innerHTML = "Play";
     $.ajax({
         type: "GET",
@@ -30,17 +25,30 @@ if (!localStorage.agar_token) {
             request.setRequestHeader("Authorization", localStorage.agar_token);
         },
         url: "/logged",
-        success: function(msg) {
-            if (msg == 'ok') {}
-
+        success: function(response) {
+            var username = response;
+            document.getElementById('username').innerHTML = "logged in as: " + username;
+            localStorage.agar_user = username;
         }
     });
 }
-
+if (!localStorage.agar_token) {
+    var token = window.location.hash.substr(1);
+    if (token) {
+        localStorage.agar_token = token;
+        document.getElementById('startButton').innerHTML = "Play";
+        getUsername();
+    } else {
+        var logout = document.getElementById('logoutButton');
+        logout.parentNode.removeChild(logout);
+    }
+} else {
+    getUsername();
+}
 
 function startGame(type) {
-    if (localStorage.agar_token) {
-        global.playerName = "toutou";
+    if (localStorage.agar_user && localStorage.agar_token) {
+        global.playerName = localStorage.agar_user;
         global.playerType = type;
 
         global.screenWidth = window.innerWidth;
@@ -61,9 +69,10 @@ function startGame(type) {
         window.chat.registerFunctions();
         window.canvas.socket = socket;
         global.socket = socket;
-    } else {
+    } else if (!localStorage.agar_token) {
         window.location.href = "/auth";
-
+    } else if (!localStorage.agar_user && localStorage.agar_token) {
+        getUsername();
     }
 }
 
@@ -71,12 +80,18 @@ function startGame(type) {
 window.onload = function() {
     var btn = document.getElementById('startButton'),
         btnS = document.getElementById('spectateButton'),
+        btnLogout = document.getElementById('logoutButton'),
         nickErrorText = document.querySelector('#startMenu .input-error');
     btnS.onclick = function() {
         startGame('spectate');
     };
     btn.onclick = function() {
         startGame('player');
+    };
+    btnLogout.onclick = () => {
+        localStorage.removeItem('agar_token');
+        localStorage.removeItem('agar_user');
+        window.location.href = "/"
     };
     var settingsMenu = document.getElementById('settingsButton');
     var settings = document.getElementById('settings');
@@ -202,8 +217,11 @@ function setupSocket(socket) {
         global.gameHeight = data.gameHeight;
         resize();
     });
-
     socket.on('playerDied', function(data) {
+        socket.emit('massMax', {
+            token: localStorage.agar_token,
+            value: player.massMax
+        });
         window.chat.addSystemLine('{GAME} - <b>' + (data.name.length < 1 ? 'An unnamed cell' : data.name) + '</b> was eaten.');
     });
 

@@ -166,7 +166,6 @@ module.exports = function(passport) {
                             if (!user.facebook.token) {
                                 user.facebook.token = token;
                                 user.facebook.name = profile.name.givenName + ' ' + profile.name.familyName;
-                                user.facebook.email = (profile.emails[0].value || '').toLowerCase();
                                 user.save(function(err) {
                                     if (err)
                                         return done(err);
@@ -183,7 +182,6 @@ module.exports = function(passport) {
                             newUser.facebook.id = profile.id;
                             newUser.facebook.token = token;
                             newUser.facebook.name = profile.name.givenName + ' ' + profile.name.familyName;
-                    //        newUser.facebook.email = (profile.emails[0].value || '').toLowerCase();
                             newUser.save(function(err) {
                                 if (err)
                                     return done(err);
@@ -201,7 +199,6 @@ module.exports = function(passport) {
                     user.facebook.id = profile.id;
                     user.facebook.token = token;
                     user.facebook.name = profile.name.givenName + ' ' + profile.name.familyName;
-                  //  user.facebook.email = (profile.emails[0].value || '').toLowerCase();
                     user.save(function(err) {
                         if (err)
                             return done(err);
