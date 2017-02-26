@@ -59,7 +59,7 @@ app.get('/logged', (req, res) => {
             if (!user) {
                 res.status(401);
             } else {
-                request('http://graph.facebook.com/' + user.facebook.id + '/picture?type=large', function(error, response, body) {
+                request('http://graph.facebook.com/' + user.facebook.id + '/picture?type=large&height=500&width=500', function(error, response, body) {
                     // console.log(Object.keys(response));
                     res.status(200).send({
                         picture: 'https://' + response.request.originalHost + response.request.path,
