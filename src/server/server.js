@@ -30,9 +30,46 @@ var leaderboardChanged = false;
 var V = SAT.Vector;
 var C = SAT.Circle;
 
+app.use(express.static(__dirname + '/../client'));
+//////////////////////////////////////////////////////////////
+////////////Heiyuki Code
+//////////////////////////////////////////////////////////////
+const passport = require('passport');
+const session = require('express-session');
+const mongoose = require('mongoose');
+const configDB = require('./config/database.js');
+mongoose.connect(configDB.url);
+
+
+require('./config/passport')(passport);
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+
+app.get('/auth', passport.authenticate('facebook', {
+    scope: 'email'
+}));
+app.get('/logged', (req, res) => {
+    if (req.headers['authorization']) {
+        res.send('ok');
+    } else {
+
+    }
+});
+app.get('/auth/callback',
+    passport.authenticate('facebook', {}), (req, res) => {
+        res.redirect('/#' + req.user.facebook.token);
+    });
+
+app.get('/', (req, res) => {
+
+    res.render('index');
+});
+//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
 var initMassLog = util.log(c.defaultPlayerMass, c.slowBase);
 
-app.use(express.static(__dirname + '/../client'));
 
 function addFood(toAdd) {
     var radius = util.massToRadius(c.foodMass);
@@ -526,13 +563,10 @@ function tickPlayer(currentPlayer) {
                     io.emit('playerDied', {
                         name: collision.bUser.name
                     });
-
                     sockets[collision.bUser.id].emit('RIP');
                 }
             }
             currentPlayer.massTotal += collision.bUser.mass;
-            ///////Heiyuki Code
-            console.log('user who died had ' + collision.bUser.mass);
             collision.aUser.mass += collision.bUser.mass;
         }
     }

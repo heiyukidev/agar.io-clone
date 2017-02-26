@@ -149,6 +149,7 @@ class Canvas {
             document.getElementById('chatInput').focus();
         }
     }
+
 }
 
 module.exports = Canvas;
