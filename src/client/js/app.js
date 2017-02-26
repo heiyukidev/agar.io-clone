@@ -33,19 +33,21 @@ function getUsername() {
     });
 }
 if (!localStorage.agar_token) {
-
     var token = window.location.hash.substr(1);
     if (token) {
         localStorage.agar_token = token;
         document.getElementById('startButton').innerHTML = "Play";
         getUsername();
+    } else {
+        var logout = document.getElementById('logoutButton');
+        logout.parentNode.removeChild(logout);
     }
 } else {
     getUsername();
 }
 
 function startGame(type) {
-    if (localStorage.agar_user) {
+    if (localStorage.agar_user && localStorage.agar_token) {
         global.playerName = localStorage.agar_user;
         global.playerType = type;
 
@@ -78,12 +80,18 @@ function startGame(type) {
 window.onload = function() {
     var btn = document.getElementById('startButton'),
         btnS = document.getElementById('spectateButton'),
+        btnLogout = document.getElementById('logoutButton'),
         nickErrorText = document.querySelector('#startMenu .input-error');
     btnS.onclick = function() {
         startGame('spectate');
     };
     btn.onclick = function() {
         startGame('player');
+    };
+    btnLogout.onclick = () => {
+        localStorage.removeItem('agar_token');
+        localStorage.removeItem('agar_user');
+        window.location.href = "/"
     };
     var settingsMenu = document.getElementById('settingsButton');
     var settings = document.getElementById('settings');
