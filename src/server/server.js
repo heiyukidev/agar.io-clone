@@ -34,25 +34,38 @@ app.use(express.static(__dirname + '/../client'));
 //////////////////////////////////////////////////////////////
 ////////////Heiyuki Code
 //////////////////////////////////////////////////////////////
+/////////////////////////Modules Load
 const passport = require('passport');
-const session = require('express-session');
 const mongoose = require('mongoose');
 const configDB = require('./config/database.js');
+const User = require('./models/user');
+const request = require('request');
+////////////////////////////CONFIG
 mongoose.connect(configDB.url);
-
-
 require('./config/passport')(passport);
 app.use(passport.initialize());
-app.use(passport.session()); // persistent login sessions
-
+////////////////////////////Routing
 app.get('/auth', passport.authenticate('facebook', {
     scope: 'email'
 }));
 app.get('/logged', (req, res) => {
     if (req.headers['authorization']) {
-        res.send('ok');
-    } else {
+        User.findOne({
+            'facebook.token': req.headers['authorization']
+        }, function(err, user) {
+            if (err) {
+                res.status(400);
+            }
+            if (!user) {
+                res.status(401);
+            } else {
+// graph.facebook.com/10209629957199919/picture?type=large
 
+                res.status(200).send(user.facebook.name);
+            }
+        });
+    } else {
+        res.status(400);
     }
 });
 app.get('/auth/callback',
@@ -64,6 +77,11 @@ app.get('/', (req, res) => {
 
     res.render('index');
 });
+////////////////////////////utilities
+function getPicture(token) {
+
+}
+
 //////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////
@@ -296,9 +314,6 @@ io.on('connection', function(socket) {
         if (util.findIndex(users, player.id) > -1) {
             console.log('[INFO] Player ID is already connected, kicking.');
             socket.disconnect();
-        } else if (!util.validNick(player.name)) {
-            socket.emit('kick', 'Invalid username.');
-            socket.disconnect();
         } else {
             console.log('[INFO] Player ' + player.name + ' connected!');
             sockets[player.id] = socket;
@@ -345,7 +360,7 @@ io.on('connection', function(socket) {
     });
 
     socket.on('massMax', function(data) {
-        console.log("value "+data.value);
+        console.log("value " + data.value);
     });
     socket.on('windowResized', function(data) {
         currentPlayer.screenWidth = data.screenWidth;
