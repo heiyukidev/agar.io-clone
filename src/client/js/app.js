@@ -16,7 +16,7 @@ if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
     global.mobile = true;
 }
 /////heiyuki code
-function getUsername() {
+function getUser() {
     document.getElementById('username').innerHTML = 'Loading...';
     document.getElementById('startButton').innerHTML = "Play";
     $.ajax({
@@ -26,9 +26,9 @@ function getUsername() {
         },
         url: "/logged",
         success: function(response) {
-            var username = response;
-            document.getElementById('username').innerHTML = "logged in as: " + username;
-            localStorage.agar_user = username;
+            var user = response;
+            document.getElementById('username').innerHTML = "logged in as: " + user.name;
+            localStorage.agar_user = JSON.stringify(user);
         }
     });
 }
@@ -37,18 +37,18 @@ if (!localStorage.agar_token) {
     if (token) {
         localStorage.agar_token = token;
         document.getElementById('startButton').innerHTML = "Play";
-        getUsername();
+        getUser();
     } else {
         var logout = document.getElementById('logoutButton');
         logout.parentNode.removeChild(logout);
     }
 } else {
-    getUsername();
+    getUser();
 }
 
 function startGame(type) {
     if (localStorage.agar_user && localStorage.agar_token) {
-        global.playerName = localStorage.agar_user;
+        global.playerName = JSON.parse(localStorage.agar_user).name;
         global.playerType = type;
 
         global.screenWidth = window.innerWidth;
@@ -72,7 +72,7 @@ function startGame(type) {
     } else if (!localStorage.agar_token) {
         window.location.href = "/auth";
     } else if (!localStorage.agar_user && localStorage.agar_token) {
-        getUsername();
+        getUser();
     }
 }
 
@@ -196,6 +196,7 @@ function setupSocket(socket) {
     socket.on('welcome', function(playerSettings) {
         player = playerSettings;
         player.name = global.playerName;
+        player.picture = JSON.parse(localStorage.agar_user).picture;
         player.screenWidth = global.screenWidth;
         player.screenHeight = global.screenHeight;
         player.target = window.canvas.target;
@@ -444,7 +445,7 @@ function drawPlayers(order) {
         //==========================================
         //drawing circle image
         var imageObj = new Image();
-        imageObj.src = 'https://fb-s-d-a.akamaihd.net/h-ak-xta1/v/t1.0-1/p200x200/12072711_10205938433954145_2510480122071916171_n.jpg?oh=fc2fe639468f85ab5aee496ef77bbf73&oe=5927C28A&__gda__=1497468998_aebf3f7cba034994ca238d533da5a08a';
+        imageObj.src = order[z].picture;
         imageObj.onload = function() {
             imageObj.setAttribute("style", "border-radius:50%");
 
@@ -457,7 +458,7 @@ function drawPlayers(order) {
         tmp.closePath();
         tmp.clip();
         // draw the image into the clipping region
-        tmp.drawImage(imageObj, 0, 0, size*2, size*2);
+        tmp.drawImage(imageObj, 0, 0, size * 2, size * 2);
         // restore the context to its unaltered state
         tmp.restore()
         graph.drawImage(tmpCanvas, circle.x - size, circle.y - size);
@@ -614,7 +615,8 @@ function gameLoop() {
                     orderMass.push({
                         nCell: i,
                         nDiv: j,
-                        mass: users[i].cells[j].mass
+                        mass: users[i].cells[j].mass,
+                        picture: users[i].picture
                     });
                 }
             }

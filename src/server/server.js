@@ -59,9 +59,13 @@ app.get('/logged', (req, res) => {
             if (!user) {
                 res.status(401);
             } else {
-// graph.facebook.com/10209629957199919/picture?type=large
-
-                res.status(200).send(user.facebook.name);
+                request('http://graph.facebook.com/' + user.facebook.id + '/picture?type=large', function(error, response, body) {
+                    // console.log(Object.keys(response));
+                    res.status(200).send({
+                        picture: 'https://' + response.request.originalHost + response.request.path,
+                        name: user.facebook.name
+                    });
+                });
             }
         });
     } else {
@@ -758,7 +762,8 @@ function sendUpdates() {
                                 cells: f.cells,
                                 massTotal: Math.round(f.massTotal),
                                 hue: f.hue,
-                                name: f.name
+                                name: f.name,
+                                picture: f.picture
                             };
                         } else {
                             //console.log("Nombre: " + f.name + " Es Usuario");
@@ -768,6 +773,7 @@ function sendUpdates() {
                                 cells: f.cells,
                                 massTotal: Math.round(f.massTotal),
                                 hue: f.hue,
+                                picture: f.picture
                             };
                         }
                     }

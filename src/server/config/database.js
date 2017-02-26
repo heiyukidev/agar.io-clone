@@ -1,4 +1,4 @@
 // config/database.js
 module.exports = {
-    'url' : 'mongodb://localhost:27017/passport' // looks like mongodb://<user>:<pass>@mongo.onmodulus.net:27017/Mikha4ot
+    'url' : 'mongodb://heiyuki:wasagario@ds161039.mlab.com:61039/wasagario'
 };
