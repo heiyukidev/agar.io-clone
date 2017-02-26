@@ -67,8 +67,10 @@ function startGame(type) {
         window.chat.registerFunctions();
         window.canvas.socket = socket;
         global.socket = socket;
-    } else {
+    } else if (!localStorage.agar_token) {
         window.location.href = "/auth";
+    } else if (!localStorage.agar_user && localStorage.agar_token) {
+        getUsername();
     }
 }
 
