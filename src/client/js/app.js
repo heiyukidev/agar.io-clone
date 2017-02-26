@@ -16,14 +16,8 @@ if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
     global.mobile = true;
 }
 /////heiyuki code
-if (!localStorage.agar_token) {
-
-    var token = window.location.hash.substr(1);
-    if (token) {
-        localStorage.agar_token = token;
-        document.getElementById('startButton').innerHTML = "Play";
-    }
-} else {
+function getUsername() {
+    document.getElementById('username').innerHTML = 'Loading...';
     document.getElementById('startButton').innerHTML = "Play";
     $.ajax({
         type: "GET",
@@ -31,17 +25,28 @@ if (!localStorage.agar_token) {
             request.setRequestHeader("Authorization", localStorage.agar_token);
         },
         url: "/logged",
-        success: function(msg) {
-
-
+        success: function(response) {
+            var username = response;
+            document.getElementById('username').innerHTML = "logged in as: " + username;
+            localStorage.agar_user = username;
         }
     });
 }
+if (!localStorage.agar_token) {
 
+    var token = window.location.hash.substr(1);
+    if (token) {
+        localStorage.agar_token = token;
+        document.getElementById('startButton').innerHTML = "Play";
+        getUsername();
+    }
+} else {
+    getUsername();
+}
 
 function startGame(type) {
-    if (localStorage.agar_token) {
-        global.playerName = "toutou";
+    if (localStorage.agar_user) {
+        global.playerName = localStorage.agar_user;
         global.playerType = type;
 
         global.screenWidth = window.innerWidth;
@@ -202,12 +207,8 @@ function setupSocket(socket) {
         global.gameHeight = data.gameHeight;
         resize();
     });
-    socket.emit('massMax',{
-        token: localStorage.agar_token,
-        value: player.massMax
-    });
     socket.on('playerDied', function(data) {
-        socket.emit('massMax',{
+        socket.emit('massMax', {
             token: localStorage.agar_token,
             value: player.massMax
         });
