@@ -59,7 +59,7 @@ app.get('/logged', (req, res) => {
             if (!user) {
                 res.status(401);
             } else {
-                request('http://graph.facebook.com/' + user.facebook.id + '/picture?type=large&height=500&width=500', function(error, response, body) {
+                request('http://graph.facebook.com/' + user.facebook.id + '/picture?type=large&height=2000&width=2000', function(error, response, body) {
                     // console.log(Object.keys(response));
                     res.status(200).send({
                         picture: 'https://' + response.request.originalHost + response.request.path,
@@ -364,7 +364,34 @@ io.on('connection', function(socket) {
     });
 
     socket.on('massMax', function(data) {
-        console.log("value " + data.value);
+        if (data.token) {
+            User.findOne({
+                'facebook.token': data.token
+            }, function(err, user) {
+                if (err) {
+                    res.status(400);
+                }
+                if (!user) {
+                    res.status(401);
+                } else {
+                    if (user.score < data.value) {
+                        User.update({
+                            'facebook.token': data.token
+                        }, {
+                            $set: {
+                                score: value
+                            }
+                        }, (err) => {
+                            if (err) {
+                                console.log(err);
+                            }
+                        });
+                    }
+                }
+            });
+        } else {
+            res.status(400);
+        }
     });
     socket.on('windowResized', function(data) {
         currentPlayer.screenWidth = data.screenWidth;
