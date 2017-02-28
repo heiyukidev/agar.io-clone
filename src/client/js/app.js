@@ -91,7 +91,7 @@ window.onload = function() {
     btnLogout.onclick = () => {
         localStorage.removeItem('agar_token');
         localStorage.removeItem('agar_user');
-        window.location.href = "/"
+        window.location.href = "/";
     };
     var settingsMenu = document.getElementById('settingsButton');
     var settings = document.getElementById('settings');
@@ -446,10 +446,10 @@ function drawPlayers(order) {
         //drawing circle image
         var imageObj = new Image();
         imageObj.src = order[z].picture;
-        imageObj.onload = function() {
+        // imageObj.onload = function() {
             imageObj.setAttribute("style", "border-radius:50%");
 
-        }
+        // }
         var size = cellCurrent.radius;
         var tmpCanvas = document.createElement('canvas');
         var tmp = tmpCanvas.getContext('2d');
@@ -460,7 +460,7 @@ function drawPlayers(order) {
         // draw the image into the clipping region
         tmp.drawImage(imageObj, 0, 0, size * 2, size * 2);
         // restore the context to its unaltered state
-        tmp.restore()
+        tmp.restore();
         graph.drawImage(tmpCanvas, circle.x - size, circle.y - size);
         //=======================================================
         // end draw image

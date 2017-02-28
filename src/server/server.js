@@ -39,33 +39,33 @@ const passport = require('passport');
 const mongoose = require('mongoose');
 const configDB = require('./config/database.js');
 const User = require('./models/user');
-const request = require('request');
 ////////////////////////////CONFIG
-
 require('./config/passport')(passport);
 app.use(passport.initialize());
-////////////////////////////Routing
+//////////////////////////Routing
 app.get('/auth', passport.authenticate('facebook', {
     scope: 'email'
 }));
 app.get('/logged', (req, res) => {
-    mongoose.connect(configDB.url);
-    if (req.headers['authorization']) {
+    if (req.headers.authorization) {
+        mongoose.connect(configDB.url);
         User.findOne({
-            'facebook.token': req.headers['authorization']
+            'facebook.token': req.headers.authorization
         }, function(err, user) {
             if (err) {
+                mongoose.disconnect();
                 res.status(400);
             }
             if (!user) {
+                mongoose.disconnect();
                 res.status(401);
             } else {
+                mongoose.disconnect();
                 res.status(200).send({
                     picture: 'https://s-media-cache-ak0.pinimg.com/originals/3e/ae/f0/3eaef0526bbb8f4d4bc01429a9548521.png',
                     name: user.facebook.name
                 });
             }
-            mongoose.disconnect();
         });
     } else {
         res.status(400);
@@ -75,9 +75,7 @@ app.get('/auth/callback',
     passport.authenticate('facebook', {}), (req, res) => {
         res.redirect('/#' + req.user.facebook.token);
     });
-
 app.get('/', (req, res) => {
-
     res.render('index');
 });
 ////////////////////////////utilities
@@ -368,17 +366,17 @@ io.on('connection', function(socket) {
                 'facebook.token': data.token
             }, function(err, user) {
                 if (err) {
-                    res.status(400);
+                    //res.status(400);
                 }
                 if (!user) {
-                    res.status(401);
+                    //res.status(401);
                 } else {
                     if (user.score < data.value) {
                         User.update({
                             'facebook.token': data.token
                         }, {
                             $set: {
-                                score: value
+                                score: data.value
                             }
                         }, (err) => {
                             if (err) {
@@ -389,7 +387,7 @@ io.on('connection', function(socket) {
                 }
             });
         } else {
-            res.status(400);
+            //res.status(400);
         }
     });
     socket.on('windowResized', function(data) {
