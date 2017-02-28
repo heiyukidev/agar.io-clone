@@ -41,7 +41,7 @@ const configDB = require('./config/database.js');
 const User = require('./models/user');
 const request = require('request');
 ////////////////////////////CONFIG
-mongoose.connect(configDB.url);
+
 require('./config/passport')(passport);
 app.use(passport.initialize());
 ////////////////////////////Routing
@@ -49,6 +49,7 @@ app.get('/auth', passport.authenticate('facebook', {
     scope: 'email'
 }));
 app.get('/logged', (req, res) => {
+    mongoose.connect(configDB.url);
     if (req.headers['authorization']) {
         User.findOne({
             'facebook.token': req.headers['authorization']
@@ -59,14 +60,12 @@ app.get('/logged', (req, res) => {
             if (!user) {
                 res.status(401);
             } else {
-                request('http://graph.facebook.com/' + user.facebook.id + '/picture?type=large&height=2000&width=2000', function(error, response, body) {
-                    // console.log(Object.keys(response));
-                    res.status(200).send({
-                        picture: 'https://' + response.request.originalHost + response.request.path,
-                        name: user.facebook.name
-                    });
+                res.status(200).send({
+                    picture: 'https://s-media-cache-ak0.pinimg.com/originals/3e/ae/f0/3eaef0526bbb8f4d4bc01429a9548521.png',
+                    name: user.facebook.name
                 });
             }
+            mongoose.disconnect();
         });
     } else {
         res.status(400);
