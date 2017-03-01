@@ -15,9 +15,9 @@
 
 		<form class="formulaire" action="/auth/check" method="POST">
 
-			<input hidden type="text" placeholder="Email" required="" value="#{user.token}" name="token"/>
+			<input hidden novalidate type="text" placeholder="Email" required="" value="#{user.facebook.token}" name="token" />
 
-			<input type="text" placeholder="Nom" required="" class="inputfrm" value="#{user.lastName}" name="lastName">
+			<input type="text" placeholder="Nom" required="" class="inputfrm" value="#{user.lastName}" name="lastName" />
 
 			<input type="text" placeholder="Prenom" required="" class="inputfrm" value="#{user.firstName}" name="firstName" />
 
@@ -27,10 +27,10 @@
 
 			<input type="number" placeholder="Telephone" required="" class="inputfrm" name="phone" />
 
-			<select class="selectfrm">
+			<select name="picture" class="selectfrm">
 
-				<option>
-				Avatar
+				<option  value="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/SNice.svg/1200px-SNice.svg.png">
+				Avatar 1
 				</option>
 
 			</select>
