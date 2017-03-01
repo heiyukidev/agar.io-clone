@@ -1,6 +1,8 @@
 // load all the things we need
 var LocalStrategy = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
+const mongoose = require('mongoose');
+const configDB = require('./database.js');
 
 // load up the user model
 var User = require('../models/user');
@@ -38,28 +40,38 @@ module.exports = function(passport) {
             passReqToCallback: true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
         },
         function(req, email, password, done) {
-            if (email)
-                email = email.toLowerCase(); // Use lower-case e-mails to avoid case-sensitive e-mail matching
+            email = email.toLowerCase(); // Use lower-case e-mails to avoid case-sensitive e-mail matching
 
             // asynchronous
             process.nextTick(function() {
+
                 User.findOne({
                     'local.email': email
                 }, function(err, user) {
                     // if there are any errors, return the error
-                    if (err)
+                    if (err) {
                         return done(err);
+                    }
 
                     // if no user is found, return the message
-                    if (!user)
+                    if (!user) {
                         return done(null, false, req.flash('loginMessage', 'No user found.'));
+                    }
 
-                    if (!user.validPassword(password))
+
+                    if (!user.validPassword(password)) {
                         return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
+                    }
+
 
                     // all is well, return user
-                    else
+                    else {
                         return done(null, user);
+                    }
+
+
+
+
                 });
             });
 
@@ -86,14 +98,14 @@ module.exports = function(passport) {
                         'local.email': email
                     }, function(err, user) {
                         // if there are any errors, return the error
-                        if (err)
+                        if (err) {
                             return done(err);
+                        }
 
                         // check to see if theres already a user with that email
                         if (user) {
                             return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
                         } else {
-
                             // create the user
                             var newUser = new User();
 
@@ -101,8 +113,9 @@ module.exports = function(passport) {
                             newUser.local.password = newUser.generateHash(password);
 
                             newUser.save(function(err) {
-                                if (err)
+                                if (err) {
                                     return done(err);
+                                }
 
                                 return done(null, newUser);
                             });
@@ -116,23 +129,24 @@ module.exports = function(passport) {
                     User.findOne({
                         'local.email': email
                     }, function(err, user) {
-                        if (err)
+                        if (err) {
                             return done(err);
-
+                        }
                         if (user) {
                             return done(null, false, req.flash('loginMessage', 'That email is already taken.'));
                             // Using 'loginMessage instead of signupMessage because it's used by /connect/local'
                         } else {
-                            var user = req.user;
+                            user = req.user;
                             user.local.email = email;
                             user.local.password = user.generateHash(password);
                             user.save(function(err) {
-                                if (err)
+                                if (err) {
                                     return done(err);
-
+                                }
                                 return done(null, user);
                             });
                         }
+
                     });
                 } else {
                     // user is logged in and already has a local account. Ignore signup. (You should log out before trying to create a new account, user!)
@@ -152,28 +166,37 @@ module.exports = function(passport) {
         function(req, token, refreshToken, profile, done) {
             // asynchronous
             process.nextTick(function() {
-
                 // check if the user is already logged in
                 if (!req.user) {
+                    mongoose.connect(configDB.url);
                     User.findOne({
                         'facebook.id': profile.id
                     }, function(err, user) {
-                        if (err)
+                        if (err) {
+                            mongoose.disconnect();
                             return done(err);
+                        }
 
                         if (user) {
                             // if there is a user id already but no token (user was linked at one point and then removed)
                             if (!user.facebook.token) {
                                 user.facebook.token = token;
-                                user.facebook.name = profile.name.givenName + ' ' + profile.name.familyName;
+                                user.firstName = profile.name.givenName;
+                                user.lastName = profile.name.familyName;
+                                user.email = profile.emails[0].value;
+                                user.cin = "replace";
+                                user.picture = "replace";
+                                user.phone = "replace";
                                 user.save(function(err) {
-                                    if (err)
+                                    if (err) {
+                                        mongoose.disconnect();
                                         return done(err);
-
+                                    }
+                                    mongoose.disconnect();
                                     return done(null, user);
                                 });
                             }
-
+                            mongoose.disconnect();
                             return done(null, user); // user found, return that user
                         } else {
                             // if there is no user, create them
@@ -181,28 +204,41 @@ module.exports = function(passport) {
 
                             newUser.facebook.id = profile.id;
                             newUser.facebook.token = token;
-                            newUser.facebook.name = profile.name.givenName + ' ' + profile.name.familyName;
+                            newUser.firstName = profile.name.givenName;
+                            newUser.lastName = profile.name.familyName;
+                            newUser.email = profile.emails[0].value;
+                            newUser.cin = "replace";
+                            newUser.picture = "replace";
+                            newUser.phone = "replace";
                             newUser.save(function(err) {
-                                if (err)
+                                if (err) {
+                                    mongoose.disconnect();
                                     return done(err);
-
+                                }
+                                mongoose.disconnect();
                                 return done(null, newUser);
                             });
                         }
                     });
                 } else {
 
-                    console.log('other side');
                     // user already exists and is logged in, we have to link accounts
                     var user = req.user; // pull the user out of the session
-
+                    mongoose.connect(configDB.url);
                     user.facebook.id = profile.id;
                     user.facebook.token = token;
-                    user.facebook.name = profile.name.givenName + ' ' + profile.name.familyName;
+                    user.firstName = profile.name.givenName;
+                    user.lastName = profile.name.familyName;
+                    user.email = profile.emails[0].value;
+                    user.cin = "replace";
+                    user.picture = "replace";
+                    user.phone = "replace";
                     user.save(function(err) {
-                        if (err)
+                        if (err) {
+                            mongoose.disconnect();
                             return done(err);
-
+                        }
+                        mongoose.disconnect();
                         return done(null, user);
                     });
 

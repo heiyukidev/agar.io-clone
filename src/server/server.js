@@ -39,45 +39,121 @@ const passport = require('passport');
 const mongoose = require('mongoose');
 const configDB = require('./config/database.js');
 const User = require('./models/user');
-const request = require('request');
+const pug = require('pug');
+const bodyparser = require('body-parser');
 ////////////////////////////CONFIG
-
 require('./config/passport')(passport);
 app.use(passport.initialize());
-////////////////////////////Routing
+app.use(bodyparser());
+//////////////////////////Routing
 app.get('/auth', passport.authenticate('facebook', {
     scope: 'email'
 }));
-app.get('/logged', (req, res) => {
-    mongoose.connect(configDB.url);
-    if (req.headers['authorization']) {
+
+function getUserFromToken(token) {
+    return new Promise(function(resolve, reject) {
+        mongoose.connect(configDB.url);
         User.findOne({
-            'facebook.token': req.headers['authorization']
+            'facebook.token': token
         }, function(err, user) {
             if (err) {
-                res.status(400);
+                mongoose.disconnect();
+                reject(err);
             }
             if (!user) {
-                res.status(401);
+                mongoose.disconnect();
+                reject("user not found");
             } else {
-                res.status(200).send({
-                    picture: 'https://s-media-cache-ak0.pinimg.com/originals/3e/ae/f0/3eaef0526bbb8f4d4bc01429a9548521.png',
-                    name: user.facebook.name
+                mongoose.disconnect();
+                resolve({
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    email: user.email,
+                    token: user.facebook.token,
+                    picture: user.picture,
+                    cin: user.cin,
+                    phone: user.phone
                 });
             }
+        });
+    });
+}
+
+function saveUser(user) {
+    return new Promise(function(resolve, reject) {
+        var newUser = new User();
+        newUser.facebook.token = user.token;
+        newUser.firstName = user.firstName;
+        newUser.lastName = user.lastName;
+        newUser.email = user.email;
+        newUser.cin = user.cin;
+        newUser.picture = user.picture;
+        newUser.phone = user.phone;
+        newUser.save(function(err) {
+            if (err) {
+                mongoose.disconnect();
+                return reject(err);
+            }
             mongoose.disconnect();
+            return resolve(newUser);
+        });
+    });
+}
+
+app.get('/logged', (req, res) => {
+    if (req.headers.authorization) {
+        getUserFromToken(req.headers.authorization).then((user) => {
+            res.send(user);
+        }, (err) => {
+            console.log(err);
+            res.status(500);
         });
     } else {
+        console.log("Not header authorization was found");
         res.status(400);
     }
 });
 app.get('/auth/callback',
     passport.authenticate('facebook', {}), (req, res) => {
-        res.redirect('/#' + req.user.facebook.token);
+        if (req.user.cin != "replace") {
+            res.redirect('/#' + req.user.facebook.token);
+        } else {
+            res.redirect('/registration/' + req.user.facebook.token);
+        }
+
     });
+app.get('/registration/:token', (req, res) => {
+    if (req.params.token) {
+        getUserFromToken(req.params.token).then((user) => {
+            if (user.cin == "replace") {
+                res.send(pug.renderFile(__dirname + '/../client/authentification/index.pug', {
+                    user: user
+                }));
+            } else {
+                res.redirect('/#' + user.token);
+            }
+        }, (err) => {
+            console.log(err);
+            res.redirect('/auth');
+        });
+    } else {
+        res.redirect('/auth');
+    }
+});
+app.post('/auth/check', (req, res) => {
+    if (req.body.token) {
+        getUserFromToken(req.body.token).then((user) => {
+            saveUser(req.body).then((user) => {
+                res.redirect('/#' + user.token);
+            }, (err) => {
+                console.log(err);
+                res.redirect('/');
+            });
 
+        });
+    }
+});
 app.get('/', (req, res) => {
-
     res.render('index');
 });
 ////////////////////////////utilities
@@ -368,17 +444,17 @@ io.on('connection', function(socket) {
                 'facebook.token': data.token
             }, function(err, user) {
                 if (err) {
-                    res.status(400);
+                    //res.status(400);
                 }
                 if (!user) {
-                    res.status(401);
+                    //res.status(401);
                 } else {
                     if (user.score < data.value) {
                         User.update({
                             'facebook.token': data.token
                         }, {
                             $set: {
-                                score: value
+                                score: data.value
                             }
                         }, (err) => {
                             if (err) {
@@ -389,7 +465,7 @@ io.on('connection', function(socket) {
                 }
             });
         } else {
-            res.status(400);
+            //res.status(400);
         }
     });
     socket.on('windowResized', function(data) {

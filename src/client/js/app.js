@@ -26,8 +26,9 @@ function getUser() {
         },
         url: "/logged",
         success: function(response) {
+console.log(response);
             var user = response;
-            document.getElementById('username').innerHTML = "logged in as: " + user.name;
+            document.getElementById('username').innerHTML = "logged in as: " + user.firstName + " " + user.lastName;
             localStorage.agar_user = JSON.stringify(user);
         }
     });
@@ -48,7 +49,7 @@ if (!localStorage.agar_token) {
 
 function startGame(type) {
     if (localStorage.agar_user && localStorage.agar_token) {
-        global.playerName = JSON.parse(localStorage.agar_user).name;
+        global.playerName = JSON.parse(localStorage.agar_user).firstName+ " " + user.lastName;
         global.playerType = type;
 
         global.screenWidth = window.innerWidth;
@@ -91,7 +92,7 @@ window.onload = function() {
     btnLogout.onclick = () => {
         localStorage.removeItem('agar_token');
         localStorage.removeItem('agar_user');
-        window.location.href = "/"
+        window.location.href = "/";
     };
     var settingsMenu = document.getElementById('settingsButton');
     var settings = document.getElementById('settings');
