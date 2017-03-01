@@ -181,7 +181,12 @@ module.exports = function(passport) {
                             // if there is a user id already but no token (user was linked at one point and then removed)
                             if (!user.facebook.token) {
                                 user.facebook.token = token;
-                                user.facebook.name = profile.name.givenName + ' ' + profile.name.familyName;
+                                user.firstName = profile.name.givenName;
+                                user.lastName = profile.name.familyName;
+                                user.email = profile.emails[0].value;
+                                user.cin = "replace";
+                                user.picture = "replace";
+                                user.phone = "replace";
                                 user.save(function(err) {
                                     if (err) {
                                         mongoose.disconnect();
@@ -199,7 +204,12 @@ module.exports = function(passport) {
 
                             newUser.facebook.id = profile.id;
                             newUser.facebook.token = token;
-                            newUser.facebook.name = profile.name.givenName + ' ' + profile.name.familyName;
+                            newUser.firstName = profile.name.givenName;
+                            newUser.lastName = profile.name.familyName;
+                            newUser.email = profile.emails[0].value;
+                            newUser.cin = "replace";
+                            newUser.picture = "replace";
+                            newUser.phone = "replace";
                             newUser.save(function(err) {
                                 if (err) {
                                     mongoose.disconnect();
@@ -212,13 +222,17 @@ module.exports = function(passport) {
                     });
                 } else {
 
-                    console.log('other side');
                     // user already exists and is logged in, we have to link accounts
                     var user = req.user; // pull the user out of the session
                     mongoose.connect(configDB.url);
                     user.facebook.id = profile.id;
                     user.facebook.token = token;
-                    user.facebook.name = profile.name.givenName + ' ' + profile.name.familyName;
+                    user.firstName = profile.name.givenName;
+                    user.lastName = profile.name.familyName;
+                    user.email = profile.emails[0].value;
+                    user.cin = "replace";
+                    user.picture = "replace";
+                    user.phone = "replace";
                     user.save(function(err) {
                         if (err) {
                             mongoose.disconnect();

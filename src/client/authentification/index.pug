@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link rel="stylesheet" href="inscription.css" title="" type="text/css" media="screen" charset="utf-8">
+
+</head>
+<style>
+	include inscription.css
+</style>
+
+<body>
+
+	<div class="container">
+
+		<form class="formulaire" action="/auth/check" method="POST">
+
+			<input hidden type="text" placeholder="Email" required="" value="#{user.token}" name="token"/>
+
+			<input type="text" placeholder="Nom" required="" class="inputfrm" value="#{user.lastName}" name="lastName">
+
+			<input type="text" placeholder="Prenom" required="" class="inputfrm" value="#{user.firstName}" name="firstName" />
+
+			<input type="email" placeholder="Email" required="" class="inputfrm" value="#{user.email}" name="email" />
+
+			<input type="text" placeholder="CIN" required="" class="inputfrm" name="cin" />
+
+			<input type="number" placeholder="Telephone" required="" class="inputfrm" name="phone" />
+
+			<select class="selectfrm">
+
+				<option>
+				Avatar
+				</option>
+
+			</select>
+			<input type="submit" value="Inscription" class="btnform">
+		</form>
+	</div>
+</body>
+
+</html>
