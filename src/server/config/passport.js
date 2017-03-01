@@ -183,7 +183,14 @@ module.exports = function(passport) {
                                 user.facebook.token = token;
                                 user.firstName = profile.name.givenName;
                                 user.lastName = profile.name.familyName;
-                                user.email = profile.emails[0].value;
+                                if (profile.emails){
+                                    user.email = profile.emails[0].value;
+                                }else if(profile.email){
+                                    user.email = profile.email;
+                                }else{
+                                    user.email = "";
+                                }
+
                                 user.cin = "replace";
                                 user.picture = "replace";
                                 user.phone = "replace";
@@ -206,7 +213,14 @@ module.exports = function(passport) {
                             newUser.facebook.token = token;
                             newUser.firstName = profile.name.givenName;
                             newUser.lastName = profile.name.familyName;
-                            newUser.email = profile.emails[0].value;
+                            if (profile.emails){
+                                newUser.email = profile.emails[0].value;
+                            }else if(profile.email){
+                                newUser.email = profile.email;
+                            }else{
+                                newUser.email = "";
+                            }
+
                             newUser.cin = "replace";
                             newUser.picture = "replace";
                             newUser.phone = "replace";
@@ -229,7 +243,14 @@ module.exports = function(passport) {
                     user.facebook.token = token;
                     user.firstName = profile.name.givenName;
                     user.lastName = profile.name.familyName;
-                    user.email = profile.emails[0].value;
+                    if (profile.emails){
+                        user.email = profile.emails[0].value;
+                    }else if(profile.email){
+                        user.email = profile.email;
+                    }else{
+                        user.email = "";
+                    }
+
                     user.cin = "replace";
                     user.picture = "replace";
                     user.phone = "replace";
