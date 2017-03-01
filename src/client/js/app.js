@@ -49,7 +49,7 @@ if (!localStorage.agar_token) {
 
 function startGame(type) {
     if (localStorage.agar_user && localStorage.agar_token) {
-        global.playerName = JSON.parse(localStorage.agar_user).firstName+ " " + user.lastName;
+        global.playerName = JSON.parse(localStorage.agar_user).firstName+ " " + JSON.parse(localStorage.agar_user).lastName;
         global.playerType = type;
 
         global.screenWidth = window.innerWidth;

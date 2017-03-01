@@ -62,55 +62,57 @@ function getUserFromToken(token) {
             }
             if (!user) {
                 mongoose.disconnect();
-                reject("user not found");
+                reject("[DEBUG] User not found");
             } else {
                 mongoose.disconnect();
-                resolve({
-                    firstName: user.firstName,
-                    lastName: user.lastName,
-                    email: user.email,
-                    token: user.facebook.token,
-                    picture: user.picture,
-                    cin: user.cin,
-                    phone: user.phone
-                });
+                resolve(user);
             }
         });
     });
 }
 
-function saveUser(user) {
+function saveUser(paramuser) {
     return new Promise(function(resolve, reject) {
-        var newUser = new User();
-        newUser.facebook.token = user.token;
-        newUser.firstName = user.firstName;
-        newUser.lastName = user.lastName;
-        newUser.email = user.email;
-        newUser.cin = user.cin;
-        newUser.picture = user.picture;
-        newUser.phone = user.phone;
-        newUser.save(function(err) {
-            if (err) {
+        getUserFromToken(paramuser.token).then((baseUser) => {
+            mongoose.connect(configDB.url);
+            var user = new User();
+            // user._id = baseUser._id;
+            User.findOneAndUpdate({
+                "facebook.token": paramuser.token
+            }, {
+                $set: {
+                    cin: paramuser.cin,
+                    facebook: {
+                        token: paramuser.token
+                    },
+                    firstName: paramuser.firstName,
+                    lastName: paramuser.lastName,
+                    email: paramuser.email,
+                    picture: paramuser.picture,
+                    phone: paramuser.phone
+
+                }
+            }, (err, u) => {
                 mongoose.disconnect();
-                return reject(err);
-            }
-            mongoose.disconnect();
-            return resolve(newUser);
+                resolve(u);
+            });
+        }, (err) => {
+            reject(err);
         });
     });
 }
-
+var avatars = ["https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/SNice.svg/1200px-SNice.svg.png"];
 app.get('/logged', (req, res) => {
     if (req.headers.authorization) {
         getUserFromToken(req.headers.authorization).then((user) => {
             res.send(user);
         }, (err) => {
+            console.log("[ERROR] Error In /logged");
             console.log(err);
             res.status(500);
         });
     } else {
-        console.log("Not header authorization was found");
-        res.status(400);
+        res.status(401).send();
     }
 });
 app.get('/auth/callback',
@@ -133,24 +135,35 @@ app.get('/registration/:token', (req, res) => {
                 res.redirect('/#' + user.token);
             }
         }, (err) => {
-            console.log(err);
-            res.redirect('/auth');
+            if (req.params.token.length > 20) {
+                console.log("[ERROR] Error In /registration/:token for token " + req.params.token);
+                console.log(err);
+            }
+            res.redirect('/');
         });
     } else {
-        res.redirect('/auth');
+        res.redirect('/');
     }
 });
 app.post('/auth/check', (req, res) => {
     if (req.body.token) {
         getUserFromToken(req.body.token).then((user) => {
             saveUser(req.body).then((user) => {
-                res.redirect('/#' + user.token);
+                res.redirect('/#' + user.facebook.token);
             }, (err) => {
+                console.log("[ERROR] Error In /auth/check");
                 console.log(err);
                 res.redirect('/');
             });
 
+        }, (err) => {
+            console.log("[ERROR] Error In /auth/check");
+            console.log(err);
+            res.redirect('/');
         });
+    } else {
+        console.log("[ERROR] Error In /auth/check Requires Token");
+        res.status(401).send();
     }
 });
 app.get('/', (req, res) => {
