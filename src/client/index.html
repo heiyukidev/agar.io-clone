@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
     <!-- CSS -->
     <link rel="stylesheet" href="css/main.css" />
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/jquery.sidr/2.2.1/stylesheets/jquery.sidr.dark.min.css">
+    <link rel="stylesheet" href="./lib/sidr/dist/stylesheets/jquery.sidr.light.min.css">
   </head>
     <!-- Audio -->
     <audio id="split_cell" src="audio/split.mp3"></audio>
@@ -16,22 +16,6 @@
 </head>
 
 <body>
-  <a id="simple-menu" href="#sidr">Toggle menu</a>
-
-<div id="sidr">
-  <!-- Your content -->
-  <ul>
-    <li><a href="#">Comment jouer ?</a></li>
-    <li class="active"><a href="#">Classement</a></li>
-    <li><a href="#">Cadeaux</a></li>
-  </ul>
-</div>
-
-<script>
-$(document).ready(function() {
-  $('#simple-menu').sidr();
-});
-</script>
     <div id="gameAreaWrapper">
         <div id="status"><span class="title">Leaderboard</span></div>
         <div class="chatbox" id="chatbox">
@@ -77,8 +61,23 @@ $(document).ready(function() {
         </div>
     </div>
     <!-- JS -->
+    <a id="simple-menu" href="#sidr" style="position:fixed;z-index:9999;top:0;left:0;"><img src="http://www.newdesignfile.com/postpic/2010/03/cold-laser-therapy_24243.png"/></a>
+
+    <div id="sidr">
+        <!-- Your content -->
+        <ul>
+            <li><a href="#">Comment jouer ?</a></li>
+            <li class="active"><a href="#">Classement</a></li>
+            <li><a href="#">Cadeaux</a></li>
+        </ul>
+    </div>
     <script src="./js/jquery.min.js"></script>
-    <script src="//cdn.jsdelivr.net/jquery.sidr/2.2.1/jquery.sidr.min.js"></script>
+    <script src="./lib/sidr/dist/jquery.sidr.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#simple-menu').sidr();
+        });
+    </script>
     <script src="js/app.js"></script>
 </body>
 
