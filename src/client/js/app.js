@@ -26,7 +26,7 @@ function getUser() {
         },
         url: "/logged",
         success: function(response) {
-console.log(response);
+            console.log(response);
             var user = response;
             document.getElementById('username').innerHTML = "logged in as: " + user.firstName + " " + user.lastName;
             localStorage.agar_user = JSON.stringify(user);
@@ -49,7 +49,7 @@ if (!localStorage.agar_token) {
 
 function startGame(type) {
     if (localStorage.agar_user && localStorage.agar_token) {
-        global.playerName = JSON.parse(localStorage.agar_user).firstName+ " " + JSON.parse(localStorage.agar_user).lastName;
+        global.playerName = JSON.parse(localStorage.agar_user).firstName + " " + JSON.parse(localStorage.agar_user).lastName;
         global.playerType = type;
 
         global.screenWidth = window.innerWidth;
@@ -66,8 +66,6 @@ function startGame(type) {
         if (!global.animLoopHandle)
             animloop();
         socket.emit('respawn');
-        window.chat.socket = socket;
-        window.chat.registerFunctions();
         window.canvas.socket = socket;
         global.socket = socket;
     } else if (!localStorage.agar_token) {
@@ -146,7 +144,6 @@ var target = {
 global.target = target;
 
 window.canvas = new Canvas();
-window.chat = new ChatClient();
 
 var visibleBorderSetting = document.getElementById('visBord');
 visibleBorderSetting.onchange = settings.toggleBorder;
@@ -179,7 +176,6 @@ function setupSocket(socket) {
     socket.on('pongcheck', function() {
         var latency = Date.now() - global.startPingTime;
         debug('Latency: ' + latency + 'ms');
-        window.chat.addSystemLine('Ping: ' + latency + 'ms');
     });
 
     // Handle error.
@@ -202,12 +198,9 @@ function setupSocket(socket) {
         player.screenHeight = global.screenHeight;
         player.target = window.canvas.target;
         global.player = player;
-        window.chat.player = player;
         socket.emit('gotit', player);
         global.gameStart = true;
         debug('Game started at: ' + global.gameStart);
-        window.chat.addSystemLine('Connected to the game!');
-        window.chat.addSystemLine('Type <b>-help</b> for a list of commands.');
         if (global.mobile) {
             document.getElementById('gameAreaWrapper').removeChild(document.getElementById('chatbox'));
         }
@@ -224,15 +217,12 @@ function setupSocket(socket) {
             token: localStorage.agar_token,
             value: player.massMax
         });
-        window.chat.addSystemLine('{GAME} - <b>' + (data.name.length < 1 ? 'An unnamed cell' : data.name) + '</b> was eaten.');
     });
 
     socket.on('playerDisconnect', function(data) {
-        window.chat.addSystemLine('{GAME} - <b>' + (data.name.length < 1 ? 'An unnamed cell' : data.name) + '</b> disconnected.');
     });
 
     socket.on('playerJoin', function(data) {
-        window.chat.addSystemLine('{GAME} - <b>' + (data.name.length < 1 ? 'An unnamed cell' : data.name) + '</b> joined.');
     });
 
     socket.on('leaderboard', function(data) {
@@ -257,12 +247,12 @@ function setupSocket(socket) {
     });
 
     socket.on('serverMSG', function(data) {
-        window.chat.addSystemLine(data);
+
     });
 
     // Chat.
     socket.on('serverSendPlayerChat', function(data) {
-        window.chat.addChatLine(data.sender, data.message, false);
+
     });
 
     // Handle movement.
@@ -285,9 +275,11 @@ function setupSocket(socket) {
             ///heiyuki code
             if (player.massMax) {
                 if (player.massMax < playerData.massTotal) {
+                    document.getElementById("agarnumber").innerHTML = playerData.massTotal;
                     player.massMax = playerData.massTotal;
                 }
             } else {
+document.getElementById("agarnumber").innerHTML = playerData.massTotal;
                 player.massMax = playerData.massTotal;
             }
             player.cells = playerData.cells;
@@ -448,7 +440,7 @@ function drawPlayers(order) {
         var imageObj = new Image();
         imageObj.src = order[z].picture;
         // imageObj.onload = function() {
-            imageObj.setAttribute("style", "border-radius:50%");
+        imageObj.setAttribute("style", "border-radius:50%");
 
         // }
         var size = cellCurrent.radius;
@@ -483,15 +475,15 @@ function drawPlayers(order) {
         graph.font = 'bold ' + fontSize + 'px sans-serif';
 
         if (global.toggleMassState === 0) {
-            graph.strokeText(nameCell, circle.x, circle.y+size*1.5);
-            graph.fillText(nameCell, circle.x, circle.y+size*1.5);
+            graph.strokeText(nameCell, circle.x, circle.y + size * 1.5);
+            graph.fillText(nameCell, circle.x, circle.y + size * 1.5);
         } else {
-            graph.strokeText(nameCell, circle.x, circle.y+size*1.5);
-            graph.fillText(nameCell, circle.x, circle.y+size*1.5);
+            graph.strokeText(nameCell, circle.x, circle.y + size * 1.5);
+            graph.fillText(nameCell, circle.x, circle.y + size * 1.5);
             graph.font = 'bold ' + Math.max(fontSize / 3 * 2, 10) + 'px sans-serif';
             if (nameCell.length === 0) fontSize = 0;
-            graph.strokeText(Math.round(cellCurrent.mass), circle.x, circle.y + fontSize+size*1.5);
-            graph.fillText(Math.round(cellCurrent.mass), circle.x, circle.y + fontSize+size*1.5);
+            graph.strokeText(Math.round(cellCurrent.mass), circle.x, circle.y + fontSize + size * 1.5);
+            graph.fillText(Math.round(cellCurrent.mass), circle.x, circle.y + fontSize + size * 1.5);
         }
     }
 }
