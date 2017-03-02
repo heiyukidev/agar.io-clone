@@ -164,6 +164,7 @@ module.exports = function(passport) {
     if (process.env.NODE_ENV == "production") {
         fbStrategy.facebookAuth.callbackURL = fbStrategy.facebookAuth.productionCallbackURL;
     }
+console.log(fbStrategy.facebookAuth);
     fbStrategy.passReqToCallback = true; // allows us to pass in the req from our route (lets us check if a user is logged in or not)
     passport.use(new FacebookStrategy(fbStrategy,
         function(req, token, refreshToken, profile, done) {
