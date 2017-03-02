@@ -1,6 +1,6 @@
 var pm2 = require('pm2');
 
-var instances = process.env.WEB_CONCURRENCY || -1;
+var instances = process.env.WEB_CONCURRENCY || 1;
 var maxMemory = process.env.WEB_MEMORY || 512;
 
 pm2.connect(function() {
