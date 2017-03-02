@@ -1,11 +1,11 @@
 var pm2 = require('pm2');
 
 var instances = process.env.WEB_CONCURRENCY || -1;
-var maxMemory = process.env.WEB_MEMORY || 512;   
+var maxMemory = process.env.WEB_MEMORY || 512;
 
 pm2.connect(function() {
   pm2.start({
-    script    : 'server.js',
+    script    : './bin/server/server.js',
     name      : 'wasagario',
     exec_mode : 'cluster',
     instances : instances,
