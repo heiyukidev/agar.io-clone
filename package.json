@@ -4,7 +4,7 @@
   "description": "A simple Agar.io clone",
   "main": "server/server.js",
   "scripts": {
-    "postinstall":"bower install",
+    "postinstall": "bower install",
     "build": "gulp build",
     "start": "gulp run",
     "watch": "gulp watch",
@@ -59,6 +59,7 @@
     "passport": "^0.3.2",
     "passport-facebook": "^2.1.1",
     "passport-local": "^1.0.0",
+    "pm2": "^2.4.2",
     "pug": "^2.0.0-beta11",
     "request": "^2.79.0",
     "sat": "^0.5.0",
