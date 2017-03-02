@@ -26,7 +26,6 @@ function getUser() {
         },
         url: "/logged",
         success: function(response) {
-            console.log(response);
             var user = response;
             document.getElementById('username').innerHTML = "logged in as: " + user.firstName + " " + user.lastName;
             localStorage.agar_user = JSON.stringify(user);

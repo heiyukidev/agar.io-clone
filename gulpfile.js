@@ -8,6 +8,7 @@ var mocha = require('gulp-mocha');
 var todo = require('gulp-todo');
 var webpack = require('webpack-stream');
 var request = require('sync-request');
+var watch = require('gulp-watch');
 var fs = require('fs');
 
 
@@ -126,3 +127,20 @@ gulp.task('contributors', function() {
 });
 
 gulp.task('default', ['run']);
+
+
+gulp.task('hyrun', function() {
+    nodemon({
+            delay: 10,
+            script: './server/server.js',
+            cwd: "./src/",
+            args: ["config.json"],
+            ext: 'html js css'
+        })
+        .on('restart', function() {
+            util.log('server restarted!');
+        });
+});
+gulp.task('watch', function() {
+    gulp.watch('src/**/*.js', ['hyrun'])
+});

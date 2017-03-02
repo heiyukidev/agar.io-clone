@@ -8,7 +8,7 @@ const configDB = require('./database.js');
 var User = require('../models/user');
 
 // load the auth variables
-var configAuth = require('./auth'); // use this one for testing
+var configAuth = require('./auth.js'); // use this one for testing
 
 module.exports = function(passport) {
 
@@ -161,6 +161,9 @@ module.exports = function(passport) {
     // FACEBOOK ================================================================
     // =========================================================================
     var fbStrategy = configAuth.facebookAuth;
+    if (process.env.NODE_ENV == "production") {
+        fbStrategy.callbackURL = configAuth.facebookAuth.productionCallbackURL;
+    }
     fbStrategy.passReqToCallback = true; // allows us to pass in the req from our route (lets us check if a user is logged in or not)
     passport.use(new FacebookStrategy(fbStrategy,
         function(req, token, refreshToken, profile, done) {
@@ -183,11 +186,11 @@ module.exports = function(passport) {
                                 user.facebook.token = token;
                                 user.firstName = profile.name.givenName;
                                 user.lastName = profile.name.familyName;
-                                if (profile.emails){
+                                if (profile.emails) {
                                     user.email = profile.emails[0].value;
-                                }else if(profile.email){
+                                } else if (profile.email) {
                                     user.email = profile.email;
-                                }else{
+                                } else {
                                     user.email = "";
                                 }
 
@@ -213,11 +216,11 @@ module.exports = function(passport) {
                             newUser.facebook.token = token;
                             newUser.firstName = profile.name.givenName;
                             newUser.lastName = profile.name.familyName;
-                            if (profile.emails){
+                            if (profile.emails) {
                                 newUser.email = profile.emails[0].value;
-                            }else if(profile.email){
+                            } else if (profile.email) {
                                 newUser.email = profile.email;
-                            }else{
+                            } else {
                                 newUser.email = "";
                             }
 
@@ -243,11 +246,11 @@ module.exports = function(passport) {
                     user.facebook.token = token;
                     user.firstName = profile.name.givenName;
                     user.lastName = profile.name.familyName;
-                    if (profile.emails){
+                    if (profile.emails) {
                         user.email = profile.emails[0].value;
-                    }else if(profile.email){
+                    } else if (profile.email) {
                         user.email = profile.email;
-                    }else{
+                    } else {
                         user.email = "";
                     }
 
