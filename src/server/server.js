@@ -929,7 +929,7 @@ function sendUpdates() {
     leaderboardChanged = false;
 }
 
-setInterval(moveloop, 3000 / 60);
+setInterval(moveloop, 1000 / 60);
 setInterval(gameloop, 1000);
 setInterval(sendUpdates, 1000 / c.networkUpdateFactor);
 
