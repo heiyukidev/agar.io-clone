@@ -77,31 +77,22 @@ function startGame(type) {
 
 window.onload = function() {
     var btn = document.getElementById('startButton'),
-        btnS = document.getElementById('spectateButton'),
-        btnLogout = document.getElementById('logoutButton'),
+        // btnS = document.getElementById('spectateButton'),
+        // btnLogout = document.getElementById('logoutButton'),
         nickErrorText = document.querySelector('#startMenu .input-error');
-    btnS.onclick = function() {
-        startGame('spectate');
-    };
+    // btnS.onclick = function() {
+    //     startGame('spectate');
+    // };
     btn.onclick = function() {
         startGame('player');
     };
-    btnLogout.onclick = () => {
-        localStorage.removeItem('agar_token');
-        localStorage.removeItem('agar_user');
-        window.location.href = "/";
-    };
-    var settingsMenu = document.getElementById('settingsButton');
-    var settings = document.getElementById('settings');
-    var instructions = document.getElementById('instructions');
-
-    settingsMenu.onclick = function() {
-        if (settings.style.maxHeight == '300px') {
-            settings.style.maxHeight = '0px';
-        } else {
-            settings.style.maxHeight = '300px';
-        }
-    };
+    if (btnLogout) {
+        btnLogout.onclick = () => {
+            localStorage.removeItem('agar_token');
+            localStorage.removeItem('agar_user');
+            window.location.href = "/";
+        };
+    }
 };
 
 // TODO: Break out into GameControls.
@@ -144,17 +135,7 @@ global.target = target;
 
 window.canvas = new Canvas();
 
-var visibleBorderSetting = document.getElementById('visBord');
-visibleBorderSetting.onchange = settings.toggleBorder;
 
-var showMassSetting = document.getElementById('showMass');
-showMassSetting.onchange = settings.toggleMass;
-
-var continuitySetting = document.getElementById('continuity');
-continuitySetting.onchange = settings.toggleContinuity;
-
-var roundFoodSetting = document.getElementById('roundFood');
-roundFoodSetting.onchange = settings.toggleRoundFood;
 
 var c = window.canvas.cv;
 var graph = c.getContext('2d');
@@ -218,11 +199,9 @@ function setupSocket(socket) {
         });
     });
 
-    socket.on('playerDisconnect', function(data) {
-    });
+    socket.on('playerDisconnect', function(data) {});
 
-    socket.on('playerJoin', function(data) {
-    });
+    socket.on('playerJoin', function(data) {});
 
     socket.on('leaderboard', function(data) {
         leaderboard = data.leaderboard;
@@ -278,7 +257,7 @@ function setupSocket(socket) {
                     player.massMax = playerData.massTotal;
                 }
             } else {
-document.getElementById("agarnumber").innerHTML = playerData.massTotal;
+                document.getElementById("agarnumber").innerHTML = playerData.massTotal;
                 player.massMax = playerData.massTotal;
             }
             player.cells = playerData.cells;

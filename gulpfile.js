@@ -141,6 +141,3 @@ gulp.task('hyrun', function() {
             util.log('server restarted!');
         });
 });
-gulp.task('watch', function() {
-    gulp.watch('src/**/*.js', ['hyrun'])
-});
