@@ -248,11 +248,11 @@ function setupSocket(socket) {
             ///heiyuki code
             if (player.massMax) {
                 if (player.massMax < playerData.massTotal) {
-                    document.getElementById("agarnumber").innerHTML = "Score: "+playerData.massTotal;
+                    document.getElementById("agarnumber").innerHTML = "Score : "+playerData.massTotal;
                     player.massMax = playerData.massTotal;
                 }
             } else {
-                document.getElementById("agarnumber").innerHTML = "Score: "+playerData.massTotal;
+                document.getElementById("agarnumber").innerHTML = "Score : "+playerData.massTotal;
                 player.massMax = playerData.massTotal;
             }
             player.cells = playerData.cells;
@@ -445,7 +445,7 @@ function drawPlayers(order) {
         graph.lineJoin = 'round';
         graph.textAlign = 'center';
         graph.textBaseline = 'middle';
-        graph.font = 'bold ' + fontSize + 'px sans-serif';
+        graph.font = 'bold ' + fontSize + 'px comic sans ms';
 
         if (global.toggleMassState === 0) {
             graph.strokeText(nameCell, circle.x, circle.y + size * 1.5);
@@ -453,7 +453,7 @@ function drawPlayers(order) {
         } else {
             graph.strokeText(nameCell, circle.x, circle.y + size * 1.5);
             graph.fillText(nameCell, circle.x, circle.y + size * 1.5);
-            graph.font = 'bold ' + Math.max(fontSize / 3 * 2, 10) + 'px sans-serif';
+            graph.font = 'bold ' + Math.max(fontSize / 3 * 2, 10) + 'px comic sans ms';
             if (nameCell.length === 0) fontSize = 0;
             graph.strokeText(Math.round(cellCurrent.mass), circle.x, circle.y + fontSize + size * 1.5);
             graph.fillText(Math.round(cellCurrent.mass), circle.x, circle.y + fontSize + size * 1.5);
