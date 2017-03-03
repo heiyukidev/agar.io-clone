@@ -1,22 +1,24 @@
 body{
-    background-image: url("http://i.imgur.com/M5VeRDH.png");
-    background-size: cover;
+    background: #4389bc url("http://i.imgur.com/M5VeRDH.png") ;
+    background-size: cover ;
     overflow: scroll;
+    background-position: center top;
+    background-repeat: no-repeat;
 }
 .container {
-     padding-top: 200px;;
+     padding-top: 200px;
     display: flex;
     justify-content: center;
 }
 
 .formulaire {
     position: absolute;
-    width: 700px;
+    width: 600px;
    height: 600px;
     justify-content: center;
     background-repeat: none;
-    background-image: url("http://i.imgur.com/7fMbuft.png");
-    position : fixed;
+    background-image: url("http://i.imgur.com/3m8RjR4.png");
+
  
 }
 
@@ -25,6 +27,9 @@ body{
    background: transparent;
    border-color: transparent;
     height: 20px;
+    width : 130px;
+    outline: none;
+    font-family: "comic sans ms";
     font-size: medium;
     padding-left: 20px;
     border-radius: 5px;
@@ -36,7 +41,7 @@ body{
     color: white;
     border: 1px solid #ffffff;
     border-radius: 5px;
-    position: fixed;
+    position: absolute;
     display: block;
     min-width: 250px;
     height: 40px;
@@ -45,23 +50,26 @@ body{
     max-width: 350px;
     background: #e8e8e8;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.46);
-    top: 600px;
-    left : 550px;
+    top: 405px;
+    left : 174px;
 }
 
 
 .btnform {
     border-radius: 10px;
     outline: none;
-    margin-top:510px;
-    margin-left: 280px;
+    margin-top:405px;
+    margin-left: 238px;
+    padding-bottom:10px;
     color: #e4e4e4;
-    display: block;
+    /*display: block;*/
     background: transparent;
     font-size: large;
     border: 0px;
     padding: 5px 25px 15px 25px;
     cursor: pointer;
+    font-family: "comic sans ms";
+    transition: color 0.1s;
 }
 
 .btnform:hover {
