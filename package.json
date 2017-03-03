@@ -48,6 +48,7 @@
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
     "gulp-jshint": "^2.0.1",
+    "gulp-minify": "0.0.15",
     "gulp-mocha": "^2.2.0",
     "gulp-nodemon": "^2.0.7",
     "gulp-todo": "^4.1.0",

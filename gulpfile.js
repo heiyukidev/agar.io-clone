@@ -4,6 +4,7 @@ var jshint = require('gulp-jshint');
 var nodemon = require('gulp-nodemon');
 var uglify = require('gulp-uglify');
 var util = require('gulp-util');
+var minify = require('gulp-minify');
 var mocha = require('gulp-mocha');
 var todo = require('gulp-todo');
 var webpack = require('webpack-stream');
@@ -33,14 +34,13 @@ gulp.task('lint', function() {
 gulp.task('build-client', ['lint', 'move-client'], function() {
     return gulp.src(['src/client/js/app.js'])
         .pipe(webpack(require('./webpack.config.js')))
-        // .pipe(uglify())
         .pipe(babel({
             presets: [
                 ['es2015', {
                     'modules': false
                 }]
             ]
-        }))
+        })).pipe(uglify())
         .pipe(gulp.dest('bin/client/js/'));
 });
 
