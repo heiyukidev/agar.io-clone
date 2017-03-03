@@ -195,11 +195,6 @@ function setupSocket(socket) {
             value: player.massMax
         });
     });
-
-    socket.on('playerDisconnect', function(data) {});
-
-    socket.on('playerJoin', function(data) {});
-
     socket.on('leaderboard', function(data) {
         leaderboard = data.leaderboard;
         var status = '<span class="title">Leaderboard</span>';
@@ -221,14 +216,6 @@ function setupSocket(socket) {
         document.getElementById('status').innerHTML = status;
     });
 
-    socket.on('serverMSG', function(data) {
-
-    });
-
-    // Chat.
-    socket.on('serverSendPlayerChat', function(data) {
-
-    });
 
     // Handle movement.
     socket.on('serverTellPlayerMove', function(userData, foodsList, massList, virusList) {

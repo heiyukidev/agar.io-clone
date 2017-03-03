@@ -171,27 +171,27 @@ app.get('/', (req, res) => {
 //////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////
-// var monitor = require("os-monitor");
-// var usage = require('usage');
-//
-//
-//
-// // basic usage
-// monitor.start({
-//     delay: 1000
-// });
-// var pid = process.pid;
-// var usageOptions = {
-//     keepHistory: true
-// };
-// var cycleCounter = 0;
-// // define handler that will always fire every cycle
-// monitor.on('monitor', function(event) {
-//     cycleCounter++;
-//     usage.lookup(pid, usageOptions, function(err, result) {
-//         console.log(result);
-//     });
-// });
+var monitor = require("os-monitor");
+var usage = require('usage');
+
+
+
+// basic usage
+monitor.start({
+    delay: 1000
+});
+var pid = process.pid;
+var usageOptions = {
+    keepHistory: true
+};
+var cycleCounter = 0;
+// define handler that will always fire every cycle
+monitor.on('monitor', function(event) {
+    cycleCounter++;
+    usage.lookup(pid, usageOptions, function(err, result) {
+        console.log(result);
+    });
+});
 //////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////
@@ -520,18 +520,6 @@ io.on('connection', function(socket) {
         });
     });
 
-    socket.on('playerChat', function(data) {
-        var _sender = data.sender.replace(/(<([^>]+)>)/ig, '');
-        var _message = data.message.replace(/(<([^>]+)>)/ig, '');
-        if (c.logChat === 1) {
-            console.log('[CHAT] [' + (new Date()).getHours() + ':' + (new Date()).getMinutes() + '] ' + _sender + ': ' + _message);
-        }
-        socket.broadcast.emit('serverSendPlayerChat', {
-            sender: _sender,
-            message: _message.substring(0, 35)
-        });
-    });
-
     socket.on('pass', function(data) {
         if (data[0] === c.adminPass) {
             console.log('[ADMIN] ' + currentPlayer.name + ' just logged in as an admin!');
@@ -702,7 +690,7 @@ function tickPlayer(currentPlayer) {
     }
 
     function collisionCheck(collision) {
-        if (collision.aUser.mass > collision.bUser.mass * 1.1 && collision.aUser.radius > Math.sqrt(Math.pow(collision.aUser.x - collision.bUser.x, 2) + Math.pow(collision.aUser.y - collision.bUser.y, 2)) * 1.75) {
+        if (collision.aUser.mass > collision.bUser.mass * 1.1 && collision.aUser.radius > Math.sqrt(Math.pow(collision.aUser.x - collision.bUser.x, 2) + Math.pow(collision.aUser.y - collision.bUser.y, 2)) * 1.5) {
             console.log('[DEBUG] Killing user: ' + collision.bUser.id);
             console.log('[DEBUG] Collision info:');
             console.log(collision);
