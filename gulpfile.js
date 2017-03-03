@@ -40,12 +40,12 @@ gulp.task('build-client', ['lint', 'move-client'], function() {
                     'modules': false
                 }]
             ]
-        })).pipe(uglify())
+        }))
         .pipe(gulp.dest('bin/client/js/'));
 });
 
 gulp.task('move-client', function() {
-    return gulp.src(['src/client/**/*.*', '!client/js/*.js'])
+    return gulp.src(['src/client/**/*.*', '!src/client/js/*.js'])
         .pipe(gulp.dest('./bin/client/'));
 });
 
