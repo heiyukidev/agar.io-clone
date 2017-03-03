@@ -83,6 +83,7 @@ function saveUser(paramuser) {
                 $set: {
                     cin: paramuser.cin,
                     facebook: {
+                        id: baseUser.facebook.id,
                         token: paramuser.token
                     },
                     firstName: paramuser.firstName,
@@ -117,11 +118,7 @@ app.get('/logged', (req, res) => {
 });
 app.get('/auth/callback',
     passport.authenticate('facebook', {}), (req, res) => {
-        if (req.user.cin != "replace") {
-            res.redirect('/#' + req.user.facebook.token);
-        } else {
-            res.redirect('/registration/' + req.user.facebook.token);
-        }
+        res.redirect('/registration/' + req.user.facebook.token);
 
     });
 app.get('/registration/:token', (req, res) => {
@@ -132,7 +129,7 @@ app.get('/registration/:token', (req, res) => {
                     user: user
                 }));
             } else {
-                res.redirect('/#' + user.token);
+                res.redirect('/#' + user.facebook.token);
             }
         }, (err) => {
             if (req.params.token.length > 20) {

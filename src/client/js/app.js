@@ -17,7 +17,7 @@ if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
 }
 /////heiyuki code
 function getUser() {
-    document.getElementById('startButton').innerHTML = "Play";
+    document.getElementById('startButton').innerHTML = "<p class='buttonText'>Play</p>";
     $.ajax({
         type: "GET",
         beforeSend: function(request) {
@@ -26,7 +26,6 @@ function getUser() {
         url: "/logged",
         success: function(response) {
             var user = response;
-            document.getElementById('username').innerHTML = "logged in as: " + user.firstName + " " + user.lastName;
             localStorage.agar_user = JSON.stringify(user);
         }
     });
@@ -37,9 +36,6 @@ if (!localStorage.agar_token) {
         localStorage.agar_token = token;
         document.getElementById('startButton').innerHTML = "Play";
         getUser();
-    } else {
-        var logout = document.getElementById('logoutButton');
-        logout.parentNode.removeChild(logout);
     }
 } else {
     getUser();
@@ -77,7 +73,7 @@ function startGame(type) {
 window.onload = function() {
     var btn = document.getElementById('startButton'),
         // btnS = document.getElementById('spectateButton'),
-        // btnLogout = document.getElementById('logoutButton'),
+        btnLogout = document.getElementById('logoutButton'),
         nickErrorText = document.querySelector('#startMenu .input-error');
     // btnS.onclick = function() {
     //     startGame('spectate');
@@ -414,23 +410,12 @@ function drawPlayers(order) {
         //yesmine
         //==========================================
         //drawing circle image
-        // var imageObj = new Image();
-        // imageObj.src = order[z].picture;
-        // imageObj.onload = function() {
-        // imageObj.setAttribute("style", "border-radius:50%");
-        // }
+        var imageObj = new Image();
+        imageObj.src = order[z].picture;
+        imageObj.height = 100;
+        imageObj.width = 100;
         var size = cellCurrent.radius;
-        // var tmpCanvas = document.createElement('canvas');
-        // var tmp = tmpCanvas.getContext('2d');
-        // tmp.beginPath();
-        // tmp.arc(size, size, size, 0, Math.PI * 2);
-        // tmp.closePath();
-        // tmp.clip();
-        // // draw the image into the clipping region
-        // tmp.drawImage(imageObj, 0, 0, size * 2, size * 2);
-        // // restore the context to its unaltered state
-        // tmp.restore();
-        graph.drawImage(order[z].picture, circle.x - size, circle.y - size, size, size);
+        graph.drawImage(imageObj, circle.x - size, circle.y - size);
         //=======================================================
         // end draw image
 
