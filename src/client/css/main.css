@@ -119,21 +119,23 @@ div {
 }
 
 .buttonText {
-    margin-bottom: 50px;
-    margin-right: 50px;
+    position: relative;
+    bottom: 16px;
     font-size: 25px;
+    font-family: "comic sans ms";
 }
 
 #startButton, #spectateButton {
     background: url('../img/button.png') no-repeat;
     /*cursor: pointer;*/
     margin-left: -20px;
-    width: 300px;
+    width: 230px;
     height: 100px;
     border: none;
-    position: absolute;
+    position: fixed;
     bottom: 48px;
     left: 45vw;
+    z-index: 1;
     color: white;
     /*position: relative;
     margin: auto;
