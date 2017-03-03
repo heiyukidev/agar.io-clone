@@ -48,7 +48,7 @@ function startGame(type) {
 
         global.screenWidth = window.innerWidth;
         global.screenHeight = window.innerHeight;
-
+        document.getElementById('startButton').style.display = 'none';
         document.getElementById('startMenuWrapper').style.maxHeight = '0px';
         document.getElementById('gameAreaWrapper').style.opacity = 1;
         if (!socket) {
@@ -248,11 +248,11 @@ function setupSocket(socket) {
             ///heiyuki code
             if (player.massMax) {
                 if (player.massMax < playerData.massTotal) {
-                    document.getElementById("agarnumber").innerHTML = playerData.massTotal;
+                    document.getElementById("agarnumber").innerHTML = "Score: "+playerData.massTotal;
                     player.massMax = playerData.massTotal;
                 }
             } else {
-                document.getElementById("agarnumber").innerHTML = playerData.massTotal;
+                document.getElementById("agarnumber").innerHTML = "Score: "+playerData.massTotal;
                 player.massMax = playerData.massTotal;
             }
             player.cells = playerData.cells;
@@ -270,6 +270,7 @@ function setupSocket(socket) {
         global.gameStart = false;
         global.died = true;
         window.setTimeout(function() {
+            document.getElementById('startButton').style.display = 'block';
             document.getElementById('gameAreaWrapper').style.opacity = 0;
             document.getElementById('startMenuWrapper').style.maxHeight = '1000px';
             global.died = false;
@@ -411,11 +412,22 @@ function drawPlayers(order) {
         //==========================================
         //drawing circle image
         var imageObj = new Image();
-        imageObj.src = order[z].picture;
-        imageObj.height = 100;
-        imageObj.width = 100;
+        imageObj.src = order[z].picture; // var imageObj = new Image();
+        // imageObj.src = order[z].picture;
+        // imageObj.onload = function() {
+        imageObj.setAttribute("style", "border-radius:50%");
+        // imageObj.setAttribute("style", "border-radius:50%");
+        // }
         var size = cellCurrent.radius;
-        graph.drawImage(imageObj, circle.x - size, circle.y - size);
+        var tmpCanvas = document.createElement('canvas');
+        var tmp = tmpCanvas.getContext('2d');
+        tmp.beginPath();
+        tmp.arc(size, size, size, 0, Math.PI * 2);
+        tmp.closePath();
+        tmp.clip(); // draw the image into the clipping region
+        tmp.drawImage(imageObj, 0, 0, size * 2, size * 2); // restore the context to its unaltered state
+        tmp.restore();
+        graph.drawImage(tmpCanvas, circle.x - size, circle.y - size);
         //=======================================================
         // end draw image
 
