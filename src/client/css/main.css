@@ -70,13 +70,22 @@ div {
 
 .agarscore {
     position: absolute;
-    width: 300px;
-    height: 100px;
-    background: rgba(255, 255, 255, 0.7);
-    bottom: 20px;
-    left: 5px;
-    border-radius: 5px;
+    width: 284px;
+    height: 45px;
+    bottom: 30px;
+    left: -25px;
+    border-radius: 0px 50px 50px 0px;
     pointer-events: none;
+    background: #2366ac;
+    text-align: center;
+}
+
+#agarnumber {
+    position: absolute;
+    left: 25px;
+    font-size: 20px;
+    color: white;
+    text-align: center;
 }
 
 #startMenu {
