@@ -17,7 +17,6 @@ if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
 }
 /////heiyuki code
 function getUser() {
-    document.getElementById('username').innerHTML = 'Loading...';
     document.getElementById('startButton').innerHTML = "Play";
     $.ajax({
         type: "GET",
@@ -415,24 +414,23 @@ function drawPlayers(order) {
         //yesmine
         //==========================================
         //drawing circle image
-        var imageObj = new Image();
-        imageObj.src = order[z].picture;
+        // var imageObj = new Image();
+        // imageObj.src = order[z].picture;
         // imageObj.onload = function() {
-        imageObj.setAttribute("style", "border-radius:50%");
-
+        // imageObj.setAttribute("style", "border-radius:50%");
         // }
         var size = cellCurrent.radius;
-        var tmpCanvas = document.createElement('canvas');
-        var tmp = tmpCanvas.getContext('2d');
-        tmp.beginPath();
-        tmp.arc(size, size, size, 0, Math.PI * 2);
-        tmp.closePath();
-        tmp.clip();
-        // draw the image into the clipping region
-        tmp.drawImage(imageObj, 0, 0, size * 2, size * 2);
-        // restore the context to its unaltered state
-        tmp.restore();
-        graph.drawImage(tmpCanvas, circle.x - size, circle.y - size);
+        // var tmpCanvas = document.createElement('canvas');
+        // var tmp = tmpCanvas.getContext('2d');
+        // tmp.beginPath();
+        // tmp.arc(size, size, size, 0, Math.PI * 2);
+        // tmp.closePath();
+        // tmp.clip();
+        // // draw the image into the clipping region
+        // tmp.drawImage(imageObj, 0, 0, size * 2, size * 2);
+        // // restore the context to its unaltered state
+        // tmp.restore();
+        graph.drawImage(order[z].picture, circle.x - size, circle.y - size, size, size);
         //=======================================================
         // end draw image
 
