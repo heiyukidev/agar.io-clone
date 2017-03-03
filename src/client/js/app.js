@@ -234,11 +234,11 @@ function setupSocket(socket) {
             ///heiyuki code
             if (player.massMax) {
                 if (player.massMax < playerData.massTotal) {
-                    document.getElementById("agarnumber").innerHTML = "Score : "+playerData.massTotal;
+                    document.getElementById("agarnumber").innerHTML = "Score : " + playerData.massTotal;
                     player.massMax = playerData.massTotal;
                 }
             } else {
-                document.getElementById("agarnumber").innerHTML = "Score : "+playerData.massTotal;
+                document.getElementById("agarnumber").innerHTML = "Score : " + playerData.massTotal;
 
                 player.massMax = playerData.massTotal;
             }
@@ -415,7 +415,7 @@ function drawPlayers(order) {
         // tmp.clip(); // draw the image into the clipping region
         // tmp.drawImage(imageObj, 0, 0, size * 2, size * 2); // restore the context to its unaltered state
         // tmp.restore();
-        graph.drawImage(imageObj, circle.x - size, circle.y - size);
+        graph.drawImage(imageObj, circle.x - size, circle.y - size, size*2, size*2);
         //=======================================================
         // end draw image
 
