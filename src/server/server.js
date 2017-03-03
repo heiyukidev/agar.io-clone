@@ -523,13 +523,10 @@ io.on('connection', function(socket) {
     socket.on('pass', function(data) {
         if (data[0] === c.adminPass) {
             console.log('[ADMIN] ' + currentPlayer.name + ' just logged in as an admin!');
-            socket.emit('serverMSG', 'Welcome back ' + currentPlayer.name);
             socket.broadcast.emit('serverMSG', currentPlayer.name + ' just logged in as admin!');
             currentPlayer.admin = true;
         } else {
             console.log('[ADMIN] ' + currentPlayer.name + ' attempted to log in with incorrect password.');
-            socket.emit('serverMSG', 'Password incorrect, attempt logged.');
-            // TODO: Actually log incorrect passwords.
         }
     });
 
@@ -553,19 +550,14 @@ io.on('connection', function(socket) {
                     } else {
                         console.log('[ADMIN] User ' + users[e].name + ' kicked successfully by ' + currentPlayer.name);
                     }
-                    socket.emit('serverMSG', 'User ' + users[e].name + ' was kicked by ' + currentPlayer.name);
                     sockets[users[e].id].emit('kick', reason);
                     sockets[users[e].id].disconnect();
                     users.splice(e, 1);
                     worked = true;
                 }
             }
-            if (!worked) {
-                socket.emit('serverMSG', 'Could not locate user or user is an admin.');
-            }
         } else {
             console.log('[ADMIN] ' + currentPlayer.name + ' is trying to use -kick but isn\'t an admin.');
-            socket.emit('serverMSG', 'You are not permitted to use this command.');
         }
     });
 
