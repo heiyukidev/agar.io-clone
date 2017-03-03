@@ -1,5 +1,5 @@
 * {
-    font-family: sans-serif;
+    font-family: "comic sans ms";
     font-size: 14px;
 }
 
@@ -118,16 +118,25 @@ div {
     box-shadow: 0 0 3px 1px #DDDDDD;
 }
 
+.buttonText {
+    position: relative;
+    bottom: 16px;
+    font-size: 25px;
+    font-family: "comic sans ms";
+}
+
 #startButton, #spectateButton {
     background: url('../img/button.png') no-repeat;
-    cursor: pointer;
-    margin-left: 32px;
-    width: 300px;
+    /*cursor: pointer;*/
+    margin-left: -20px;
+    width: 230px;
     height: 100px;
     border: none;
-    position: absolute;
+    position: fixed;
     bottom: 48px;
     left: 45vw;
+    z-index: 1;
+    color: white;
     /*position: relative;
     margin: auto;
     margin-top: 10px;
@@ -151,7 +160,7 @@ div {
 }
 
 #spectateButton:active, #spectateButton:hover, #startButton:active, #startButton:hover {
-    color: red;
+    color: silver;
 }
 
 

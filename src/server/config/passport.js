@@ -181,33 +181,19 @@ module.exports = function(passport) {
                         }
 
                         if (user) {
-                            // if there is a user id already but no token (user was linked at one point and then removed)
-                            if (!user.facebook.token) {
-                                user.facebook.token = token;
-                                user.firstName = profile.name.givenName;
-                                user.lastName = profile.name.familyName;
-                                if (profile.emails) {
-                                    user.email = profile.emails[0].value;
-                                } else if (profile.email) {
-                                    user.email = profile.email;
-                                } else {
-                                    user.email = "";
-                                }
-
-                                user.cin = "replace";
-                                user.picture = "replace";
-                                user.phone = "replace";
-                                user.save(function(err) {
-                                    if (err) {
-                                        mongoose.disconnect();
-                                        return done(err);
-                                    }
+                            user.facebook.id = profile.id;
+                            user.facebook.token = token;
+                            user.firstName = profile.name.givenName;
+                            user.lastName = profile.name.familyName;
+                            user.save(function(err) {
+                                if (err) {
                                     mongoose.disconnect();
-                                    return done(null, user);
-                                });
-                            }
-                            mongoose.disconnect();
-                            return done(null, user); // user found, return that user
+                                    return done(err);
+                                }
+                                mongoose.disconnect();
+                                return done(null, user);
+                            });
+
                         } else {
                             // if there is no user, create them
                             var newUser = new User();
@@ -246,17 +232,6 @@ module.exports = function(passport) {
                     user.facebook.token = token;
                     user.firstName = profile.name.givenName;
                     user.lastName = profile.name.familyName;
-                    if (profile.emails) {
-                        user.email = profile.emails[0].value;
-                    } else if (profile.email) {
-                        user.email = profile.email;
-                    } else {
-                        user.email = "";
-                    }
-
-                    user.cin = "replace";
-                    user.picture = "replace";
-                    user.phone = "replace";
                     user.save(function(err) {
                         if (err) {
                             mongoose.disconnect();
