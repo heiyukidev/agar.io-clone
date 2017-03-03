@@ -17,7 +17,7 @@ if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
 }
 /////heiyuki code
 function getUser() {
-    document.getElementById('startButton').innerHTML = "Play";
+    document.getElementById('startButton').innerHTML = "<p class='buttonText'>Play</p>";
     $.ajax({
         type: "GET",
         beforeSend: function(request) {
