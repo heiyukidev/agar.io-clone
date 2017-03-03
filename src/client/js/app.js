@@ -48,6 +48,8 @@ function startGame(type) {
 
         global.screenWidth = window.innerWidth;
         global.screenHeight = window.innerHeight;
+
+        document.getElementById('logo_delice').style.display = 'block';
         document.getElementById('startButton').style.display = 'none';
         document.getElementById('startMenuWrapper').style.maxHeight = '0px';
         document.getElementById('gameAreaWrapper').style.opacity = 1;
@@ -82,7 +84,7 @@ window.onload = function() {
         startGame('player');
     };
     if (btnLogout) {
-        btnLogout.onclick = () => {
+        btnLogout.onclick = function() {
             localStorage.removeItem('agar_token');
             localStorage.removeItem('agar_user');
             window.location.href = "/";
@@ -253,6 +255,7 @@ function setupSocket(socket) {
                 }
             } else {
                 document.getElementById("agarnumber").innerHTML = "Score : "+playerData.massTotal;
+
                 player.massMax = playerData.massTotal;
             }
             player.cells = playerData.cells;
@@ -271,6 +274,7 @@ function setupSocket(socket) {
         global.died = true;
         window.setTimeout(function() {
             document.getElementById('startButton').style.display = 'block';
+            document.getElementById('logo_delice').style.display = 'none';
             document.getElementById('gameAreaWrapper').style.opacity = 0;
             document.getElementById('startMenuWrapper').style.maxHeight = '1000px';
             global.died = false;
