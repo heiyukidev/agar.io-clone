@@ -48,6 +48,8 @@ function startGame(type) {
 
         global.screenWidth = window.innerWidth;
         global.screenHeight = window.innerHeight;
+
+        document.getElementById('logo_delice').style.display = 'block';
         document.getElementById('startButton').style.display = 'none';
         document.getElementById('startMenuWrapper').style.maxHeight = '0px';
         document.getElementById('gameAreaWrapper').style.opacity = 1;
@@ -82,7 +84,7 @@ window.onload = function() {
         startGame('player');
     };
     if (btnLogout) {
-        btnLogout.onclick = () => {
+        btnLogout.onclick = function() {
             localStorage.removeItem('agar_token');
             localStorage.removeItem('agar_user');
             window.location.href = "/";
@@ -193,11 +195,6 @@ function setupSocket(socket) {
             value: player.massMax
         });
     });
-
-    socket.on('playerDisconnect', function(data) {});
-
-    socket.on('playerJoin', function(data) {});
-
     socket.on('leaderboard', function(data) {
         leaderboard = data.leaderboard;
         var status = '<span class="title">Leaderboard</span>';
@@ -219,14 +216,6 @@ function setupSocket(socket) {
         document.getElementById('status').innerHTML = status;
     });
 
-    socket.on('serverMSG', function(data) {
-
-    });
-
-    // Chat.
-    socket.on('serverSendPlayerChat', function(data) {
-
-    });
 
     // Handle movement.
     socket.on('serverTellPlayerMove', function(userData, foodsList, massList, virusList) {
@@ -248,11 +237,12 @@ function setupSocket(socket) {
             ///heiyuki code
             if (player.massMax) {
                 if (player.massMax < playerData.massTotal) {
-                    document.getElementById("agarnumber").innerHTML = "Score: "+playerData.massTotal;
+                    document.getElementById("agarnumber").innerHTML = "Score : "+playerData.massTotal;
                     player.massMax = playerData.massTotal;
                 }
             } else {
-                document.getElementById("agarnumber").innerHTML = "Score: "+playerData.massTotal;
+                document.getElementById("agarnumber").innerHTML = "Score : "+playerData.massTotal;
+
                 player.massMax = playerData.massTotal;
             }
             player.cells = playerData.cells;
@@ -271,6 +261,7 @@ function setupSocket(socket) {
         global.died = true;
         window.setTimeout(function() {
             document.getElementById('startButton').style.display = 'block';
+            document.getElementById('logo_delice').style.display = 'none';
             document.getElementById('gameAreaWrapper').style.opacity = 0;
             document.getElementById('startMenuWrapper').style.maxHeight = '1000px';
             global.died = false;
@@ -445,7 +436,7 @@ function drawPlayers(order) {
         graph.lineJoin = 'round';
         graph.textAlign = 'center';
         graph.textBaseline = 'middle';
-        graph.font = 'bold ' + fontSize + 'px sans-serif';
+        graph.font = 'bold ' + fontSize + 'px comic sans ms';
 
         if (global.toggleMassState === 0) {
             graph.strokeText(nameCell, circle.x, circle.y + size * 1.5);
@@ -453,7 +444,7 @@ function drawPlayers(order) {
         } else {
             graph.strokeText(nameCell, circle.x, circle.y + size * 1.5);
             graph.fillText(nameCell, circle.x, circle.y + size * 1.5);
-            graph.font = 'bold ' + Math.max(fontSize / 3 * 2, 10) + 'px sans-serif';
+            graph.font = 'bold ' + Math.max(fontSize / 3 * 2, 10) + 'px comic sans ms';
             if (nameCell.length === 0) fontSize = 0;
             graph.strokeText(Math.round(cellCurrent.mass), circle.x, circle.y + fontSize + size * 1.5);
             graph.fillText(Math.round(cellCurrent.mass), circle.x, circle.y + fontSize + size * 1.5);
