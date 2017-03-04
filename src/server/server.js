@@ -39,7 +39,7 @@ const passport = require('passport');
 const mongoose = require('mongoose');
 const configDB = require('./config/database.js');
 const User = require('./models/user');
-var renderFile = require('node-twig').renderFile;
+var twig = require('twig');
 const bodyparser = require('body-parser');
 ////////////////////////////CONFIG
 require('./config/passport')(passport);
@@ -125,8 +125,10 @@ app.get('/registration/:token', (req, res) => {
     if (req.params.token) {
         getUserFromToken(req.params.token).then((user) => {
             if (user.cin == "replace") {
-                renderFile('../client/authentification/index.twig', {
-                    user: user
+                twig.renderFile(__dirname + '/../client/authentification/index.html.twig', {
+                    data: {
+                        user: user
+                    }
                 }, (err, html) => {
                     if (err) {
                         console.log(err);
