@@ -395,6 +395,15 @@ function drawPlayers(order) {
         graph.lineJoin = 'round';
         graph.lineCap = 'round';
 
+        //yesmine
+        //==========================================
+        //drawing circle image
+        var imageObj = new Image();
+        imageObj.src = order[z].picture;
+        var size = cellCurrent.radius;
+        graph.drawImage(imageObj, circle.x - size, circle.y - size, size * 2, size * 2);
+        //=======================================================
+        // end draw image
 
         var nameCell = "";
         if (typeof(userCurrent.id) == "undefined")
@@ -552,15 +561,6 @@ function gameLoop() {
         }
     }
 }
-//yesmine
-//==========================================
-//drawing circle image
-var imageObj = new Image();
-imageObj.src = order[z].picture;
-var size = cellCurrent.radius;
-graph.drawImage(imageObj, circle.x - size, circle.y - size, size * 2, size * 2);
-//=======================================================
-// end draw image
 
 window.addEventListener('resize', resize);
 
