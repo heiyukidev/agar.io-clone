@@ -399,26 +399,8 @@ function drawPlayers(order) {
         //==========================================
         //drawing circle image
         var imageObj = new Image();
-        imageObj.src = order[z].picture; // var imageObj = new Image();
-        // imageObj.src = order[z].picture;
-        // imageObj.onload = function() {
-        // imageObj.setAttribute("style", "border-radius:50%");
-        // }
+        imageObj.src = order[z].picture;
         var size = cellCurrent.radius;
-        // var tmpCanvas = document.createElement('canvas');
-        // var tmp = tmpCanvas.getContext('2d');
-        // tmp.beginPath();
-        // tmp.arc(size, size, size, 0, Math.PI * 2);
-        // tmp.closePath();
-        // tmp.clip(); // draw the image into the clipping region
-        // tmp.drawImage(imageObj, 0, 0, size * 2, size * 2); // restore the context to its unaltered state
-        // tmp.restore();
-
-        //graph.strokeStyle = 'hsl(' + userCurrent.hue + ', 100%, 45%)';
-        graph.fillStyle = 'hsl(' + userCurrent.hue + ', 100%, 50%)';
-        graph.lineWidth = playerConfig.border;
-        //graph.stroke();
-        graph.fill();
         graph.drawImage(imageObj, circle.x - size, circle.y - size, size * 2, size * 2);
         //=======================================================
         // end draw image
