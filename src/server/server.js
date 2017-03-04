@@ -153,8 +153,8 @@ app.get('/registration/:token', (req, res) => {
 app.post('/auth/check', (req, res) => {
     if (req.body.token) {
         getUserFromToken(req.body.token).then((user) => {
-            user.picture = __dirname + req.body.picture;
-            saveUser(req.body).then((user) => {
+            req.body.picture = __dirname + req.body.picture;
+            saveUser(req.body).then((newUser) => {
                 res.redirect('/#' + user.facebook.token);
             }, (err) => {
                 console.log("[ERROR] Error In /auth/check");
