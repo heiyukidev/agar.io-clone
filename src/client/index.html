@@ -16,6 +16,7 @@
 <audio id="spawn_cell" src="audio/spawn.mp3"></audio>
 </head>
 <div class="loader"></div>
+
 <body>
     <div id="gameAreaWrapper">
         <div id="status"><span class="title">Leaderboard</span></div>
@@ -59,14 +60,14 @@
     </form>
     <form hidden id="classement" class="modal:open" style="max-width: 800px;">
         <img src="./img/general.png">
-        <div style="position:absolute;top:150px;left:150px;">
+        <div style="position:absolute;top:180px;left:170px;">
             <div id="g1"></div>
             <div id="g2"></div>
             <div id="g3"></div>
             <div id="g4"></div>
             <div id="g5"></div>
         </div>
-        <div style="position:absolute;top:150px;left:400px;">
+        <div style="position:absolute;top:180px;left:400px;">
             <div id="g6"></div>
             <div id="g7"></div>
             <div id="g8"></div>
@@ -76,12 +77,14 @@
     </form>
     <form hidden id="semaine" class="modal:open" style="max-width: 800px;">
         <img src="./img/semaine.png">
-        <div style="position:absolute;top:150px;left:150px;">
+        <div style="position:absolute;top:180px;left:170px;">
             <div id="s1"></div>
             <div id="s2"></div>
             <div id="s3"></div>
             <div id="s4"></div>
             <div id="s5"></div>
+        </div>
+        <div style="position:absolute;top:180px;left:380px;">
             <div id="s6"></div>
             <div id="s7"></div>
             <div id="s8"></div>
@@ -125,7 +128,7 @@
                     var users = response;
                     for (var i = 0; i < 9; i++) {
                         document.getElementById("g" + (i + 1)).innerHTML = "<div class='scorediv'><img src=\"" + users[i].picture + "\" width=\"23\" height=\"23\"/> " +
-                            users[i].firstName + " " + users[i].lastName + " : " + users[i].score " </div>";
+                            users[i].firstName + " " + users[i].lastName + " : " + users[i].score + " </div>";
                     }
                 }
             });
@@ -139,7 +142,7 @@
                     var users = response;
                     for (var i = 0; i < 9; i++) {
                         document.getElementById("s" + (i + 1)).innerHTML = "<div class='scorediv'><img src=\"" + users[i].picture + "\" width=\"23\" height=\"23\"/> " +
-                            users[i].firstName + " " + users[i].lastName + " : " + users[i].score " </div>";
+                            users[i].firstName + " " + users[i].lastName + " : " + users[i].score + " </div>";
                     }
                 }
             });

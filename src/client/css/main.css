@@ -419,8 +419,7 @@ div {
     position: relative;
     background: url('../img/menu/Player.png') no-repeat;
     width: 230px;
-    height: 85px;
-    top: 10px;
+    height: 35px;
     padding-top: 25px;
     padding-left: 30px;
 }
