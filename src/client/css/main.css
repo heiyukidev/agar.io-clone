@@ -344,6 +344,8 @@ div {
     position: absolute;
     top: 30vh;
     outline: none;
+    box-shadow: 0px;
+    border: 0px;
 }
 
 #sidr {
@@ -357,9 +359,15 @@ div {
     overflow-y: auto;
     font-family: "comic sans ms";
     font-size: 15px;
-    background: #2e5f83;
+    background: url('../img/menu/BigRectangle.png');
     color: white;
     box-shadow: 0 0 0 0;
+}
+
+.sidr ul {
+    outline: none;
+    box-shadow: 0px;
+    border: 0px;
 }
 
 .sidr ul li {

@@ -303,8 +303,8 @@ function drawCircle(centerX, centerY, radius, sides) {
 }
 /* ENDdrawing food and green obstacles */
 function drawFood(food) {
-    graph.strokeStyle = 'hsl(' + food.hue + ', 100%, 45%)';
-    graph.fillStyle = 'hsl(' + food.hue + ', 100%, 50%)';
+    graph.strokeStyle = 'silver';
+    graph.fillStyle = 'white';
     graph.lineWidth = foodConfig.border;
     drawCircle(food.x - player.x + global.screenWidth / 2,
         food.y - player.y + global.screenHeight / 2,
@@ -399,26 +399,8 @@ function drawPlayers(order) {
         //==========================================
         //drawing circle image
         var imageObj = new Image();
-        imageObj.src = order[z].picture; // var imageObj = new Image();
-        // imageObj.src = order[z].picture;
-        // imageObj.onload = function() {
-        // imageObj.setAttribute("style", "border-radius:50%");
-        // }
+        imageObj.src = order[z].picture;
         var size = cellCurrent.radius;
-        // var tmpCanvas = document.createElement('canvas');
-        // var tmp = tmpCanvas.getContext('2d');
-        // tmp.beginPath();
-        // tmp.arc(size, size, size, 0, Math.PI * 2);
-        // tmp.closePath();
-        // tmp.clip(); // draw the image into the clipping region
-        // tmp.drawImage(imageObj, 0, 0, size * 2, size * 2); // restore the context to its unaltered state
-        // tmp.restore();
-
-        //graph.strokeStyle = 'hsl(' + userCurrent.hue + ', 100%, 45%)';
-        graph.fillStyle = 'hsl(' + userCurrent.hue + ', 100%, 50%)';
-        graph.lineWidth = playerConfig.border;
-        //graph.stroke();
-        graph.fill();
         graph.drawImage(imageObj, circle.x - size, circle.y - size, size * 2, size * 2);
         //=======================================================
         // end draw image
