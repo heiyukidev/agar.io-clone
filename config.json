@@ -12,12 +12,13 @@
             "from": 100,
             "to": 150
         },
-        "splitMass": 180
+        "splitMass": 150
     },
-    "gameWidth": 2880,
-    "gameHeight": 2180,
+
+    "gameWidth": 2600,
+    "gameHeight": 2600,
     "adminPass": "DEFAULT",
-    "gameMass": 20000,
+    "gameMass": 15000,
     "maxFood": 80,
     "maxVirus": 8,
     "slowBase": 3.5,
@@ -29,5 +30,5 @@
     "newPlayerInitialPosition": "farthest",
     "massLossRate": 1,
     "minMassLoss": 50,
-    "mergeTimer": 15
+    "mergeTimer": 5
 }
