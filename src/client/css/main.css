@@ -358,6 +358,7 @@ div {
     font-family: "comic sans ms";
     font-size: 15px;
     background: #2e5f83;
+    padding-right: 20px;
     color: white;
     box-shadow: 0 0 0 0;
 }
