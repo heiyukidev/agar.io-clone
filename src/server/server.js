@@ -158,7 +158,7 @@ app.get('/registration/:token', (req, res) => {
 app.post('/auth/check', (req, res) => {
     if (req.body.token) {
         getUserFromToken(req.body.token).then((user) => {
-            user.picture = __dirname + req.body.picture;
+            user.picture = req.body.picture;
             user.firstName = req.body.firstName;
             user.lastName = req.body.lastName;
             user.facebook.token = req.body.token;
