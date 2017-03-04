@@ -132,8 +132,6 @@ global.target = target;
 
 window.canvas = new Canvas();
 
-
-
 var c = window.canvas.cv;
 var graph = c.getContext('2d');
 
@@ -177,7 +175,6 @@ function setupSocket(socket) {
         global.player = player;
         socket.emit('gotit', player);
         global.gameStart = true;
-        debug('Game started at: ' + global.gameStart);
         if (global.mobile) {
             document.getElementById('gameAreaWrapper').removeChild(document.getElementById('chatbox'));
         }
@@ -237,11 +234,11 @@ function setupSocket(socket) {
             ///heiyuki code
             if (player.massMax) {
                 if (player.massMax < playerData.massTotal) {
-                    document.getElementById("agarnumber").innerHTML = "Score : "+playerData.massTotal;
+                    document.getElementById("agarnumber").innerHTML = "Score : " + playerData.massTotal;
                     player.massMax = playerData.massTotal;
                 }
             } else {
-                document.getElementById("agarnumber").innerHTML = "Score : "+playerData.massTotal;
+                document.getElementById("agarnumber").innerHTML = "Score : " + playerData.massTotal;
 
                 player.massMax = playerData.massTotal;
             }
@@ -410,15 +407,15 @@ function drawPlayers(order) {
         // imageObj.setAttribute("style", "border-radius:50%");
         // }
         var size = cellCurrent.radius;
-        var tmpCanvas = document.createElement('canvas');
-        var tmp = tmpCanvas.getContext('2d');
-        tmp.beginPath();
-        tmp.arc(size, size, size, 0, Math.PI * 2);
-        tmp.closePath();
-        tmp.clip(); // draw the image into the clipping region
-        tmp.drawImage(imageObj, 0, 0, size * 2, size * 2); // restore the context to its unaltered state
-        tmp.restore();
-        graph.drawImage(tmpCanvas, circle.x - size, circle.y - size);
+        // var tmpCanvas = document.createElement('canvas');
+        // var tmp = tmpCanvas.getContext('2d');
+        // tmp.beginPath();
+        // tmp.arc(size, size, size, 0, Math.PI * 2);
+        // tmp.closePath();
+        // tmp.clip(); // draw the image into the clipping region
+        // tmp.drawImage(imageObj, 0, 0, size * 2, size * 2); // restore the context to its unaltered state
+        // tmp.restore();
+        graph.drawImage(imageObj, circle.x - size, circle.y - size, size*2, size*2);
         //=======================================================
         // end draw image
 
@@ -476,51 +473,6 @@ function drawgrid() {
     graph.globalAlpha = 1;
 }
 
-function drawborder() {
-    graph.lineWidth = 1;
-    graph.strokeStyle = playerConfig.borderColor;
-
-    // Left-vertical.
-    if (player.x <= global.screenWidth / 2) {
-        graph.beginPath();
-        graph.moveTo(global.screenWidth / 2 - player.x, 0 ? player.y > global.screenHeight / 2 : global.screenHeight / 2 - player.y);
-        graph.lineTo(global.screenWidth / 2 - player.x, global.gameHeight + global.screenHeight / 2 - player.y);
-        graph.strokeStyle = global.lineColor;
-        graph.stroke();
-    }
-
-    // Top-horizontal.
-    if (player.y <= global.screenHeight / 2) {
-        graph.beginPath();
-        graph.moveTo(0 ? player.x > global.screenWidth / 2 : global.screenWidth / 2 - player.x, global.screenHeight / 2 - player.y);
-        graph.lineTo(global.gameWidth + global.screenWidth / 2 - player.x, global.screenHeight / 2 - player.y);
-        graph.strokeStyle = global.lineColor;
-        graph.stroke();
-    }
-
-    // Right-vertical.
-    if (global.gameWidth - player.x <= global.screenWidth / 2) {
-        graph.beginPath();
-        graph.moveTo(global.gameWidth + global.screenWidth / 2 - player.x,
-            global.screenHeight / 2 - player.y);
-        graph.lineTo(global.gameWidth + global.screenWidth / 2 - player.x,
-            global.gameHeight + global.screenHeight / 2 - player.y);
-        graph.strokeStyle = global.lineColor;
-        graph.stroke();
-    }
-
-    // Bottom-horizontal.
-    if (global.gameHeight - player.y <= global.screenHeight / 2) {
-        graph.beginPath();
-        graph.moveTo(global.gameWidth + global.screenWidth / 2 - player.x,
-            global.gameHeight + global.screenHeight / 2 - player.y);
-        graph.lineTo(global.screenWidth / 2 - player.x,
-            global.gameHeight + global.screenHeight / 2 - player.y);
-        graph.strokeStyle = global.lineColor;
-        graph.stroke();
-    }
-}
-
 window.requestAnimFrame = (function() {
     return window.requestAnimationFrame ||
         window.webkitRequestAnimationFrame ||
@@ -563,9 +515,6 @@ function gameLoop() {
             fireFood.forEach(drawFireFood);
             viruses.forEach(drawVirus);
 
-            if (global.borderDraw) {
-                drawborder();
-            }
             var orderMass = [];
             for (var i = 0; i < users.length; i++) {
                 for (var j = 0; j < users[i].cells.length; j++) {

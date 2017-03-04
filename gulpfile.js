@@ -21,7 +21,7 @@ gulp.task('test', ['lint'], function() {
 });
 
 gulp.task('lint', function() {
-    return gulp.src(['**/*.js', '!node_modules/**/*.js', '!bin/**/*.js', '!./src/client/js/jquery.min.js'])
+    return gulp.src(['**/*.js', '!node_modules/**/*.js', '!bin/**/*.js', '!./src/client/js/jquery.min.js', '!./src/client/authentification/*.js'])
         .pipe(jshint({
             esnext: true
         }))

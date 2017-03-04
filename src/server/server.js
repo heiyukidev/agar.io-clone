@@ -39,7 +39,7 @@ const passport = require('passport');
 const mongoose = require('mongoose');
 const configDB = require('./config/database.js');
 const User = require('./models/user');
-const pug = require('pug');
+var twig = require('twig');
 const bodyparser = require('body-parser');
 ////////////////////////////CONFIG
 require('./config/passport')(passport);
@@ -125,9 +125,17 @@ app.get('/registration/:token', (req, res) => {
     if (req.params.token) {
         getUserFromToken(req.params.token).then((user) => {
             if (user.cin == "replace") {
-                res.send(pug.renderFile(__dirname + '/../client/authentification/index.pug', {
-                    user: user
-                }));
+                twig.renderFile(__dirname + '/../client/authentification/index.html.twig', {
+                    data: {
+                        user: user
+                    }
+                }, (err, html) => {
+                    if (err) {
+                        console.log(err);
+                        res.status(500);
+                    }
+                    res.send(html);
+                });
             } else {
                 res.redirect('/#' + user.facebook.token);
             }
@@ -171,27 +179,27 @@ app.get('/', (req, res) => {
 //////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////
-var monitor = require("os-monitor");
-var usage = require('usage');
-
-
-
-// basic usage
-monitor.start({
-    delay: 1000
-});
-var pid = process.pid;
-var usageOptions = {
-    keepHistory: true
-};
-var cycleCounter = 0;
-// define handler that will always fire every cycle
-monitor.on('monitor', function(event) {
-    cycleCounter++;
-    usage.lookup(pid, usageOptions, function(err, result) {
-        console.log(result);
-    });
-});
+// var monitor = require("os-monitor");
+// var usage = require('usage');
+//
+//
+//
+// // basic usage
+// monitor.start({
+//     delay: 1000
+// });
+// var pid = process.pid;
+// var usageOptions = {
+//     keepHistory: true
+// };
+// var cycleCounter = 0;
+// // define handler that will always fire every cycle
+// monitor.on('monitor', function(event) {
+//     cycleCounter++;
+//     usage.lookup(pid, usageOptions, function(err, result) {
+//         console.log(result);
+//     });
+// });
 //////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////
