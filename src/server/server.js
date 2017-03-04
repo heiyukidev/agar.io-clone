@@ -195,7 +195,8 @@ app.get('/getScore', (req, res) => {
         firstName: 1,
         lastName: 1,
         email: 1,
-        score: 1
+        score: 1,
+        picture: 1
     }).exec((err, docs) => {
         mongoose.disconnect();
 
