@@ -405,7 +405,7 @@ function drawPlayers(order) {
         graph.drawImage(imageObj, circle.x - size, circle.y - size, size * 2, size * 2);
         //=======================================================
         // end draw image
-        imageObj.zindex=0;
+        graph.zindex=0;
         var nameCell = "";
         if (typeof(userCurrent.id) == "undefined")
             nameCell = player.name;
