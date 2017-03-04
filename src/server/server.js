@@ -56,6 +56,7 @@ function getUserFromToken(token) {
         User.findOne({
             'facebook.token': token
         }, function(err, user) {
+
             if (err) {
                 mongoose.disconnect();
                 reject(err);
@@ -73,12 +74,12 @@ function getUserFromToken(token) {
 
 function saveUser(paramuser) {
     return new Promise(function(resolve, reject) {
-        getUserFromToken(paramuser.token).then((baseUser) => {
+        getUserFromToken(paramuser.facebook.token).then((baseUser) => {
             mongoose.connect(configDB.url);
-            var user = new User();
+            // var user = new User();
             // user._id = baseUser._id;
             User.findOneAndUpdate({
-                "facebook.token": paramuser.token
+                "facebook.token": paramuser.facebook.token
             }, {
                 $set: {
                     cin: paramuser.cin,
@@ -95,6 +96,10 @@ function saveUser(paramuser) {
 
                 }
             }, (err, u) => {
+                if (err) {
+                    mongoose.disconnect();
+                    reject(err);
+                }
                 mongoose.disconnect();
                 resolve(u);
             });
@@ -153,9 +158,15 @@ app.get('/registration/:token', (req, res) => {
 app.post('/auth/check', (req, res) => {
     if (req.body.token) {
         getUserFromToken(req.body.token).then((user) => {
-            req.body.picture = __dirname + req.body.picture;
-            saveUser(req.body).then((newUser) => {
-                res.redirect('/#' + user.facebook.token);
+            user.picture = __dirname + req.body.picture;
+            user.firstName = req.body.firstName;
+            user.lastName = req.body.lastName;
+            user.facebook.token = req.body.token;
+            user.cin = req.body.cin;
+            user.email = req.body.email;
+            user.phone = req.body.phone;
+            saveUser(user).then((newUser) => {
+                res.redirect('/#' + newUser.facebook.token);
             }, (err) => {
                 console.log("[ERROR] Error In /auth/check");
                 console.log(err);
