@@ -209,7 +209,7 @@ module.exports = function(passport) {
                             } else {
                                 newUser.email = "";
                             }
-
+                            newUser.score = 0;
                             newUser.cin = "replace";
                             newUser.picture = "replace";
                             newUser.phone = "replace";

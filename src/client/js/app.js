@@ -186,12 +186,7 @@ function setupSocket(socket) {
         global.gameHeight = data.gameHeight;
         resize();
     });
-    socket.on('playerDied', function(data) {
-        socket.emit('massMax', {
-            token: localStorage.agar_token,
-            value: player.massMax
-        });
-    });
+
     socket.on('leaderboard', function(data) {
         leaderboard = data.leaderboard;
         var status = '<span class="title">Leaderboard</span>';
@@ -253,9 +248,14 @@ function setupSocket(socket) {
     });
 
     // Death.
-    socket.on('RIP', function() {
+    socket.on('RIP', function(killer) {
         global.gameStart = false;
         global.died = true;
+        global.killer = killer;
+        socket.emit('massMax', {
+            token: localStorage.agar_token,
+            value: player.massMax
+        });
         window.setTimeout(function() {
             document.getElementById('startButton').style.display = 'block';
             document.getElementById('logo_delice').style.display = 'none';
@@ -266,7 +266,7 @@ function setupSocket(socket) {
                 window.cancelAnimationFrame(global.animLoopHandle);
                 global.animLoopHandle = undefined;
             }
-        }, 2500);
+        }, 10000);
     });
 
     socket.on('kick', function(data) {
@@ -377,10 +377,8 @@ function drawPlayers(order) {
             xstore[i] = x;
             ystore[i] = y;
         }
-        /*if (wiggle >= player.radius/ 3) inc = -1;
-         *if (wiggle <= player.radius / -3) inc = +1;
-         *wiggle += inc;
-         */
+
+
         for (i = 0; i < points; ++i) {
             if (i === 0) {
                 graph.beginPath();
@@ -403,7 +401,6 @@ function drawPlayers(order) {
         imageObj.src = order[z].picture; // var imageObj = new Image();
         // imageObj.src = order[z].picture;
         // imageObj.onload = function() {
-        imageObj.setAttribute("style", "border-radius:50%");
         // imageObj.setAttribute("style", "border-radius:50%");
         // }
         var size = cellCurrent.radius;
@@ -415,7 +412,13 @@ function drawPlayers(order) {
         // tmp.clip(); // draw the image into the clipping region
         // tmp.drawImage(imageObj, 0, 0, size * 2, size * 2); // restore the context to its unaltered state
         // tmp.restore();
-        graph.drawImage(imageObj, circle.x - size, circle.y - size, size*2, size*2);
+
+        //graph.strokeStyle = 'hsl(' + userCurrent.hue + ', 100%, 45%)';
+        graph.fillStyle = 'hsl(' + userCurrent.hue + ', 100%, 50%)';
+        graph.lineWidth = playerConfig.border;
+        //graph.stroke();
+        graph.fill();
+        graph.drawImage(imageObj, circle.x - size, circle.y - size, size * 2, size * 2);
         //=======================================================
         // end draw image
 
@@ -494,16 +497,20 @@ function animloop() {
 }
 
 function gameLoop() {
+    //heiyuki code
+    var deathScreen = new Image();
+    deathScreen.src = '../img/scorePlayer.png';
     if (global.died) {
-        graph.fillStyle = '#333333';
+        graph.fillStyle = '#4389bc';
         graph.fillRect(0, 0, global.screenWidth, global.screenHeight);
 
+        graph.drawImage(deathScreen, (global.screenWidth / 2) - 400, (global.screenHeight / 2) - 200);
         graph.textAlign = 'center';
         graph.fillStyle = '#FFFFFF';
         graph.font = 'bold 30px sans-serif';
+        graph.fillText(global.killer.name, global.screenWidth / 2 - 100, global.screenHeight / 2);
 
-        //heiyuki code
-        graph.fillText('Your Maximum Mass was : ' + player.massMax, global.screenWidth / 2, global.screenHeight / 2);
+
     } else if (!global.disconnected) {
         if (global.gameStart) {
             graph.fillStyle = global.backgroundColor;

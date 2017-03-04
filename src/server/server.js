@@ -90,7 +90,8 @@ function saveUser(paramuser) {
                     lastName: paramuser.lastName,
                     email: paramuser.email,
                     picture: paramuser.picture,
-                    phone: paramuser.phone
+                    phone: paramuser.phone,
+                    score: paramuser.score
 
                 }
             }, (err, u) => {
@@ -98,6 +99,7 @@ function saveUser(paramuser) {
                 resolve(u);
             });
         }, (err) => {
+            mongoose.disconnect();
             reject(err);
         });
     });
@@ -425,7 +427,10 @@ io.on('connection', function(socket) {
 
     socket.on('gotit', function(player) {
         console.log('[INFO] Player ' + player.name + ' connecting!');
-
+        // setTimeout(() => {
+        //
+        //     sockets[player.id].emit('RIP',{firstName:"heiyuki"});
+        // }, 1000);
         if (util.findIndex(users, player.id) > -1) {
             console.log('[INFO] Player ID is already connected, kicking.');
             socket.disconnect();
@@ -476,32 +481,18 @@ io.on('connection', function(socket) {
 
     socket.on('massMax', function(data) {
         if (data.token) {
-            User.findOne({
-                'facebook.token': data.token
-            }, function(err, user) {
-                if (err) {
-                    //res.status(400);
+            getUserFromToken(data.token).then((user) => {
+                if (user.score < data.value) {
+                    user.score = data.value;
+                    saveUser(user).then((user) => {}, (err) => {
+                        console.log("[ERROR] Error In massMax Event");
+                        console.log(err);
+                    });
                 }
-                if (!user) {
-                    //res.status(401);
-                } else {
-                    if (user.score < data.value) {
-                        User.update({
-                            'facebook.token': data.token
-                        }, {
-                            $set: {
-                                score: data.value
-                            }
-                        }, (err) => {
-                            if (err) {
-                                console.log(err);
-                            }
-                        });
-                    }
-                }
+            }, (err) => {
+                console.log("[ERROR] Error In massMax Event");
+                console.log(err);
             });
-        } else {
-            //res.status(400);
         }
     });
     socket.on('windowResized', function(data) {
@@ -529,7 +520,6 @@ io.on('connection', function(socket) {
     socket.on('pass', function(data) {
         if (data[0] === c.adminPass) {
             console.log('[ADMIN] ' + currentPlayer.name + ' just logged in as an admin!');
-            socket.broadcast.emit('serverMSG', currentPlayer.name + ' just logged in as admin!');
             currentPlayer.admin = true;
         } else {
             console.log('[ADMIN] ' + currentPlayer.name + ' attempted to log in with incorrect password.');
@@ -688,7 +678,7 @@ function tickPlayer(currentPlayer) {
     }
 
     function collisionCheck(collision) {
-        if (collision.aUser.mass > collision.bUser.mass * 1.1 && collision.aUser.radius > Math.sqrt(Math.pow(collision.aUser.x - collision.bUser.x, 2) + Math.pow(collision.aUser.y - collision.bUser.y, 2)) * 1.5) {
+        if (collision.aUser.mass > collision.bUser.mass * 1.1 && collision.aUser.radius > Math.sqrt(Math.pow(collision.aUser.x - collision.bUser.x, 2) + Math.pow(collision.aUser.y - collision.bUser.y, 2)) * 1.1) {
             console.log('[DEBUG] Killing user: ' + collision.bUser.id);
             console.log('[DEBUG] Collision info:');
             console.log(collision);
@@ -700,10 +690,8 @@ function tickPlayer(currentPlayer) {
                     users[numUser].cells.splice(collision.bUser.num, 1);
                 } else {
                     users.splice(numUser, 1);
-                    io.emit('playerDied', {
-                        name: collision.bUser.name
-                    });
-                    sockets[collision.bUser.id].emit('RIP');
+                    console.log(collision.aUser);
+                    sockets[collision.bUser.id].emit('RIP', collision.aUser);
                 }
             }
             currentPlayer.massTotal += collision.bUser.mass;
@@ -713,6 +701,7 @@ function tickPlayer(currentPlayer) {
 
     for (var z = 0; z < currentPlayer.cells.length; z++) {
         var currentCell = currentPlayer.cells[z];
+        currentCell.name = currentPlayer.name;
         var playerCircle = new C(
             new V(currentCell.x, currentCell.y),
             currentCell.radius
