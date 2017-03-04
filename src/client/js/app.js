@@ -507,8 +507,14 @@ function gameLoop() {
         graph.drawImage(deathScreen, (global.screenWidth / 2) - 400, (global.screenHeight / 2) - 200);
         graph.textAlign = 'center';
         graph.fillStyle = '#FFFFFF';
-        graph.font = 'bold 30px sans-serif';
-        graph.fillText(global.killer.name, global.screenWidth / 2 - 100, global.screenHeight / 2);
+        graph.font = 'bold 18px sans-serif';
+        var me = JSON.parse(localStorage.agar_user);
+        graph.fillText(me.firstName + " " + me.lastName, global.screenWidth / 2 - 100, global.screenHeight / 2);
+
+        // graph.textAlign = 'center';
+        // graph.fillStyle = '#FFFFFF';
+        graph.font = 'bold 16px sans-serif';
+        graph.fillText(global.killer.name, global.screenWidth / 2 - 60, global.screenHeight / 2 + 100);
 
 
     } else if (!global.disconnected) {
