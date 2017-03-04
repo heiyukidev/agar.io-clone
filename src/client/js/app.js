@@ -460,7 +460,7 @@ function valueInRange(min, max, value) {
 function drawgrid() {
     graph.lineWidth = 1;
     graph.strokeStyle = global.lineColor;
-    graph.globalAlpha = 0.4;
+    graph.globalAlpha = 0.2;
     graph.beginPath();
 
     for (var x = global.xoffset - player.x; x < global.screenWidth; x += global.screenHeight / 18) {
