@@ -9,6 +9,7 @@
     <!-- CSS -->
     <link rel="stylesheet" href="./css/main.css" />
     <link rel="stylesheet" href="./lib/sidr/dist/stylesheets/jquery.sidr.light.min.css">
+    <link rel="stylesheet" href="./lib/jquery-modal/jquery.modal.min.css" type="text/css" media="screen" />
 </head>
 <!-- Audio -->
 <audio id="split_cell" src="audio/split.mp3"></audio>
@@ -52,12 +53,13 @@
         </div>
     </div>
     <!-- JS -->
+    <!-- SIDR Menu -->
     <a id="simple-menu" href="#sidr" style="position:fixed;z-index:9999;top:24px;left:24px;"><img src="./img/menu.png" /></a>
 
     <div id="sidr">
         <!-- Your content -->
         <ul>
-            <li><a href="#">Comment jouer ?</a></li>
+            <li><a href="#hello" rel="modal:open">Comment jouer ?</a></li>
             <li class="active"><a href="#">Classement</a></li>
             <li><a href="#">Cadeaux</a></li>
         </ul>
@@ -72,6 +74,12 @@
             $.sidr('close', 'sidr');
         });
     </script>
+    <!-- MODAL-->
+
+    <!-- <form id="hello" class="modal">
+        hello lady are you single?
+    </form> -->
+    <script src="./lib/jquery-modal/jquery.modal.min.js" type="text/javascript" charset="utf-8"></script>
     <script src="./js/bundle.min.js"></script>
 </body>
 

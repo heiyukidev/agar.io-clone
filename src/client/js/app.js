@@ -498,8 +498,13 @@ function animloop() {
 
 function gameLoop() {
     //heiyuki code
+    var me = JSON.parse(localStorage.agar_user);
+
     var deathScreen = new Image();
+    var avatar = new Image();
+
     deathScreen.src = '../img/scorePlayer.png';
+    avatar.src = me.picture;
     if (global.died) {
         graph.fillStyle = '#4389bc';
         graph.fillRect(0, 0, global.screenWidth, global.screenHeight);
@@ -508,14 +513,12 @@ function gameLoop() {
         graph.textAlign = 'center';
         graph.fillStyle = '#FFFFFF';
         graph.font = 'bold 18px sans-serif';
-        var me = JSON.parse(localStorage.agar_user);
-        graph.fillText(me.firstName + " " + me.lastName, global.screenWidth / 2 - 100, global.screenHeight / 2);
-
+        graph.fillText(me.firstName + " " + me.lastName, (global.screenWidth / 2) - 90, (global.screenHeight / 2) - 10);
+        graph.drawImage(avatar, global.screenWidth / 2 - 230, (global.screenHeight / 2) - 42, 42, 42);
         // graph.textAlign = 'center';
         // graph.fillStyle = '#FFFFFF';
-        graph.font = 'bold 16px sans-serif';
-        graph.fillText(global.killer.name, global.screenWidth / 2 - 60, global.screenHeight / 2 + 100);
-
+        graph.font = 'bold 15px sans-serif';
+        graph.fillText(global.killer.name, (global.screenWidth / 2) - 60, global.screenHeight / 2 + 120);
 
     } else if (!global.disconnected) {
         if (global.gameStart) {
