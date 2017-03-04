@@ -504,7 +504,6 @@ io.on('connection', function(socket) {
         if (util.findIndex(users, currentPlayer.id) > -1)
             users.splice(util.findIndex(users, currentPlayer.id), 1);
         socket.emit('welcome', currentPlayer);
-socket.emit('RIP', currentPlayer);
         console.log('[INFO] User ' + currentPlayer.name + ' respawned!');
     });
 

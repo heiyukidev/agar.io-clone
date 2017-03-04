@@ -7,9 +7,9 @@
     <title>Agar.IO Clone</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
     <!-- CSS -->
-    <link rel="stylesheet" href="./css/main.css" />
     <link rel="stylesheet" href="./lib/sidr/dist/stylesheets/jquery.sidr.light.min.css">
     <link rel="stylesheet" href="./lib/jquery-modal/jquery.modal.min.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="./css/main.css" />
 </head>
 <!-- Audio -->
 <audio id="split_cell" src="audio/split.mp3"></audio>
@@ -52,6 +52,20 @@
             </div> -->
         </div>
     </div>
+
+
+    <form hidden id="howto" class="modal:open" style="max-width: 800px;">
+        <img src="./img/Instruction.png">
+    </form>
+    <form hidden id="classement" class="modal:open" style="max-width: 800px;">
+        <img src="./img/general.png">
+    </form>
+    <form hidden id="semaine" class="modal:open" style="max-width: 800px;">
+        <img src="./img/semaine.png">
+    </form>
+    <form hidden id="cadeaux" class="modal:open" style="max-width: 1000px;">
+        <img src="./img/Cadeau.png">
+    </form>
     <!-- JS -->
     <!-- SIDR Menu -->
     <a id="simple-menu" href="#sidr" style="position:fixed;z-index:9999;top:24px;left:24px;"><img src="./img/menu.png" /></a>
@@ -59,13 +73,15 @@
     <div id="sidr">
         <!-- Your content -->
         <ul>
-            <li><a href="#hello" rel="modal:open">Comment jouer ?</a></li>
-            <li class="active"><a href="#">Classement</a></li>
-            <li><a href="#">Cadeaux</a></li>
+            <li><a href="#howto" rel="modal:open">Comment jouer ?</a></li>
+            <li><a href="#classement" rel="modal:open">General</a></li>
+            <li><a href="#semaine" rel="modal:open">Semaine</a></li>
+            <li><a href="#cadeaux" rel="modal:open">Cadeaux</a></li>
         </ul>
     </div>
     <script src="./lib/jquery/dist/jquery.min.js"></script>
     <script src="./lib/sidr/dist/jquery.sidr.min.js"></script>
+    <script src="./lib/jquery-modal/jquery.modal.min.js" type="text/javascript" charset="utf-8"></script>
     <script>
         $(document).ready(function() {
             $('#simple-menu').sidr();
@@ -76,10 +92,7 @@
     </script>
     <!-- MODAL-->
 
-    <form id="hello" class="modal">
-        hello lady are you single?
-    </form>
-    <script src="./lib/jquery-modal/jquery.modal.min.js" type="text/javascript" charset="utf-8"></script>
+
     <script src="./js/bundle.min.js"></script>
 </body>
 

@@ -272,6 +272,41 @@ div {
     opacity: 0;
 }
 
+.modal {
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+  z-index: 2;
+  max-width: 700px;
+  box-sizing: border-box;
+  width: 90%;
+  background: transparent;
+  padding: 15px 30px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -o-border-radius: 8px;
+  -ms-border-radius: 8px;
+  border-radius: 10px;
+  -webkit-box-shadow: 0 0 0px #000;
+  -moz-box-shadow: 0 0 0px #000;
+  -o-box-shadow: 0 0 0px #000;
+  -ms-box-shadow: 0 0 0px #000;
+  box-shadow: 0px;
+  text-align: left;
+}
+
+.modal a.close-modal {
+  position: absolute;
+  display: block;
+  width: 96px;
+  height: 96px;
+  text-indent: -9999px;
+  background: url("../img/cross.png") no-repeat 0 0;
+}
+
+
+
+
 @media only screen and (min-width: 1224px) {
     #mobile {
         display: none;
