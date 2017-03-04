@@ -460,15 +460,15 @@ function valueInRange(min, max, value) {
 function drawgrid() {
     graph.lineWidth = 1;
     graph.strokeStyle = global.lineColor;
-    graph.globalAlpha = 0.15;
+    graph.globalAlpha = 0.6;
     graph.beginPath();
 
-    for (var x = global.xoffset - player.x; x < global.screenWidth; x += global.screenHeight / 18) {
+    for (var x = global.xoffset - player.x; x < global.screenWidth; x += global.screenHeight / 16) {
         graph.moveTo(x, 0);
-        graph.lineTo(x, global.screenHeight);
+        graph.lineTo(x, global.screenHeight/1.2);
     }
 
-    for (var y = global.yoffset - player.y; y < global.screenHeight; y += global.screenHeight / 18) {
+    for (var y = global.yoffset - player.y; y < global.screenHeight; y += global.screenHeight / 16) {
         graph.moveTo(0, y);
         graph.lineTo(global.screenWidth, y);
     }
@@ -483,7 +483,7 @@ window.requestAnimFrame = (function() {
         window.mozRequestAnimationFrame ||
         window.msRequestAnimationFrame ||
         function(callback) {
-            window.setTimeout(callback, 1000 / 60);
+            window.setTimeout(callback, 1000 / 50);
         };
 })();
 
@@ -526,7 +526,7 @@ function gameLoop() {
             graph.fillStyle = global.backgroundColor;
             graph.fillRect(0, 0, global.screenWidth, global.screenHeight);
 
-            //drawgrid();
+            drawgrid();
 
             foods.forEach(drawFood);
             fireFood.forEach(drawFireFood);
