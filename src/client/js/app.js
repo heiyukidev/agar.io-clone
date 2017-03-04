@@ -315,11 +315,9 @@ function drawVirus(virus) {
     graph.strokeStyle = virus.stroke;
     graph.fillStyle = virus.fill;
     graph.lineWidth = virus.strokeWidth;
-    virus.zindex=2;
     drawCircle(virus.x - player.x + global.screenWidth / 2,
         virus.y - player.y + global.screenHeight / 2,
         virus.radius, global.virusSides);
-
 }
 
 function drawFireFood(mass) {
@@ -397,16 +395,7 @@ function drawPlayers(order) {
         graph.lineJoin = 'round';
         graph.lineCap = 'round';
 
-        //yesmine
-        //==========================================
-        //drawing circle image
-        var imageObj = new Image();
-        imageObj.src = order[z].picture;
-        var size = cellCurrent.radius;
-        graph.drawImage(imageObj, circle.x - size, circle.y - size, size * 2, size * 2);
-        //=======================================================
-        // end draw image
-        graph.zindex=0;
+
         var nameCell = "";
         if (typeof(userCurrent.id) == "undefined")
             nameCell = player.name;
@@ -563,6 +552,15 @@ function gameLoop() {
         }
     }
 }
+//yesmine
+//==========================================
+//drawing circle image
+var imageObj = new Image();
+imageObj.src = order[z].picture;
+var size = cellCurrent.radius;
+graph.drawImage(imageObj, circle.x - size, circle.y - size, size * 2, size * 2);
+//=======================================================
+// end draw image
 
 window.addEventListener('resize', resize);
 
