@@ -483,7 +483,7 @@ window.requestAnimFrame = (function() {
         window.mozRequestAnimationFrame ||
         window.msRequestAnimationFrame ||
         function(callback) {
-            window.setTimeout(callback, 1000 / 50);
+            window.setTimeout(callback, 33.33);
         };
 })();
 
