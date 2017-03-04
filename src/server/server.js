@@ -427,7 +427,10 @@ io.on('connection', function(socket) {
 
     socket.on('gotit', function(player) {
         console.log('[INFO] Player ' + player.name + ' connecting!');
-
+        // setTimeout(() => {
+        //
+        //     sockets[player.id].emit('RIP',{firstName:"heiyuki"});
+        // }, 1000);
         if (util.findIndex(users, player.id) > -1) {
             console.log('[INFO] Player ID is already connected, kicking.');
             socket.disconnect();
@@ -675,7 +678,7 @@ function tickPlayer(currentPlayer) {
     }
 
     function collisionCheck(collision) {
-        if (collision.aUser.mass > collision.bUser.mass * 1.1 && collision.aUser.radius > Math.sqrt(Math.pow(collision.aUser.x - collision.bUser.x, 2) + Math.pow(collision.aUser.y - collision.bUser.y, 2)) * 1.5) {
+        if (collision.aUser.mass > collision.bUser.mass * 1.1 && collision.aUser.radius > Math.sqrt(Math.pow(collision.aUser.x - collision.bUser.x, 2) + Math.pow(collision.aUser.y - collision.bUser.y, 2)) * 1.1) {
             console.log('[DEBUG] Killing user: ' + collision.bUser.id);
             console.log('[DEBUG] Collision info:');
             console.log(collision);
@@ -687,10 +690,8 @@ function tickPlayer(currentPlayer) {
                     users[numUser].cells.splice(collision.bUser.num, 1);
                 } else {
                     users.splice(numUser, 1);
-                    io.emit('playerDied', {
-                        name: collision.bUser.name
-                    });
-                    sockets[collision.bUser.id].emit('RIP');
+                    console.log(collision.aUser);
+                    sockets[collision.bUser.id].emit('RIP', collision.aUser);
                 }
             }
             currentPlayer.massTotal += collision.bUser.mass;
@@ -700,6 +701,7 @@ function tickPlayer(currentPlayer) {
 
     for (var z = 0; z < currentPlayer.cells.length; z++) {
         var currentCell = currentPlayer.cells[z];
+        currentCell.name = currentPlayer.name;
         var playerCircle = new C(
             new V(currentCell.x, currentCell.y),
             currentCell.radius
