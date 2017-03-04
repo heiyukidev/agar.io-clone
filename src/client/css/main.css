@@ -50,13 +50,15 @@ div {
 #status {
     position: absolute;
     padding: 10px;
-    background: rgba(0, 0, 0, 0.4);
-    color: #FFF;
+    background: rgba(0, 87, 178, 0.70);
+    padding: 0px 40px 0px 40px;
+    color: #FFFFFF;
     font-size: 16.1px;
-    top: 8px;
-    right: 10px;
+    top: 25px;
+    right: 0px;
     font-weight: bold;
     text-align: center;
+    border-radius: 80px 0px 0px 80px;
 }
 
 #status .title {
@@ -64,7 +66,7 @@ div {
 }
 
 #status .me {
-    color: #FF8888;
+    color: #FFFFFF;
     font-size: 16.1px;
 }
 
@@ -204,6 +206,7 @@ div {
     outline: none;
     -webkit-box-shadow: none;
     box-shadow: none;
+      cursor: pointer;
 }
 
 #logoutButton {
@@ -227,6 +230,7 @@ div {
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     margin-bottom: 10px;
+      cursor: pointer;
 }
 
 #logoutButton:active, #logoutButton:hover {
@@ -235,6 +239,7 @@ div {
     outline: none;
     -webkit-box-shadow: none;
     box-shadow: none;
+    cursor: pointer;
 }
 
 #startMenuWrapper {
@@ -332,6 +337,7 @@ div {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
+    cursor: pointer;
 }
 
 .textAdjust {
