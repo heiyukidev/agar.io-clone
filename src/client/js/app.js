@@ -463,12 +463,12 @@ function drawgrid() {
     graph.globalAlpha = 0.4;
     graph.beginPath();
 
-    for (var x = global.xoffset - player.x; x < global.screenWidth; x += global.screenHeight / 16) {
+    for (var x = global.xoffset - player.x; x < global.screenWidth; x += global.screenHeight / 18) {
         graph.moveTo(x, 0);
         graph.lineTo(x, global.screenHeight);
     }
 
-    for (var y = global.yoffset - player.y; y < global.screenHeight; y += global.screenHeight / 16) {
+    for (var y = global.yoffset - player.y; y < global.screenHeight; y += global.screenHeight / 18) {
         graph.moveTo(0, y);
         graph.lineTo(global.screenWidth, y);
     }
@@ -483,7 +483,7 @@ window.requestAnimFrame = (function() {
         window.mozRequestAnimationFrame ||
         window.msRequestAnimationFrame ||
         function(callback) {
-            window.setTimeout(callback, 1000 / 60);
+            window.setTimeout(callback, 1000 / 80);
         };
 })();
 
