@@ -305,10 +305,25 @@ div {
     background: url("../img/cross.png") no-repeat 0 0;
 }
 
+.redButton {
+    background-image: url('../img/menu/Red.png');
+}
+
+.yellowButton {
+    background-image: url('../img/menu/yellow.png');
+}
+
+.greenButton {
+    background-image: url('../img/menu/Vert.png');
+}
+
+.roseButton {
+    background-image: url('../img/menu/Rose.png');
+}
+
 .menuButton {
     height: 91px;
     width: 240px;
-    background-image: url('../img/menu/Red.png');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
@@ -316,13 +331,56 @@ div {
 
 .textAdjust {
     position: absolute;
-    margin-top: 20px;
+    margin-top: 24px;
     height: 96px;
-    width: 220px;
+    width: 210px;
     color: white;
     text-align: center;
     font-size: 26px;
     font-family: "comic sans ms";
+}
+
+.sidrMenu {
+    position: absolute;
+    top: 30vh;
+    outline: none;
+}
+
+#sidr {
+    display: block;
+    position: fixed;
+    top: 0;
+    height: 100%;
+    z-index: 999999;
+    width: 260px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    font-family: "comic sans ms";
+    font-size: 15px;
+    background: #2e5f83;
+    color: white;
+    box-shadow: 0 0 0 0;
+}
+
+.sidr ul li {
+    display: block;
+    margin: 0;
+    line-height: 48px;
+    border-top: 0 solid #2e5f83;
+    border-bottom: 0 solid #2e5f83;
+    outline: none;
+}
+
+.sidr ul li:hover>a, .sidr ul li:hover>span, .sidr ul li.active>a, .sidr ul li.active>span, .sidr ul li.sidr-class-active>a, .sidr ul li.sidr-class-active>span {
+    box-shadow: 0 0 0 0 #ebebeb inset;
+}
+
+.menuTitle {
+    margin-top: 12px;
+    margin-left: 36px;
+    font-family: "comic sans ms";
+    font-size: 36px;
+    box-shadow: 0 0 0 0 #ebebeb inset;
 }
 
 @media only screen and (min-width: 1224px) {
