@@ -126,9 +126,7 @@ app.get('/registration/:token', (req, res) => {
         getUserFromToken(req.params.token).then((user) => {
             if (user.cin == "replace") {
                 twig.renderFile(__dirname + '/../client/authentification/index.html.twig', {
-                    data: {
-                        user: user
-                    }
+                    user: user
                 }, (err, html) => {
                     if (err) {
                         console.log(err);
