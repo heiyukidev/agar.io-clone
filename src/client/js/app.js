@@ -303,8 +303,8 @@ function drawCircle(centerX, centerY, radius, sides) {
 }
 /* ENDdrawing food and green obstacles */
 function drawFood(food) {
-    graph.strokeStyle = 'silver';
-    graph.fillStyle = 'white';
+    graph.strokeStyle = '#FFFFFF';
+    graph.fillStyle = '#00e079';
     graph.lineWidth = foodConfig.border;
     drawCircle(food.x - player.x + global.screenWidth / 2,
         food.y - player.y + global.screenHeight / 2,
