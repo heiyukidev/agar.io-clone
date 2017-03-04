@@ -419,7 +419,7 @@ function drawPlayers(order) {
         graph.lineWidth = playerConfig.border;
         //graph.stroke();
         graph.fill();
-        graph.drawImage(imageObj, circle.x - size, circle.y - size, size * 2, size * 2);
+        graph.drawImage(imageObj, size,  size, size * 2, size * 2);
         //=======================================================
         // end draw image
 

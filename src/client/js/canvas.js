@@ -134,7 +134,7 @@ class Canvas {
     }
 
     // Chat command callback functions.
-    keyInput(event) {
+    /*keyInput(event) {
     	var key = event.which || event.keyCode;
     	if (key === global.KEY_FIREFOOD && this.parent.reenviar) {
             this.parent.socket.emit('1');
@@ -148,7 +148,7 @@ class Canvas {
         else if (key === global.KEY_CHAT) {
             document.getElementById('chatInput').focus();
         }
-    }
+    }*/
 
 }
 
