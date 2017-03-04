@@ -526,7 +526,7 @@ function gameLoop() {
             graph.fillStyle = global.backgroundColor;
             graph.fillRect(0, 0, global.screenWidth, global.screenHeight);
 
-            drawgrid();
+            //drawgrid();
 
             foods.forEach(drawFood);
             fireFood.forEach(drawFireFood);
