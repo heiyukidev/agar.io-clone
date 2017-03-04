@@ -465,12 +465,12 @@ function drawgrid() {
 
     for (var x = global.xoffset - player.x; x < global.screenWidth; x += global.screenHeight / 18) {
         graph.moveTo(x, 0);
-        graph.lineTo(x, global.screenHeight/1.2);
+        graph.lineTo(x, global.screenHeight);
     }
 
     for (var y = global.yoffset - player.y; y < global.screenHeight; y += global.screenHeight / 18) {
         graph.moveTo(0, y);
-        graph.lineTo(global.screenWidth/1.2, y);
+        graph.lineTo(global.screenWidth, y);
     }
 
     graph.stroke();
