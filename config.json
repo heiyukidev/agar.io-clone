@@ -5,8 +5,8 @@
     "limitSplit": 16,
     "defaultPlayerMass": 10,
     "virus": {
-        "fill": "#005cf4",
-        "stroke": "#1693ea",
+        "fill": "#1795ff",
+        "stroke": "#e3e3e3",
         "strokeWidth": 20,
         "defaultMass": {
             "from": 100,
