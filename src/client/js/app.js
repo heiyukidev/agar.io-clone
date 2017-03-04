@@ -318,6 +318,7 @@ function drawVirus(virus) {
     drawCircle(virus.x - player.x + global.screenWidth / 2,
         virus.y - player.y + global.screenHeight / 2,
         virus.radius, global.virusSides);
+        virus.zindex=2;
 }
 
 function drawFireFood(mass) {
@@ -404,7 +405,7 @@ function drawPlayers(order) {
         graph.drawImage(imageObj, circle.x - size, circle.y - size, size * 2, size * 2);
         //=======================================================
         // end draw image
-
+        imageObj.zindex=0;
         var nameCell = "";
         if (typeof(userCurrent.id) == "undefined")
             nameCell = player.name;
