@@ -32,9 +32,11 @@ function getUser() {
 if (!localStorage.agar_token) {
     var token = window.location.hash.substr(1);
     if (token) {
-        localStorage.agar_token = token;
-        document.getElementById('startButton').innerHTML = "Play";
-        getUser();
+        if (token.length > 20) {
+            localStorage.agar_token = token;
+            document.getElementById('startButton').innerHTML = "Play";
+            getUser();
+        }
     }
 } else {
     getUser();
