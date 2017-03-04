@@ -315,7 +315,7 @@ function drawVirus(virus) {
     graph.strokeStyle = virus.stroke;
     graph.fillStyle = virus.fill;
     graph.lineWidth = virus.strokeWidth;
-    graph.zindex=2;
+    virus.zindex=2;
     drawCircle(virus.x - player.x + global.screenWidth / 2,
         virus.y - player.y + global.screenHeight / 2,
         virus.radius, global.virusSides);
