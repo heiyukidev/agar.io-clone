@@ -359,12 +359,7 @@ div {
     overflow-y: auto;
     font-family: "comic sans ms";
     font-size: 15px;
-<<<<<<< HEAD
-    background: #2e5f83;
-    padding-right: 20px;
-=======
-    background: url('../img/menu/BigRectangle.png');
->>>>>>> 243a36037718ebed915973777447a29062a8bb8c
+    background: rgba(46, 95, 130, 0.86);
     color: white;
     box-shadow: 0 0 0 0;
 }
