@@ -12,18 +12,18 @@
             "from": 80,
             "to": 120
         },
-        "splitMass": 150
+        "splitMass": 120
     },
 
     "gameWidth": 2300,
-    "gameHeight": 2000,
+    "gameHeight": 2300,
     "adminPass": "DEFAULT",
-    "gameMass": 10000,
+    "gameMass": 9000,
     "maxFood": 80,
     "maxVirus": 8,
-    "slowBase": 3.5,
+    "slowBase": 4,
     "logChat": 0,
-    "networkUpdateFactor": 30,
+    "networkUpdateFactor": 60,
     "maxHeartbeatInterval": 5000,
     "foodUniformDisposition": true,
     "virusUniformDisposition": false,
