@@ -32,6 +32,7 @@
   ],
   "dependencies": {
     "sidr": "^2.2.1",
-    "jquery": "^3.1.1"
+    "jquery": "^3.1.1",
+    "jquery-modal": "^0.8.0"
   }
 }
