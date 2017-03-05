@@ -465,7 +465,7 @@ window.requestAnimFrame = (function() {
         window.mozRequestAnimationFrame ||
         window.msRequestAnimationFrame ||
         function(callback) {
-            window.setTimeout(callback, 33.33);
+            window.setTimeout(callback, 10);
         };
 })();
 
