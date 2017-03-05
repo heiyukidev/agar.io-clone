@@ -50,7 +50,7 @@ exports.uniformPosition = function(points, radius) {
 
     // Generate the cadidates
     for (var ci = 0; ci < numberOfCandidates; ci++) {
-        var minDistance = Infinity;
+        var minDistance = 0;
         var candidate = exports.randomPosition(radius);
         candidate.radius = radius;
 
