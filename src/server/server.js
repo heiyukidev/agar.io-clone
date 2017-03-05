@@ -9,15 +9,11 @@ var SAT = require('sat');
 
 // Import game settings.
 var c = require('../../config.json');
-
 // Import utilities.
 var util = require('./lib/util');
-
 // Import quadtree.
 var quadtree = require('simple-quadtree');
-
 var tree = quadtree(0, 0, c.gameWidth, c.gameHeight);
-
 var users = [];
 var massFood = [];
 var food = [];
@@ -371,7 +367,7 @@ function moveMass(mass) {
         mass.x += deltaX;
     }
 
-    var borderCalc = mass.radius + 5;
+    var borderCalc = mass.radius + 10;
 
     if (mass.x > c.gameWidth - borderCalc) {
         mass.x = c.gameWidth - borderCalc;
@@ -447,7 +443,7 @@ io.on('connection', function(socket) {
         h: c.defaultPlayerMass,
         cells: cells,
         massTotal: massTotal,
-        hue: Math.round(Math.random() * 360),
+        hue: Math.round(Math.random() * 460), //360
         type: type,
         lastHeartbeat: new Date().getTime(),
         target: {
@@ -488,7 +484,7 @@ io.on('connection', function(socket) {
                 player.cells = [];
                 player.massTotal = 0;
             }
-            player.hue = Math.round(Math.random() * 360);
+            player.hue = Math.round(Math.random() * 460);
             currentPlayer = player;
             currentPlayer.lastHeartbeat = new Date().getTime();
             users.push(currentPlayer);
@@ -709,7 +705,7 @@ function tickPlayer(currentPlayer) {
     }
 
     function collisionCheck(collision) {
-        if (collision.aUser.mass > collision.bUser.mass * 1.1 && collision.aUser.radius > Math.sqrt(Math.pow(collision.aUser.x - collision.bUser.x, 2) + Math.pow(collision.aUser.y - collision.bUser.y, 2)) * 1.1) {
+        if (collision.aUser.mass > collision.bUser.mass * 1.5 && collision.aUser.radius > Math.sqrt(Math.pow(collision.aUser.x - collision.bUser.x, 2) + Math.pow(collision.aUser.y - collision.bUser.y, 2)) * 1.5) {
             console.log('[DEBUG] Killing user: ' + collision.bUser.id);
             console.log('[DEBUG] Collision info:');
             console.log(collision);
@@ -772,7 +768,7 @@ function tickPlayer(currentPlayer) {
         }
 
         if (typeof(currentCell.speed) == "undefined")
-            currentCell.speed = 6.25;
+            currentCell.speed = 4.25;//6.25
         masaGanada += (foodEaten.length * c.foodMass);
         currentCell.mass += masaGanada;
         currentPlayer.massTotal += masaGanada;
@@ -828,7 +824,7 @@ function gameloop() {
         }
         for (i = 0; i < users.length; i++) {
             for (var z = 0; z < users[i].cells.length; z++) {
-                if (users[i].cells[z].mass * (1 - (c.massLossRate / 1000)) > c.defaultPlayerMass && users[i].massTotal > c.minMassLoss) {
+                if (users[i].cells[z].mass * (1 - (c.massLossRate / 5000 /*1000*/)) > c.defaultPlayerMass && users[i].massTotal > c.minMassLoss) {
                     var massLoss = users[i].cells[z].mass * (1 - (c.massLossRate / 1000));
                     users[i].massTotal -= users[i].cells[z].mass - massLoss;
                     users[i].cells[z].mass = massLoss;
@@ -932,8 +928,8 @@ function sendUpdates() {
     leaderboardChanged = false;
 }
 
-setInterval(moveloop, 1000 / 60);
-setInterval(gameloop, 1000);
+setInterval(moveloop, 1000 / 120);
+setInterval(gameloop, 1000 /120); //nothin /
 setInterval(sendUpdates, 1000 / c.networkUpdateFactor);
 
 // Don't touch, IP configurations.
