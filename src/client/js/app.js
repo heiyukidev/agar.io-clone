@@ -534,7 +534,7 @@ function gameLoop() {
             socket.emit('0', window.canvas.target); // playerSendTarget "Heartbeat".
 
         } else {
-            graph.fillStyle = '#057cff';
+            graph.fillStyle = '#0096c4';
             graph.fillRect(0, 0, global.screenWidth, global.screenHeight);
 
             graph.textAlign = 'center';
@@ -543,7 +543,7 @@ function gameLoop() {
             graph.fillText('El Koura 3andek!', global.screenWidth / 2, global.screenHeight / 2);
         }
     } else {
-        graph.fillStyle = '#057cff';
+        graph.fillStyle = '#0096c4';
         graph.fillRect(0, 0, global.screenWidth, global.screenHeight);
 
         graph.textAlign = 'center';
