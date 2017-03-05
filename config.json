@@ -23,7 +23,7 @@
     "maxVirus": 7,
     "slowBase": 4,
     "logChat": 0,
-    "networkUpdateFactor": 15,
+    "networkUpdateFactor": 30,
     "maxHeartbeatInterval": 5000,
     "foodUniformDisposition": true,
     "virusUniformDisposition": true,
