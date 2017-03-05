@@ -576,8 +576,8 @@ function resize() {
     }
 
     socket.emit('windowResized', {
-        screenWidth: global.screenWidth,
-        screenHeight: global.screenHeight
+        screenWidth: global.screenWidth*2,
+        screenHeight: global.screenHeight*2
     });
 
 }
