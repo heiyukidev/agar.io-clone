@@ -534,16 +534,16 @@ function gameLoop() {
             socket.emit('0', window.canvas.target); // playerSendTarget "Heartbeat".
 
         } else {
-            graph.fillStyle = '#333333';
+            graph.fillStyle = '#057cff';
             graph.fillRect(0, 0, global.screenWidth, global.screenHeight);
 
             graph.textAlign = 'center';
             graph.fillStyle = '#FFFFFF';
             graph.font = 'bold 30px sans-serif';
-            graph.fillText('Game Over!', global.screenWidth / 2, global.screenHeight / 2);
+            graph.fillText('El Koura 3andek!', global.screenWidth / 2, global.screenHeight / 2);
         }
     } else {
-        graph.fillStyle = '#333333';
+        graph.fillStyle = '#057cff';
         graph.fillRect(0, 0, global.screenWidth, global.screenHeight);
 
         graph.textAlign = 'center';
@@ -551,7 +551,7 @@ function gameLoop() {
         graph.font = 'bold 30px sans-serif';
         if (global.kicked) {
             if (reason !== '') {
-                graph.fillText('You were kicked for:', global.screenWidth / 2, global.screenHeight / 2 - 20);
+                graph.fillText('You should move!:', global.screenWidth / 2, global.screenHeight / 2 - 20);
                 graph.fillText(reason, global.screenWidth / 2, global.screenHeight / 2 + 20);
             } else {
                 graph.fillText('You were kicked!', global.screenWidth / 2, global.screenHeight / 2);
