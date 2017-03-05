@@ -928,8 +928,8 @@ function sendUpdates() {
     leaderboardChanged = false;
 }
 
-setInterval(moveloop, 1000 / 120);
-setInterval(gameloop, 1000 /120); //nothin /
+setInterval(moveloop, 1000 / 30);
+setInterval(gameloop, 1000 / 30);
 setInterval(sendUpdates, 1000 / c.networkUpdateFactor);
 
 // Don't touch, IP configurations.
