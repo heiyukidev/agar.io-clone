@@ -50,7 +50,7 @@ function startGame(type) {
         global.screenWidth = window.innerWidth;
         global.screenHeight = window.innerHeight;
 
-        document.getElementById('logo_delice').style.display = 'flex';
+        document.getElementById('logo_delice').style.display = 'block';
         document.getElementById('startButton').style.display = 'none';
         document.getElementById('startMenuWrapper').style.maxHeight = '0px';
         document.getElementById('gameAreaWrapper').style.opacity = 1;
