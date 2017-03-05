@@ -40,7 +40,7 @@ gulp.task('build-client', ['lint', 'move-client'], function() {
                     'modules': false
                 }]
             ]
-        }))
+        })).pipe(minify())
         .pipe(gulp.dest('bin/client/js/'));
 });
 
