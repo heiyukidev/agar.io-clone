@@ -13,10 +13,12 @@
     <link rel="stylesheet" href="./css/main.css" />
     <style>
 div#load_screen{
-	background: #000;
+  background:-webkit-linear-gradient(#00f6ff 0%, #057bff 100%);
+	background:-moz-linear-gradient(#00f6ff 0%, #057bff 100%);
+	background:-ms-linear-gradient(#00f6ff 0%, #057bff 100%);
 	opacity: 1;
 	position: fixed;
-    z-index:10;
+  z-index:9999999;
 	top: 0px;
 	width: 100%;
 	height: 1600px;
@@ -42,7 +44,7 @@ window.addEventListener("load", function(){
 <div class="loader"></div>
 
 <body>
-  <div id="load_screen"><div id="loading">loading document</div></div>
+  <div id="load_screen"><div id="loading">loading</div></div>
     <div id="gameAreaWrapper">
         <div id="status"><span class="title">Leaderboard</span></div>
         <div class="agarscore" id="agarscore">
