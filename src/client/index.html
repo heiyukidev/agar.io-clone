@@ -6,10 +6,36 @@
     <meta charset="UTF-8">
     <title>El Koura 3andek</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <link rel="icon" href="img/ico.png" type="image/x-icon"/>
     <!-- CSS -->
     <link rel="stylesheet" href="./lib/sidr/dist/stylesheets/jquery.sidr.light.min.css">
     <link rel="stylesheet" href="./lib/jquery-modal/jquery.modal.min.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="./css/main.css" />
+    <style>
+div#load_screen{
+  background:-webkit-linear-gradient(#00d9ff 0%, #527dff 100%);
+	background:-moz-linear-gradient(#00d9ff 0%, #527dff 100%);
+	background:-ms-linear-gradient(#00d9ff 0%, #527dff 100%);
+	opacity: 1;
+	position: fixed;
+  z-index:9999999;
+	top: 0px;
+	width: 100%;
+	height: 1600px;
+}
+div#load_screen > div#loading{
+	color:#FFF;
+	width:120px;
+	height:24px;
+	margin: 300px auto;
+}
+</style>
+<script>
+window.addEventListener("load", function(){
+	var load_screen = document.getElementById("load_screen");
+	document.body.removeChild(load_screen);
+});
+</script>
 </head>
 <!-- Audio -->
 <audio id="split_cell" src="audio/split.mp3"></audio>
@@ -18,6 +44,7 @@
 <div class="loader"></div>
 
 <body>
+  <div id="load_screen"><div id="loading">loading</div></div>
     <div id="gameAreaWrapper">
         <div id="status"><span class="title">Leaderboard</span></div>
         <div class="agarscore" id="agarscore">
