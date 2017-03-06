@@ -690,7 +690,7 @@ io.on('connection', function(socket) {
 
 function tickPlayer(currentPlayer) {
     if (currentPlayer.lastHeartbeat < new Date().getTime() - c.maxHeartbeatInterval) {
-        sockets[currentPlayer.id].emit('kick', 'Last heartbeat received over ' + c.maxHeartbeatInterval + ' ago.');
+        sockets[currentPlayer.id].emit('kick', 'Vous êtes inactif depuis ' + c.maxHeartbeatInterval/1000 + ' seconde.');
         sockets[currentPlayer.id].disconnect();
     }
 
@@ -720,7 +720,7 @@ function tickPlayer(currentPlayer) {
             if (user.cells[i].mass > 10 && user.id !== currentPlayer.id) {
                 var response = new SAT.Response();
                 var collided = SAT.testCircleCircle(playerCircle,
-                    new C(new V(user.cells[i].x, user.cells[i].y), user.cells[i].radius*2.5),
+                    new C(new V(user.cells[i].x, user.cells[i].y), user.cells[i].radius*5),
                     response);
                 if (collided) {
                     response.aUser = currentCell;

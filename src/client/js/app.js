@@ -566,13 +566,13 @@ function gameLoop() {
         graph.font = 'bold 30px sans-serif';
         if (global.kicked) {
             if (reason !== '') {
-                graph.fillText('You should move!:', global.screenWidth / 2, global.screenHeight / 2 - 20);
+                graph.fillText('Vous devez bouger!', global.screenWidth / 2, global.screenHeight / 2 - 20);
                 graph.fillText(reason, global.screenWidth / 2, global.screenHeight / 2 + 20);
             } else {
-                graph.fillText('You were kicked!', global.screenWidth / 2, global.screenHeight / 2);
+                graph.fillText('vous avez été exclu!', global.screenWidth / 2, global.screenHeight / 2);
             }
         } else {
-            graph.fillText('Disconnected!', global.screenWidth / 2, global.screenHeight / 2);
+            graph.fillText('Déconnecte!', global.screenWidth / 2, global.screenHeight / 2);
         }
     }
 }
