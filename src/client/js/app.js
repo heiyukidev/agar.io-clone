@@ -49,6 +49,8 @@ if (!localStorage.agar_token) {
     getUser();
 }
 
+document.getElementById('facebook').style.display = 'none';
+
 function startGame(type) {
     if (localStorage.agar_user && localStorage.agar_token) {
         global.playerName = JSON.parse(localStorage.agar_user).firstName + " " + JSON.parse(localStorage.agar_user).lastName;
@@ -59,6 +61,8 @@ function startGame(type) {
 
         document.getElementById('logo_delice').style.display = 'block';
         document.getElementById('startButton').style.display = 'none';
+
+        document.getElementById('facebook').style.display = 'none';
         document.getElementById('startMenuWrapper').style.maxHeight = '0px';
         document.getElementById('gameAreaWrapper').style.opacity = 1;
         if (!socket) {
@@ -260,12 +264,16 @@ function setupSocket(socket) {
         global.gameStart = false;
         global.died = true;
         global.killer = killer;
+        window.score = player.massMax;
         socket.emit('massMax', {
             token: localStorage.agar_token,
             value: player.massMax
         });
+        document.getElementById('facebook').style.display = 'block';
         window.setTimeout(function() {
             document.getElementById('startButton').style.display = 'block';
+
+            document.getElementById('facebook').style.display = 'none';
             document.getElementById('logo_delice').style.display = 'none';
             document.getElementById('gameAreaWrapper').style.opacity = 0;
             document.getElementById('startMenuWrapper').style.maxHeight = '1000px';

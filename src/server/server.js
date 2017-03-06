@@ -690,7 +690,7 @@ function tickPlayer(currentPlayer) {
             if (user.cells[i].mass > 10 && user.id !== currentPlayer.id) {
                 var response = new SAT.Response();
                 var collided = SAT.testCircleCircle(playerCircle,
-                    new C(new V(user.cells[i].x, user.cells[i].y), user.cells[i].radius),
+                    new C(new V(user.cells[i].x, user.cells[i].y), user.cells[i].radius*2.5),
                     response);
                 if (collided) {
                     response.aUser = currentCell;

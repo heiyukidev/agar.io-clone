@@ -208,7 +208,20 @@ div {
     background: url('../img/jouerClickEffect.png') no-repeat;
     color: silver;
 }
-
+#facebook {
+    background: url('../img/button.png') no-repeat;
+    margin-left: -20px;
+    outline: none;
+    width: 230px;
+    height: 100px;
+    border: none;
+    position: absolute;
+    cursor: pointer;
+    bottom: 48px;
+    left: 45vw;
+    z-index: 0;
+    color: white;
+}
 /*#settingsButton {
     position: relative;
     margin: auto;
