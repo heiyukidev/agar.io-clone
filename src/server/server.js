@@ -722,7 +722,7 @@ function tickPlayer(currentPlayer) {
             if (user.cells[i].mass > 10 && user.id !== currentPlayer.id) {
                 var response = new SAT.Response();
                 var collided = SAT.testCircleCircle(playerCircle,
-                    new C(new V(user.cells[i].x*2, user.cells[i].y*2), user.cells[i].radius * 2),
+                    new C(new V(user.cells[i].x, user.cells[i].y), user.cells[i].radius),
                     response);
                 if (collided) {
                     response.aUser = currentCell;
@@ -742,7 +742,7 @@ function tickPlayer(currentPlayer) {
     }
 
     function collisionCheck(collision) {
-        if (collision.aUser.mass > collision.bUser.mass * 1.1 && collision.aUser.radius > Math.sqrt(Math.pow(collision.aUser.x - collision.bUser.x, 2) + Math.pow(collision.aUser.y - collision.bUser.y, 2)) * 1.1) {
+        if (collision.aUser.mass > collision.bUser.mass * 1.1 && collision.aUser.radius > Math.sqrt(Math.pow(collision.aUser.x - collision.bUser.x, 2) + Math.pow(collision.aUser.y - collision.bUser.y, 2)) * 0.5) {
             console.log('[DEBUG] Killing user: ' + collision.bUser.id);
             console.log('[DEBUG] Collision info:');
             console.log(collision);
