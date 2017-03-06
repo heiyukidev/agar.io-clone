@@ -723,9 +723,6 @@ function tickPlayer(currentPlayer) {
 
                 var collided = (playerCircle.r > Math.sqrt(Math.pow(playerCircle.pos.x - user.cells[i].x, 2) + Math.pow(playerCircle.pos.y - user.cells[i].y, 2)));
                 if (collided) {
-
-                    console.log("math" + Math.sqrt(Math.pow(currentCell.x - user.cells[i].x, 2) + Math.pow(currentCell.y - user.cells[i].y, 2)));
-                    console.log("radius" + currentCell.radius);
                     response.aUser = currentCell;
                     response.bUser = {
                         id: user.id,
@@ -736,7 +733,6 @@ function tickPlayer(currentPlayer) {
                         mass: user.cells[i].mass
                     };
                     playerCollisions.push(response);
-                    console.log("collision");
                 }
             }
         }
