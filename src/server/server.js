@@ -721,10 +721,10 @@ function tickPlayer(currentPlayer) {
         for (var i = 0; i < user.cells.length; i++) {
             if (user.cells[i].mass > 10 && user.id !== currentPlayer.id) {
                 var response = new SAT.Response();
-                var collided = SAT.pointInCircle(new V(user.cells[i].x, user.cells[i].y), playerCircle);
-                // var collided = SAT.testCircleCircle(playerCircle,
-                //     new C(new V(user.cells[i].x, user.cells[i].y), user.cells[i].radius),
-                //     response);
+                //var collided = SAT.pointInCircle(new V(user.cells[i].x, user.cells[i].y), playerCircle);
+                 var collided = SAT.testCircleCircle(playerCircle,
+                 new C(new /*V(user.cells[i].x, user.cells[i].y)*/playerCircle, user.cells[i].radius),
+                     response);
                 if (collided) {
                     response.aUser = currentCell;
                     response.bUser = {
