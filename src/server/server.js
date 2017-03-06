@@ -41,6 +41,36 @@ const configDB = require('./config/database.js');
 const User = require('./models/user');
 var twig = require('twig');
 const bodyparser = require('body-parser');
+const lusca = require('lusca');
+
+////////////////////////////////SECURITY
+var host = "http://localhost:3000/";
+
+app.use((req, res, next) => {
+    res.header("x-powered-by", "Belief");
+    next();
+});
+
+
+var cspParams = {
+    policy: {
+        "default-src": "'self' " + host,
+        "script-src": "'self' https://*.googleapis.com/ http://*.google-analytics.com/ " + host,
+        "style-src": "'self' https://*.googleapis.com/ 'unsafe-inline'",
+        "img-src": "'self' https://*.googleapis.com/ http://*.google-analytics.com/ https://*.gstatic.com/ http://i.imgur.com/M5VeRDH.png http://i.imgur.com/3m8RjR4.png data: " + host,
+        "font-src": "'self' https://*.gstatic.com/ " + host,
+        "connect-src": "'self' https://*.googleapis.com/ " + host,
+        "frame-src": "'self' " + host
+    }
+};
+app.use(lusca.csp(cspParams));
+app.use(lusca.hsts({
+    maxAge: 31536000
+}));
+app.use(lusca.xframe('SAMEORIGIN'));
+app.use(lusca.p3p('ABCDEF'));
+app.use(lusca.xssProtection(true));
+app.use(lusca.nosniff());
 ////////////////////////////CONFIG
 require('./config/passport')(passport);
 app.use(passport.initialize());
