@@ -544,12 +544,14 @@ io.on('connection', function(socket) {
     socket.on('massMax', function(data) {
         if (data.token) {
             getUserFromToken(data.token).then((user) => {
-                if (user.score < data.value) {
-                    user.score = data.value;
-                    saveUser(user).then((user) => {}, (err) => {
-                        console.log("[ERROR] Error In massMax Event");
-                        console.log(err);
-                    });
+                if (user) {
+                    if (user.score < data.value) {
+                        user.score = data.value;
+                        saveUser(user).then((user) => {}, (err) => {
+                            console.log("[ERROR] Error In massMax Event");
+                            console.log(err);
+                        });
+                    }
                 }
             }, (err) => {
                 console.log("[ERROR] Error In massMax Event");
@@ -690,7 +692,7 @@ io.on('connection', function(socket) {
 
 function tickPlayer(currentPlayer) {
     if (currentPlayer.lastHeartbeat < new Date().getTime() - c.maxHeartbeatInterval) {
-        sockets[currentPlayer.id].emit('kick', 'Vous êtes inactif depuis ' + c.maxHeartbeatInterval/1000 + ' seconde.');
+        sockets[currentPlayer.id].emit('kick', 'Vous êtes inactif depuis ' + c.maxHeartbeatInterval / 1000 + ' seconde.');
         sockets[currentPlayer.id].disconnect();
     }
 
@@ -720,7 +722,7 @@ function tickPlayer(currentPlayer) {
             if (user.cells[i].mass > 10 && user.id !== currentPlayer.id) {
                 var response = new SAT.Response();
                 var collided = SAT.testCircleCircle(playerCircle,
-                    new C(new V(user.cells[i].x, user.cells[i].y), user.cells[i].radius/2),
+                    new C(new V(user.cells[i].x, user.cells[i].y), user.cells[i].radius * 2),
                     response);
                 if (collided) {
                     response.aUser = currentCell;
@@ -766,7 +768,7 @@ function tickPlayer(currentPlayer) {
         currentCell.name = currentPlayer.name;
         var playerCircle = new C(
             new V(currentCell.x, currentCell.y),
-            currentCell.radius
+            currentCell.radius*2
         );
 
         var foodEaten = food.map(funcFood)
