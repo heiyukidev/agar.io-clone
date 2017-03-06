@@ -723,7 +723,7 @@ function tickPlayer(currentPlayer) {
                 var response = new SAT.Response();
                 //var collided = SAT.pointInCircle(new V(user.cells[i].x, user.cells[i].y), playerCircle);
                  var collided = SAT.testCircleCircle(playerCircle,
-                 new C(new /*V(user.cells[i].x, user.cells[i].y)*/playerCircle, user.cells[i].radius),
+                 new C(/*new V(user.cells[i].x, user.cells[i].y)*/playerCircle, user.cells[i].radius),
                      response);
                 if (collided) {
                     response.aUser = currentCell;
