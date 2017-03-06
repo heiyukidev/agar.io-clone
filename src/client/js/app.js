@@ -54,10 +54,9 @@ function startGame(type) {
         global.playerName = JSON.parse(localStorage.agar_user).firstName + " " + JSON.parse(localStorage.agar_user).lastName;
         global.playerType = type;
 
-        // global.screenWidth = window.innerWidth;
-        // global.screenHeight = window.innerHeight;
-        global.screenWidth = 1024;
-        global.screenHeight = 768;
+        global.screenWidth = window.innerWidth;
+        global.screenHeight = window.innerHeight;
+
         document.getElementById('logo_delice').style.display = 'block';
         document.getElementById('startButton').style.display = 'none';
         document.getElementById('startMenuWrapper').style.maxHeight = '0px';
@@ -193,7 +192,7 @@ function setupSocket(socket) {
     socket.on('gameSetup', function(data) {
         global.gameWidth = data.gameWidth;
         global.gameHeight = data.gameHeight;
-        // resize();
+        resize();
     });
 
     socket.on('leaderboard', function(data) {
@@ -570,22 +569,22 @@ function gameLoop() {
     }
 }
 
-// window.addEventListener('resize', resize);
-//
-// function resize() {
-//     if (!socket) return;
-//
-//     player.screenWidth = c.width = global.screenWidth = global.playerType == 'player' ? window.innerWidth : global.gameWidth;
-//     player.screenHeight = c.height = global.screenHeight = global.playerType == 'player' ? window.innerHeight : global.gameHeight;
-//
-//     if (global.playerType == 'spectate') {
-//         player.x = global.gameWidth / 2;
-//         player.y = global.gameHeight / 2;
-//     }
-//
-//     socket.emit('windowResized', {
-//         screenWidth: global.screenWidth * 2,
-//         screenHeight: global.screenHeight * 2
-//     });
-//
-// }
+window.addEventListener('resize', resize);
+
+function resize() {
+    if (!socket) return;
+
+    player.screenWidth = c.width = global.screenWidth = global.playerType == 'player' ? window.innerWidth : global.gameWidth;
+    player.screenHeight = c.height = global.screenHeight = global.playerType == 'player' ? window.innerHeight : global.gameHeight;
+
+    if (global.playerType == 'spectate') {
+        player.x = global.gameWidth / 2;
+        player.y = global.gameHeight / 2;
+    }
+
+    socket.emit('windowResized', {
+        screenWidth: global.screenWidth * 2,
+        screenHeight: global.screenHeight * 2
+    });
+
+}

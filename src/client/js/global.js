@@ -17,8 +17,8 @@ module.exports = {
     virusSides: 20,
 
     // Canvas
-    screenWidth: 1024,
-    screenHeight: 768,
+    screenWidth: window.innerWidth,
+    screenHeight: window.innerWidth,
     gameWidth: 0,
     gameHeight: 0,
     xoffset: -0,
