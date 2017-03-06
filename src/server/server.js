@@ -236,27 +236,27 @@ app.get('/getScore', (req, res) => {
 //////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////
-// var monitor = require("os-monitor");
-// var usage = require('usage');
-//
-//
-//
-// // basic usage
-// monitor.start({
-//     delay: 1000
-// });
-// var pid = process.pid;
-// var usageOptions = {
-//     keepHistory: true
-// };
-// var cycleCounter = 0;
-// // define handler that will always fire every cycle
-// monitor.on('monitor', function(event) {
-//     cycleCounter++;
-//     usage.lookup(pid, usageOptions, function(err, result) {
-//         console.log(result);
-//     });
-// });
+var monitor = require("os-monitor");
+var usage = require('usage');
+
+
+
+// basic usage
+monitor.start({
+    delay: 1000
+});
+var pid = process.pid;
+var usageOptions = {
+    keepHistory: true
+};
+var cycleCounter = 0;
+// define handler that will always fire every cycle
+monitor.on('monitor', function(event) {
+    cycleCounter++;
+    usage.lookup(pid, usageOptions, function(err, result) {
+        console.log(result);
+    });
+});
 //////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////
