@@ -49,7 +49,7 @@ if (!localStorage.agar_token) {
     getUser();
 }
 
-document.getElementById('facebook').style.display = 'none';
+// document.getElementById('facebook').style.display = 'none';
 
 function startGame(type) {
     if (localStorage.agar_user && localStorage.agar_token) {
@@ -282,7 +282,7 @@ function setupSocket(socket) {
                 window.cancelAnimationFrame(global.animLoopHandle);
                 global.animLoopHandle = undefined;
             }
-        }, 10000);
+        }, 3000);
     });
 
     socket.on('kick', function(data) {
