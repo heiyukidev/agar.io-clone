@@ -149,8 +149,8 @@ div {
     cursor: pointer;
 }
 
-#startButton, #spectateButton {
-    background: url('../img/button.png') no-repeat;
+.startButton {
+    background: url('../img/connecterWithoutEffect.png') no-repeat;
     /*cursor: pointer;*/
     margin-left: -20px;
     outline: none;
@@ -185,10 +185,29 @@ div {
     margin-bottom: 10px;*/
 }
 
-#spectateButton:active, #spectateButton:hover, #startButton:active, #startButton:hover {
+.startButton:active, .startButton:hover {
+    background: url('../img/connecterClickEffect.png') no-repeat;
     color: silver;
 }
+.playButton {
+    background: url('../img/jouerWithoutEffect.png') no-repeat;
+    margin-left: -20px;
+    outline: none;
+    width: 230px;
+    height: 100px;
+    border: none;
+    position: absolute;
+    cursor: pointer;
+    bottom: 48px;
+    left: 45vw;
+    z-index: 0;
+    color: white;
+}
 
+.playButton:active, .playButton:hover {
+    background: url('../img/jouerClickEffect.png') no-repeat;
+    color: silver;
+}
 
 /*#settingsButton {
     position: relative;

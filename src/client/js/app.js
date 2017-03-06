@@ -16,7 +16,6 @@ if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
 }
 /////heiyuki code
 function getUser() {
-    document.getElementById('startButton').innerHTML = "<p class='buttonText'>Play</p>";
     $.ajax({
         type: "GET",
         beforeSend: function(request) {
@@ -24,8 +23,17 @@ function getUser() {
         },
         url: "/logged",
         success: function(response) {
+            $('#startButton').addClass('playButton');
+
             var user = response;
-            localStorage.agar_user = JSON.stringify(user);
+            if (user.facebook) {
+                localStorage.agar_user = JSON.stringify(user);
+                $('#startButton').addClass('playButton');
+            } else {
+                localStorage.removeItem('agar_token');
+                localStorage.removeItem('agar_user');
+                window.location.href = "/";
+            }
         }
     });
 }
@@ -34,7 +42,6 @@ if (!localStorage.agar_token) {
     if (token) {
         if (token.length > 20) {
             localStorage.agar_token = token;
-            document.getElementById('startButton').innerHTML = "Play";
             getUser();
         }
     }
@@ -576,8 +583,8 @@ function resize() {
     }
 
     socket.emit('windowResized', {
-        screenWidth: global.screenWidth*2,
-        screenHeight: global.screenHeight*2
+        screenWidth: global.screenWidth * 2,
+        screenHeight: global.screenHeight * 2
     });
 
 }

@@ -63,7 +63,8 @@ function getUserFromToken(token) {
             }
             if (!user) {
                 mongoose.disconnect();
-                reject("[DEBUG] User not found");
+                console.log("[DEBUG] User not found");
+                resolve();
             } else {
                 mongoose.disconnect();
                 resolve(user);
