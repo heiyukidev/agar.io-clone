@@ -722,7 +722,7 @@ function tickPlayer(currentPlayer) {
             if (user.cells[i].mass > 10 && user.id !== currentPlayer.id) {
                 var response = new SAT.Response();
                 var collided = SAT.testCircleCircle(playerCircle,
-                    new C(new V(user.cells[i].x, user.cells[i].y), user.cells[i].radius * 2),
+                    new C(new V(user.cells[i].x*2, user.cells[i].y*2), user.cells[i].radius * 2),
                     response);
                 if (collided) {
                     response.aUser = currentCell;
@@ -768,7 +768,7 @@ function tickPlayer(currentPlayer) {
         currentCell.name = currentPlayer.name;
         var playerCircle = new C(
             new V(currentCell.x, currentCell.y),
-            currentCell.radius*2
+            currentCell.radius
         );
 
         var foodEaten = food.map(funcFood)
