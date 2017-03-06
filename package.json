@@ -55,6 +55,8 @@
     "gulp-uglify": "^1.5.3",
     "gulp-util": "^3.0.7",
     "gulp-watch": "^4.3.11",
+    "jquery": "^3.1.1",
+    "jquery-modal": "^0.8.0",
     "jshint": "^2.9.2",
     "mocha": "^2.5.3",
     "mongoose": "^4.8.4",
