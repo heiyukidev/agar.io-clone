@@ -13,11 +13,6 @@ var c = require('../../config.json');
 // Import utilities.
 var util = require('./lib/util');
 
-// Import quadtree.
-var quadtree = require('simple-quadtree');
-
-var tree = quadtree(0, 0, c.gameWidth, c.gameHeight);
-
 var users = [];
 var massFood = [];
 var food = [];
@@ -722,10 +717,15 @@ function tickPlayer(currentPlayer) {
             if (user.cells[i].mass > 10 && user.id !== currentPlayer.id) {
                 var response = new SAT.Response();
                 //var collided = SAT.pointInCircle(new V(user.cells[i].x, user.cells[i].y), playerCircle);
-                 var collided = SAT.testCircleCircle(playerCircle,
-                 new C(new V(user.cells[i].x, user.cells[i].y), user.cells[i].radius),
-                     response);
+                // var collided = SAT.testCircleCircle(playerCircle,
+                //     new C(new V(user.cells[i].x, user.cells[i].y), user.cells[i].radius*2),
+                //     response);
+
+                var collided = (playerCircle.r > Math.sqrt(Math.pow(playerCircle.pos.x - user.cells[i].x, 2) + Math.pow(playerCircle.pos.y - user.cells[i].y, 2)));
                 if (collided) {
+
+                    console.log("math" + Math.sqrt(Math.pow(currentCell.x - user.cells[i].x, 2) + Math.pow(currentCell.y - user.cells[i].y, 2)));
+                    console.log("radius" + currentCell.radius);
                     response.aUser = currentCell;
                     response.bUser = {
                         id: user.id,
@@ -736,6 +736,7 @@ function tickPlayer(currentPlayer) {
                         mass: user.cells[i].mass
                     };
                     playerCollisions.push(response);
+                    console.log("collision");
                 }
             }
         }
@@ -745,8 +746,6 @@ function tickPlayer(currentPlayer) {
     function collisionCheck(collision) {
         if (collision.aUser.mass > collision.bUser.mass * 1.1 && collision.aUser.radius > Math.sqrt(Math.pow(collision.aUser.x - collision.bUser.x, 2) + Math.pow(collision.aUser.y - collision.bUser.y, 2)) * 1.1) {
             console.log('[DEBUG] Killing user: ' + collision.bUser.id);
-            console.log('[DEBUG] Collision info:');
-            console.log(collision);
 
             var numUser = util.findIndex(users, collision.bUser.id);
             if (numUser > -1) {
@@ -755,7 +754,6 @@ function tickPlayer(currentPlayer) {
                     users[numUser].cells.splice(collision.bUser.num, 1);
                 } else {
                     users.splice(numUser, 1);
-                    console.log(collision.aUser);
                     sockets[collision.bUser.id].emit('RIP', collision.aUser);
                 }
             }
@@ -813,12 +811,9 @@ function tickPlayer(currentPlayer) {
         currentCell.radius = util.massToRadius(currentCell.mass);
         playerCircle.r = currentCell.radius;
 
-        tree.clear();
-        users.forEach(tree.put);
+
         var playerCollisions = [];
-
-        var otherUsers = tree.get(currentPlayer, check);
-
+        users.forEach(check);
         playerCollisions.forEach(collisionCheck);
     }
 }
