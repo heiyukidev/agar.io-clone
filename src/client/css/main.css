@@ -9,6 +9,7 @@ html, body {
     background-attachment: fixed;
     background-position: top center;
     background-color: #4389bc;
+overflow: hidden;
 }
 
 .loader {
