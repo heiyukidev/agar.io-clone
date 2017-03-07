@@ -495,16 +495,16 @@ function gameLoop() {
         graph.fillStyle = '#4389bc';
         graph.fillRect(0, 0, global.screenWidth, global.screenHeight);
 
-        graph.drawImage(deathScreen, (global.screenWidth / 2) - 400, (global.screenHeight / 2) - 200);
+        graph.drawImage(deathScreen, (global.screenWidth / 2) - 350, (global.screenHeight / 2) - 265);
         graph.textAlign = 'center';
         graph.fillStyle = '#FFFFFF';
         graph.font = 'bold 18px sans-serif';
-        graph.fillText(me.firstName + " " + me.lastName, (global.screenWidth / 2) - 90, (global.screenHeight / 2) - 10);
-        graph.drawImage(avatar, global.screenWidth / 2 - 230, (global.screenHeight / 2) - 42, 42, 42);
+        graph.fillText(me.firstName + " " + me.lastName, (global.screenWidth / 2) - 90, (global.screenHeight / 2) - 75);
+        graph.drawImage(avatar, global.screenWidth / 2 - 180, (global.screenHeight / 2) - 107, 42, 42);
         // graph.textAlign = 'center';
         // graph.fillStyle = '#FFFFFF';
         graph.font = 'bold 15px sans-serif';
-        graph.fillText(global.killer.name, (global.screenWidth / 2) - 40, global.screenHeight / 2 + 115);
+        graph.fillText(global.killer.name, (global.screenWidth / 2) + 10, global.screenHeight / 2 + 50);
 
     } else if (!global.disconnected) {
         if (global.gameStart) {
