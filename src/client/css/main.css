@@ -478,6 +478,9 @@ div {
     background: url('../img/menu/Player.png') no-repeat;
     width: 230px;
     height: 35px;
+    padding-top: 23px;
+    padding-left: 30px;
+    font-size: 10px;
 }
 
 .trans {

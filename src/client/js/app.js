@@ -62,7 +62,7 @@ function startGame(type) {
     if (localStorage.agar_user && localStorage.agar_token) {
         global.playerName = JSON.parse(localStorage.agar_user).firstName + " " + JSON.parse(localStorage.agar_user).lastName;
         global.playerType = type;
-
+        global.playerId = JSON.parse(localStorage.agar_user).facebook.id;
         global.screenWidth = window.innerWidth;
         global.screenHeight = window.innerHeight;
 
@@ -192,6 +192,7 @@ function setupSocket(socket) {
         player.screenWidth = global.screenWidth;
         player.screenHeight = global.screenHeight;
         player.target = window.canvas.target;
+        player.idf = JSON.parse(localStorage.agar_user).facebook.id;
         global.player = player;
         socket.emit('gotit', player);
         global.gameStart = true;

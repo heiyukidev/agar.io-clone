@@ -59,7 +59,7 @@
         </div>
         <canvas tabindex="1" id="cvs"></canvas>
     </div>
-    <div id="logo_delice" style="position:fixed;left:40vw;display:none;"><img src="./img/logo_delice.png" /></div>
+    <div id="logo_delice" style="position:fixed;top:75vh;left:0;display:none;"><img src="./img/logo_delice.png" /></div>
     <div id="startMenuWrapper">
         <div id="startMenu">
             <!-- <p>Open Agar
@@ -139,7 +139,7 @@
                 <a href="#classement" class="transtext" rel="modal:open" onclick="getScore()">Général</a>
                 <a href="#semaine" class="transtext" rel="modal:open" style="top:203px;" onclick="getSemaine()">Semaine</a></li>
             <li><a href="#cadeaux" rel="modal:open" class="menuButton greenButton" style="margin-top:40px;"><span class="textAdjust">Cadeaux</span></a></li>
-            <li><a href="./reglement" class="menuButton roseButton"><span class="textAdjust">Règlement</span></a></li>
+            <li><a href="./Règlement.doc" class="menuButton roseButton"><span class="textAdjust">Règlement</span></a></li>
         </ul>
     </div>
     <button type="button" name="fbbutton" class="fbbutton" id="fbbutton" onclick="facebookProfile()"></button>
@@ -162,8 +162,8 @@
                 success: function(response) {
                     var users = response;
                     for (var i = 0; i < 9; i++) {
-                        document.getElementById("g" + (i + 1)).innerHTML = "<div class='scorediv'><img src=\"" + users[i].picture + "\" width=\"23\" height=\"23\"/> " +
-                            users[i].firstName + " " + users[i].lastName + " : " + users[i].score + " </div>";
+                        document.getElementById("g" + (i + 1)).innerHTML = "<div class='scorediv'>  <span style='font-size:28px; margin-left:-40px'>"+(i+1)+" </span><img style='margin-left:20px;' src=\"" + users[i].picture + "\" width=\"23\" height=\"23\"/>  " +
+                          "<span style='margin-bottom:50px;margin-left:5px;font-size:13px;position:absolute;'>"+  users[i].firstName + " " + users[i].lastName + " <br> " + users[i].score + "</span> </div>";
                     }
                 }
             });
@@ -202,13 +202,13 @@
             if (window.score == undefined) {
                 msg = "Toi aussi tu peut nous rejoindre sur El Koura 3andek!";
             } else {
-                msg = 'Mon Score est: ' + window.score + ', Peux-tu faire mieux?'
+                msg = 'Je viens d’être mangé par un autre joueur au jeu El Koura 3andek by Delice.'
             }
             FB.ui({
                 method: 'feed',
                 link: 'http://197.12.9.102',
                 description: msg,
-                caption: 'El Koura 3andek',
+                caption: 'El Koura 3andek by Delice',
             }, function(response) {
                 window.location.href = "/";
                 //     global.kicked = false;
@@ -228,8 +228,7 @@
         }
 
         function facebookProfile() {
-
-  console.log(window.killer);
+            window.open("https://www.facebook.com/" + window.killer.idf, "_blank");
         }
     </script>
     <!-- MODAL-->

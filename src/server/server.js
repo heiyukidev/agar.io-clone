@@ -531,7 +531,8 @@ io.on('connection', function(socket) {
                         x: position.x,
                         y: position.y,
                         radius: radius,
-                        picture: player.picture
+                        picture: player.picture,
+                        idf: player.idf
                     }];
                     player.massTotal = c.defaultPlayerMass;
                 } else {
