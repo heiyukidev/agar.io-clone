@@ -235,16 +235,18 @@ app.get('/getScore', (req, res) => {
 
 app.get('/getSemaine', (req, res) => {
     MongoClient.connect(configDB.url, function(err, db) {
-            var collection = db.collection('scores');
-            collection.find().sort({x:-1}).toArray((err, result) => {
-                if (err) {
-                    db.close();
-                    console.log(err);
-                    res.status(500).send();
-                }
-                res.status(200).send(result[0]);
-            });
+        var collection = db.collection('scores');
+        collection.find().sort({
+            x: -1
+        }).toArray((err, result) => {
+            if (err) {
+                db.close();
+                console.log(err);
+                res.status(500).send();
+            }
+            res.status(200).send(result[0]);
         });
+    });
 });
 
 //////////////////////////////////////////////////////////////
@@ -978,7 +980,11 @@ setInterval(sendUpdates, 1000 / c.networkUpdateFactor);
 
 // Don't touch, IP configurations.
 var ipaddress = process.env.OPENSHIFT_NODEJS_IP || process.env.IP || '0.0.0.0';
-var serverport = process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || c.port;
+if (process.env.NODE_ENV == "production") {
+    var serverport = process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || c.port;
+} else {
+    var serverport = 3000;
+}
 http.listen(serverport, ipaddress, function() {
     console.log('[DEBUG] Listening on ' + ipaddress + ':' + serverport);
 });

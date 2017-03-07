@@ -270,19 +270,6 @@ function setupSocket(socket) {
             value: player.massMax
         });
         document.getElementById('facebook').style.display = 'block';
-        window.setTimeout(function() {
-            document.getElementById('startButton').style.display = 'block';
-
-            document.getElementById('facebook').style.display = 'none';
-            document.getElementById('logo_delice').style.display = 'none';
-            document.getElementById('gameAreaWrapper').style.opacity = 0;
-            document.getElementById('startMenuWrapper').style.maxHeight = '1000px';
-            global.died = false;
-            if (global.animLoopHandle) {
-                window.cancelAnimationFrame(global.animLoopHandle);
-                global.animLoopHandle = undefined;
-            }
-        }, 3000);
     });
 
     socket.on('kick', function(data) {
@@ -290,6 +277,7 @@ function setupSocket(socket) {
         reason = data;
         global.kicked = true;
         socket.close();
+        document.getElementById('facebook').style.display = 'block';
     });
 
     socket.on('virusSplit', function(virusCell) {

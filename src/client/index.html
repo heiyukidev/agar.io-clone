@@ -84,7 +84,7 @@
         </div>
     </div>
     <center>
-        <button id="facebook" onclick="shareFB()" style="display:none;">Partager</button>
+        <button id="facebook" onclick="shareFB()" style="display:none;">Partager pour Rejouer</button>
     </center>
     <form hidden id="howto" class="modal:open" style="max-width: 800px;">
         <img src="./img/Instruction.png">
@@ -197,12 +197,33 @@
         });
 
         function shareFB() {
+            var msg = "";
+            if (window.score == undefined) {
+                msg = "Toi aussi tu peut nous rejoindre sur El Koura 3andek!";
+            } else {
+                msg = 'Mon Score est: ' + window.score + ', Peux-tu faire mieux?'
+            }
             FB.ui({
                 method: 'feed',
                 link: 'http://197.12.9.102',
-                description: 'Mon Score est: ' + window.score,
+                description: msg,
                 caption: 'El Koura 3andek',
-            }, function(response) {});
+            }, function(response) {
+                window.location.href = "/";
+                //     global.kicked = false;
+                //     document.getElementById('startButton').style.display = 'block';
+                //
+                //     document.getElementById('facebook').style.display = 'none';
+                //     document.getElementById('logo_delice').style.display = 'none';
+                //     document.getElementById('gameAreaWrapper').style.opacity = 0;
+                //     document.getElementById('startMenuWrapper').style.maxHeight = '1000px';
+                //     global.died = false;
+                //     if (global.animLoopHandle) {
+                //         window.cancelAnimationFrame(global.animLoopHandle);
+                //         global.animLoopHandle = undefined;
+                //     }
+
+            });
         }
     </script>
     <!-- MODAL-->
