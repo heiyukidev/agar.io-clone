@@ -205,7 +205,7 @@ div {
     width: 230px;
     height: 100px;
     border: none;
-    position: absolute;
+    position: fixed;
     cursor: pointer;
     bottom: 48px;
     left: 45vw;
@@ -403,12 +403,11 @@ div {
     margin-top: 24px;
     height: 96px;
     width: 210px;
-    color: white;
+    color: #ffffff !important;
     text-align: center;
     font-size: 26px;
     font-family: "comic sans ms";
 }
-
 .sidrMenu {
     position: absolute;
     top: 30vh;
@@ -453,8 +452,8 @@ div {
 }
 
 .menuTitle {
-    margin-top: 12px;
-    margin-left: 36px;
+    margin-top: 34px;
+    margin-left: 39px;
     font-family: "comic sans ms";
     font-size: 36px;
     box-shadow: 0 0 0 0 #ebebeb inset;
@@ -480,7 +479,7 @@ div {
     top: 155px;
     font-size: 20px;
     font-family: "comic sans ms";
-    color: white;
+    color: #ffffff !important;
     margin-left: 85px;
     margin-bottom: 50px;
 }

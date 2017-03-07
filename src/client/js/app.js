@@ -496,9 +496,12 @@ function gameLoop() {
 
     var deathScreen = new Image();
     var avatar = new Image();
-
+    var killeravatar = new Image();
     deathScreen.src = '../img/scorePlayer.png';
     avatar.src = me.picture;
+    if (global.killer) {
+        killeravatar.src = global.killer.picture;
+    }
     if (global.died) {
         graph.fillStyle = '#4389bc';
         graph.fillRect(0, 0, global.screenWidth, global.screenHeight);
@@ -508,11 +511,15 @@ function gameLoop() {
         graph.fillStyle = '#FFFFFF';
         graph.font = 'bold 18px sans-serif';
         graph.fillText(me.firstName + " " + me.lastName, (global.screenWidth / 2) - 40, (global.screenHeight / 2) - 75);
+        graph.font = 'bold 32px sans-serif';
+        graph.fillText(player.massMax, (global.screenWidth / 2), (global.screenHeight / 2) - 150);
         graph.drawImage(avatar, global.screenWidth / 2 - 180, (global.screenHeight / 2) - 107, 42, 42);
+        console.log(global.killer);
         // graph.textAlign = 'center';
         // graph.fillStyle = '#FFFFFF';
         graph.font = 'bold 15px sans-serif';
         graph.fillText(global.killer.name, (global.screenWidth / 2) + 10, global.screenHeight / 2 + 50);
+        graph.drawImage(killeravatar, (global.screenWidth / 2) + 147, global.screenHeight / 2 + 27, 32, 32);
 
     } else if (!global.disconnected) {
         if (global.gameStart) {

@@ -518,7 +518,6 @@ io.on('connection', function(socket) {
             } else {
                 console.log('[INFO] Player ' + player.name + ' connected!');
                 sockets[player.id] = socket;
-
                 var radius = util.massToRadius(c.defaultPlayerMass);
                 var position = c.newPlayerInitialPosition == 'farthest' ? util.uniformPosition(users, radius) : util.randomPosition(radius);
 
@@ -531,7 +530,8 @@ io.on('connection', function(socket) {
                         mass: c.defaultPlayerMass,
                         x: position.x,
                         y: position.y,
-                        radius: radius
+                        radius: radius,
+                        picture: player.picture
                     }];
                     player.massTotal = c.defaultPlayerMass;
                 } else {
