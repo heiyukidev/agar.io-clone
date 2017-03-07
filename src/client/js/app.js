@@ -562,7 +562,7 @@ function gameLoop() {
             }
         } else {
             document.getElementById('facebook').style.display = 'block';
-            graph.fillText('Déconnecte!', global.screenWidth / 2, global.screenHeight / 2);
+            graph.fillText('Déconnecté!', global.screenWidth / 2, global.screenHeight / 2);
         }
     }
 }
