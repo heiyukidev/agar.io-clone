@@ -504,7 +504,7 @@ function gameLoop() {
         // graph.textAlign = 'center';
         // graph.fillStyle = '#FFFFFF';
         graph.font = 'bold 15px sans-serif';
-        graph.fillText(global.killer.name, (global.screenWidth / 2) - 60, global.screenHeight / 2 + 140);
+        graph.fillText(global.killer.name, (global.screenWidth / 2) - 40, global.screenHeight / 2 + 1150);
 
     } else if (!global.disconnected) {
         if (global.gameStart) {
