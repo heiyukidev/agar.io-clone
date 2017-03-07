@@ -27,7 +27,7 @@ function getUser() {
 
             var user = response;
             if (user.facebook) {
-                localStorage.agar_user = JSON.stringify(user);
+                localStorage.setItem("agar_user", JSON.stringify(user));
                 $('#startButton').addClass('playButton');
             } else {
                 localStorage.removeItem('agar_token');
@@ -41,8 +41,15 @@ if (!localStorage.agar_token) {
     var token = window.location.hash.substr(1);
     if (token) {
         if (token.length > 20) {
-            localStorage.agar_token = token;
+            window.location.hash = "";
+            localStorage.setItem("agar_token", token);
             getUser();
+            if (localStorage.agar_start == 'true') {
+                setTimeout(function() {
+                    startGame('player');
+                    localStorage.agar_start = false;
+                }, 200);
+            }
         }
     }
 } else {
@@ -77,6 +84,7 @@ function startGame(type) {
         window.canvas.socket = socket;
         global.socket = socket;
     } else if (!localStorage.agar_token) {
+        localStorage.agar_start = true;
         window.location.href = "/auth";
     } else if (!localStorage.agar_user && localStorage.agar_token) {
         getUser();

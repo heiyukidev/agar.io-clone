@@ -42,7 +42,12 @@ const mongodb = require('mongodb');
 const MongoClient = require('mongodb').MongoClient;
 
 ////////////////////////////////SECURITY
-var host = "http://localhost:80/";
+
+if (process.env.NODE_ENV == "production") {
+    var host = "http://localhost:80/";
+} else {
+    var host = "http://localhost:3000/";
+}
 
 app.use((req, res, next) => {
     res.header("x-powered-by", "Belief");
@@ -84,7 +89,6 @@ function getUserFromToken(token) {
         User.findOne({
             'facebook.token': token
         }, function(err, user) {
-
             if (err) {
                 mongoose.disconnect();
                 reject(err);
@@ -114,7 +118,7 @@ function saveUser(paramuser) {
                     cin: paramuser.cin,
                     facebook: {
                         id: baseUser.facebook.id,
-                        token: paramuser.token
+                        token: baseUser.facebook.token
                     },
                     firstName: paramuser.firstName,
                     lastName: paramuser.lastName,
@@ -195,7 +199,7 @@ app.post('/auth/check', (req, res) => {
             user.email = req.body.email;
             user.phone = req.body.phone;
             saveUser(user).then((newUser) => {
-                res.redirect('/#' + newUser.facebook.token);
+                res.redirect('/#' + user.facebook.token);
             }, (err) => {
                 console.log("[ERROR] Error In /auth/check");
                 console.log(err);
@@ -257,23 +261,24 @@ var monitor = require("os-monitor");
 var usage = require('usage');
 
 
-
-// basic usage
-monitor.start({
-    delay: 1000
-});
-var pid = process.pid;
-var usageOptions = {
-    keepHistory: true
-};
-var cycleCounter = 0;
-// define handler that will always fire every cycle
-monitor.on('monitor', function(event) {
-    cycleCounter++;
-    usage.lookup(pid, usageOptions, function(err, result) {
-        console.log(result);
+if (process.env.NODE_ENV == "production") {
+    // basic usage
+    monitor.start({
+        delay: 1000
     });
-});
+    var pid = process.pid;
+    var usageOptions = {
+        keepHistory: true
+    };
+    var cycleCounter = 0;
+    // define handler that will always fire every cycle
+    monitor.on('monitor', function(event) {
+        cycleCounter++;
+        usage.lookup(pid, usageOptions, function(err, result) {
+            console.log(result);
+        });
+    });
+}
 //////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////
