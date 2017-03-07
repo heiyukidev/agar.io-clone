@@ -505,46 +505,52 @@ io.on('connection', function(socket) {
         //
         //     sockets[player.id].emit('RIP',{firstName:"heiyuki"});
         // }, 1000);
-        if (util.findIndex(users, player.id) > -1) {
-            console.log('[INFO] Player ID is already connected, kicking.');
-            socket.disconnect();
-        } else {
-            console.log('[INFO] Player ' + player.name + ' connected!');
-            sockets[player.id] = socket;
 
-            var radius = util.massToRadius(c.defaultPlayerMass);
-            var position = c.newPlayerInitialPosition == 'farthest' ? util.uniformPosition(users, radius) : util.randomPosition(radius);
-
-            player.x = position.x;
-            player.y = position.y;
-            player.target.x = 0;
-            player.target.y = 0;
-            if (type === 'player') {
-                player.cells = [{
-                    mass: c.defaultPlayerMass,
-                    x: position.x,
-                    y: position.y,
-                    radius: radius
-                }];
-                player.massTotal = c.defaultPlayerMass;
+        if (users.length < 21) {
+            if (util.findIndex(users, player.id) > -1) {
+                console.log('[INFO] Player ID is already connected, kicking.');
+                socket.disconnect();
             } else {
-                player.cells = [];
-                player.massTotal = 0;
+                console.log('[INFO] Player ' + player.name + ' connected!');
+                sockets[player.id] = socket;
+
+                var radius = util.massToRadius(c.defaultPlayerMass);
+                var position = c.newPlayerInitialPosition == 'farthest' ? util.uniformPosition(users, radius) : util.randomPosition(radius);
+
+                player.x = position.x;
+                player.y = position.y;
+                player.target.x = 0;
+                player.target.y = 0;
+                if (type === 'player') {
+                    player.cells = [{
+                        mass: c.defaultPlayerMass,
+                        x: position.x,
+                        y: position.y,
+                        radius: radius
+                    }];
+                    player.massTotal = c.defaultPlayerMass;
+                } else {
+                    player.cells = [];
+                    player.massTotal = 0;
+                }
+                player.hue = Math.round(Math.random() * 360);
+                currentPlayer = player;
+                currentPlayer.lastHeartbeat = new Date().getTime();
+                users.push(currentPlayer);
+
+                io.emit('playerJoin', {
+                    name: currentPlayer.name
+                });
+
+                socket.emit('gameSetup', {
+                    gameWidth: c.gameWidth,
+                    gameHeight: c.gameHeight
+                });
+                console.log('Total players: ' + users.length);
             }
-            player.hue = Math.round(Math.random() * 360);
-            currentPlayer = player;
-            currentPlayer.lastHeartbeat = new Date().getTime();
-            users.push(currentPlayer);
-
-            io.emit('playerJoin', {
-                name: currentPlayer.name
-            });
-
-            socket.emit('gameSetup', {
-                gameWidth: c.gameWidth,
-                gameHeight: c.gameHeight
-            });
-            console.log('Total players: ' + users.length);
+        } else {
+            socket.emit('kick', "Vous devez attendre votre tour, Il y a déjà 20 joueurs");
+            socket.disconnect();
         }
 
     });

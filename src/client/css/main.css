@@ -219,8 +219,6 @@ div {
 }
 
 #facebook {
-    outline: none;
-    border: none;
     position: fixed;
     z-index: 50;
     color: white;
@@ -228,7 +226,12 @@ div {
     top: 81%;
     font-family: "comic sans ms";
     font-size: 30px;
-    background: none;
+    outline: none;
+    border: none;
+    background: url('../img/button.png') no-repeat;
+    background-size: cover;
+    width: 380px;
+    height: 130px;
 }
 
 

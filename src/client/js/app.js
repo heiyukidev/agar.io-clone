@@ -504,7 +504,7 @@ function gameLoop() {
         // graph.textAlign = 'center';
         // graph.fillStyle = '#FFFFFF';
         graph.font = 'bold 15px sans-serif';
-        graph.fillText(global.killer.name, (global.screenWidth / 2) - 60, global.screenHeight / 2 + 120);
+        graph.fillText(global.killer.name, (global.screenWidth / 2) - 60, global.screenHeight / 2 + 140);
 
     } else if (!global.disconnected) {
         if (global.gameStart) {
@@ -554,12 +554,14 @@ function gameLoop() {
         graph.font = 'bold 30px sans-serif';
         if (global.kicked) {
             if (reason !== '') {
-                graph.fillText('Vous devez bouger!', global.screenWidth / 2, global.screenHeight / 2 - 20);
                 graph.fillText(reason, global.screenWidth / 2, global.screenHeight / 2 + 20);
+                document.getElementById('facebook').style.display = 'block';
             } else {
                 graph.fillText('vous avez été exclu!', global.screenWidth / 2, global.screenHeight / 2);
+                document.getElementById('facebook').style.display = 'block';
             }
         } else {
+            document.getElementById('facebook').style.display = 'block';
             graph.fillText('Déconnecte!', global.screenWidth / 2, global.screenHeight / 2);
         }
     }
