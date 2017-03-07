@@ -1,7 +1,7 @@
 ### TODOs
 | Filename | line # | TODO
 |:------|:------:|:------
-| client/js/app.js | 107 | Break out into GameControls.
+| client/js/app.js | 115 | Break out into GameControls.
 | client/lib/jquery/dist/jquery.js | 798 | identify versions
 | client/lib/jquery/dist/jquery.js | 812 | identify versions
 | client/lib/jquery/dist/jquery.js | 4254 | Now that all calls to _data and _removeData have been replaced

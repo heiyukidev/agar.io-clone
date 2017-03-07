@@ -27,7 +27,7 @@ function getUser() {
 
             var user = response;
             if (user.facebook) {
-                localStorage.agar_user = JSON.stringify(user);
+                localStorage.setItem("agar_user", JSON.stringify(user));
                 $('#startButton').addClass('playButton');
             } else {
                 localStorage.removeItem('agar_token');
@@ -41,8 +41,15 @@ if (!localStorage.agar_token) {
     var token = window.location.hash.substr(1);
     if (token) {
         if (token.length > 20) {
-            localStorage.agar_token = token;
+            window.location.hash = "";
+            localStorage.setItem("agar_token", token);
             getUser();
+            if (localStorage.agar_start == 'true') {
+                setTimeout(function() {
+                    startGame('player');
+                    localStorage.agar_start = false;
+                }, 200);
+            }
         }
     }
 } else {
@@ -77,6 +84,7 @@ function startGame(type) {
         window.canvas.socket = socket;
         global.socket = socket;
     } else if (!localStorage.agar_token) {
+        localStorage.agar_start = true;
         window.location.href = "/auth";
     } else if (!localStorage.agar_user && localStorage.agar_token) {
         getUser();
@@ -488,9 +496,12 @@ function gameLoop() {
 
     var deathScreen = new Image();
     var avatar = new Image();
-
+    var killeravatar = new Image();
     deathScreen.src = '../img/scorePlayer.png';
     avatar.src = me.picture;
+    if (global.killer) {
+        killeravatar.src = global.killer.picture;
+    }
     if (global.died) {
         graph.fillStyle = '#4389bc';
         graph.fillRect(0, 0, global.screenWidth, global.screenHeight);
@@ -500,11 +511,15 @@ function gameLoop() {
         graph.fillStyle = '#FFFFFF';
         graph.font = 'bold 18px sans-serif';
         graph.fillText(me.firstName + " " + me.lastName, (global.screenWidth / 2) - 40, (global.screenHeight / 2) - 75);
+        graph.font = 'bold 32px sans-serif';
+        graph.fillText(player.massMax, (global.screenWidth / 2), (global.screenHeight / 2) - 150);
         graph.drawImage(avatar, global.screenWidth / 2 - 180, (global.screenHeight / 2) - 107, 42, 42);
+        console.log(global.killer);
         // graph.textAlign = 'center';
         // graph.fillStyle = '#FFFFFF';
         graph.font = 'bold 15px sans-serif';
         graph.fillText(global.killer.name, (global.screenWidth / 2) + 10, global.screenHeight / 2 + 50);
+        graph.drawImage(killeravatar, (global.screenWidth / 2) + 147, global.screenHeight / 2 + 27, 32, 32);
 
     } else if (!global.disconnected) {
         if (global.gameStart) {
