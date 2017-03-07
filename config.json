@@ -1,5 +1,5 @@
 {
-    "port": 80,
+    "port": 8000,
     "foodMass": 2,
     "fireFood": 20,
     "limitSplit": 20,

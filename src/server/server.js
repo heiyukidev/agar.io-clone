@@ -38,8 +38,11 @@ var twig = require('twig');
 const bodyparser = require('body-parser');
 const lusca = require('lusca');
 
+const mongodb = require('mongodb');
+const MongoClient = require('mongodb').MongoClient;
+
 ////////////////////////////////SECURITY
-var host = "http://localhost:3000/";
+var host = "http://localhost:80/";
 
 app.use((req, res, next) => {
     res.header("x-powered-by", "Belief");
@@ -230,7 +233,19 @@ app.get('/getScore', (req, res) => {
     });
 });
 
-
+app.get('/getSemaine', (req, res) => {
+    MongoClient.connect(configDB.url, function(err, db) {
+            var collection = db.collection('scores');
+            collection.find().sort({x:-1}).toArray((err, result) => {
+                if (err) {
+                    db.close();
+                    console.log(err);
+                    res.status(500).send();
+                }
+                res.status(200).send(result[0]);
+            });
+        });
+});
 
 //////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////
