@@ -511,7 +511,7 @@ io.on('connection', function(socket) {
         //     sockets[player.id].emit('RIP',{firstName:"heiyuki"});
         // }, 1000);
 
-        if (users.length < 21) {
+        if (users.length < 31) {
             if (util.findIndex(users, player.id) > -1) {
                 console.log('[INFO] Player ID is already connected, kicking.');
                 socket.disconnect();
@@ -555,7 +555,7 @@ io.on('connection', function(socket) {
                 console.log('Total players: ' + users.length);
             }
         } else {
-            socket.emit('kick', "Vous devez attendre votre tour, Il y a déjà 20 joueurs");
+            socket.emit('kick', "Vous devez attendre votre tour, Il y a déjà 30 joueurs");
             socket.disconnect();
         }
 
@@ -716,7 +716,7 @@ io.on('connection', function(socket) {
 
 function tickPlayer(currentPlayer) {
     if (currentPlayer.lastHeartbeat < new Date().getTime() - c.maxHeartbeatInterval) {
-        sockets[currentPlayer.id].emit('kick', 'Vous êtes inactif depuis ' + c.maxHeartbeatInterval / 1000 + ' seconde.');
+        sockets[currentPlayer.id].emit('kick', ' Vous avez été inactif depuis 5 secondes, vous devez vous reconnecter.');
         sockets[currentPlayer.id].disconnect();
     }
 
