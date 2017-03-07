@@ -7,26 +7,29 @@
 <!-- <link rel="stylesheet" href="./inscription.css" type="text/css" /> -->
 <style>
 	body {
-		background: #4389bc url("http://i.imgur.com/M5VeRDH.png");
-		background-size: cover;
-		overflow: scroll;
-		background-position: center top;
+		background: #4389bc url("../img/background2.png");
+		background-size:auto;
+		overflow: fixed;
+		background-position: top center;
 		background-repeat: no-repeat;
 	}
 
+
+
 	.container {
-		padding-top: 200px;
+		padding-top: 140px;
 		display: flex;
 		justify-content: center;
 	}
 
 	.formulaire {
 		position: absolute;
+		bottom:8%;
 		width: 600px;
-		height: 600px;
+		height: 570px;
 		justify-content: center;
-		background-repeat: none;
-		background-image: url("http://i.imgur.com/3m8RjR4.png");
+		background-repeat: no-repeat;
+		background-image: url("../img/inscription.png");
 	}
 
 	.inputfrm {
@@ -93,15 +96,28 @@
 		/* IMAGE STYLES */
 		cursor: pointer;
 		border: 2px solid transparent;
+		box-shadow: 3px 3px;
+		border-radius: 50%;
 	}
 
 	label>input:checked+img {
 		/* (RADIO CHECKED) IMAGE STYLES */
-		border: 2px solid #f00;
+		box-shadow: 0px 0px 60px #fff;
+		width: 52px;
+		height: 52px;
+
 	}
+	label>input:hover+img {
+		/* (RADIO CHECKED) IMAGE STYLES */
+		width: 52px;
+		height: 52px;
+		box-shadow: 0px 0px 30px #fff;
+	}
+
 </style>
 
 <body>
+	<img style="margin-top:-1000px;" src="../img/logo_delice.png"/>
 	<div class="container">
 		<form class="formulaire" action="/auth/check" method="POST">
 			<input hidden novalidate type="text" placeholder="" required="" value="{{user.facebook.token}}" name="token" />
