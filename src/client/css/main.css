@@ -371,22 +371,18 @@ div {
 
 .redButton {
     background-image: url('../img/menu/Red.png');
-    cursor: pointer;
 }
 
 .yellowButton {
     background-image: url('../img/menu/yellow.png');
-    cursor: pointer;
 }
 
 .greenButton {
     background-image: url('../img/menu/Vert.png');
-    cursor: pointer;
 }
 
 .roseButton {
     background-image: url('../img/menu/Rose.png');
-    cursor: pointer;
 }
 
 .menuButton {
@@ -400,7 +396,7 @@ div {
 
 .textAdjust {
     position: absolute;
-    margin-top: 24px;
+    margin-top: 45px;
     height: 96px;
     width: 210px;
     color: #ffffff !important;
@@ -441,16 +437,25 @@ div {
 .sidr ul li {
     display: block;
     margin: 0;
-    line-height: 48px;
+    line-height: 0px;
     border-top: 0 solid #2e5f83;
     border-bottom: 0 solid #2e5f83;
     outline: none;
 }
-
+.sidr ul li:hover, .sidr ul li.active, .sidr ul li.sidr-class-active {
+  border-top: 0;
+  line-height: 0px;
+}
 .sidr ul li:hover>a, .sidr ul li:hover>span, .sidr ul li.active>a, .sidr ul li.active>span, .sidr ul li.sidr-class-active>a, .sidr ul li.sidr-class-active>span {
     box-shadow: 0 0 0 0 #ebebeb inset;
 }
-
+.sidr ul li a,
+.sidr ul li span {
+  padding: 0 15px;
+  display: block;
+  text-decoration: none;
+  color: white;
+}
 .menuTitle {
     margin-top: 34px;
     margin-left: 39px;
@@ -464,8 +469,6 @@ div {
     background: url('../img/menu/Player.png') no-repeat;
     width: 230px;
     height: 35px;
-    padding-top: 25px;
-    padding-left: 30px;
 }
 
 .trans {
@@ -476,12 +479,11 @@ div {
 
 .transtext {
     position: absolute;
-    top: 155px;
+    top: 178px;
     font-size: 20px;
     font-family: "comic sans ms";
     color: #ffffff !important;
     margin-left: 85px;
-    margin-bottom: 50px;
 }
 
 .transtext:hover {
