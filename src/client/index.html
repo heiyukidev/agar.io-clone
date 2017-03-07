@@ -84,7 +84,7 @@
         </div>
     </div>
     <center>
-        <button id="facebook" onclick="shareFB()" style="display:none;">Partager pour Rejouer</button>
+        <button id="facebook" onclick="shareFB()" style="display:none;">Rejouer</button>
     </center>
     <form hidden id="howto" class="modal:open" style="max-width: 800px;">
         <img src="./img/Instruction.png">
@@ -134,7 +134,7 @@
         <div class="menuTitle"><img src="./img/menu/closeMenu.png">Menu</div>
         <ul class="sidrMenu">
             <li><a href="#howto" rel="modal:open" class="menuButton redButton"><span class="textAdjust">Comment jouer ?</span></a></li>
-            <li><a href="#classement"class="menuButton yellowButton" onclick="getScore()"><span class="textAdjust">Classement</span></a>
+            <li><a href="#classement" class="menuButton yellowButton" onclick="getScore()"><span class="textAdjust">Classement</span></a>
                 <img class="trans" src="./img/Transparent.png" />
                 <a href="#classement" class="transtext" rel="modal:open" onclick="getScore()">Général</a>
                 <a href="#semaine" class="transtext" rel="modal:open" style="top:203px;" onclick="getSemaine()">Semaine</a></li>
@@ -142,7 +142,7 @@
             <li><a href="./reglement" class="menuButton roseButton"><span class="textAdjust">Règlement</span></a></li>
         </ul>
     </div>
-    <button type="button" name="fbbutton" class="fbbutton"></button>
+    <button type="button" name="fbbutton" class="fbbutton" id="fbbutton" onclick="facebookProfile()"></button>
     <script src="./lib/jquery/dist/jquery.min.js"></script>
     <script src="./lib/sidr/dist/jquery.sidr.min.js"></script>
     <script src="./lib/jquery-modal/jquery.modal.min.js" type="text/javascript" charset="utf-8"></script>
@@ -225,6 +225,11 @@
                 //     }
 
             });
+        }
+
+        function facebookProfile() {
+
+  console.log(window.killer);
         }
     </script>
     <!-- MODAL-->

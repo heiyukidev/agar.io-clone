@@ -209,7 +209,7 @@ function setupSocket(socket) {
 
     socket.on('leaderboard', function(data) {
         leaderboard = data.leaderboard;
-        var status = '<span class="title">Leaderboard</span>';
+        var status = '<span class="title">Dans l’arène</span>';
         for (var i = 0; i < leaderboard.length; i++) {
             status += '<br />';
             if (leaderboard[i].id == player.id) {
@@ -500,6 +500,7 @@ function gameLoop() {
     deathScreen.src = '../img/scorePlayer.png';
     avatar.src = me.picture;
     if (global.killer) {
+        window.killer = global.killer;
         killeravatar.src = global.killer.picture;
     }
     if (global.died) {
@@ -520,11 +521,20 @@ function gameLoop() {
         graph.font = 'bold 15px sans-serif';
         graph.fillText(global.killer.name, (global.screenWidth / 2) + 10, global.screenHeight / 2 + 50);
         graph.drawImage(killeravatar, (global.screenWidth / 2) + 147, global.screenHeight / 2 + 27, 32, 32);
-        var link = document.getElementById('fbbutton');
-        var aux = global.screenHeight / 2 + 50;
-        link.style.marginTop = aux + "px;";
-        aux = (global.screenWidth / 2) + 10;
-        link.style.marginLeft = aux + "px;";
+        var top = global.screenHeight / 2 + 20;
+        var left = (global.screenWidth / 2) - 70;
+        $('#fbbutton').css({
+            position: 'absolute',
+            top: top,
+            left: left
+        });
+         top = global.screenHeight / 2 + 235;
+         left = (global.screenWidth / 2) - 60;
+        $('#facebook').css({
+            position: 'absolute',
+            top: top,
+            left: left
+        });
     } else if (!global.disconnected) {
         if (global.gameStart) {
             graph.fillStyle = global.backgroundColor;

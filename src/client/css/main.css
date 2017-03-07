@@ -220,17 +220,23 @@ div {
 }
 
 #facebook {
-    position: fixed;
     z-index: 1;
     color: white;
     font-family: "comic sans ms";
     font-size: 30px;
     outline: none;
     border: none;
-    background: url('../img/button.png') no-repeat;
-    background-size: cover;
-    width: 410px;
-    height: 150px;
+    background: transparent;
+}
+
+#facebook:hover {
+    font-size: 32px
+}
+
+#fbbutton {
+    outline: none;
+    border: 0;
+    background: transparent;
 }
 
 
@@ -494,7 +500,6 @@ div {
 }
 
 .fbbutton {
-    position: fixed;
     width: 260px;
     height: 60px;
     z-index: 1;
