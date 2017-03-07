@@ -9,7 +9,7 @@ html, body {
     background-attachment: fixed;
     background-position: top center;
     background-color: #4389bc;
-overflow: hidden;
+    overflow: hidden;
 }
 
 .loader {
@@ -223,8 +223,6 @@ div {
     position: fixed;
     z-index: 1;
     color: white;
-    left: 35%;
-    top: 75%;
     font-family: "comic sans ms";
     font-size: 30px;
     outline: none;
@@ -405,6 +403,7 @@ div {
     font-size: 26px;
     font-family: "comic sans ms";
 }
+
 .sidrMenu {
     position: absolute;
     top: 30vh;
@@ -443,20 +442,23 @@ div {
     border-bottom: 0 solid #2e5f83;
     outline: none;
 }
+
 .sidr ul li:hover, .sidr ul li.active, .sidr ul li.sidr-class-active {
-  border-top: 0;
-  line-height: 0px;
+    border-top: 0;
+    line-height: 0px;
 }
+
 .sidr ul li:hover>a, .sidr ul li:hover>span, .sidr ul li.active>a, .sidr ul li.active>span, .sidr ul li.sidr-class-active>a, .sidr ul li.sidr-class-active>span {
     box-shadow: 0 0 0 0 #ebebeb inset;
 }
-.sidr ul li a,
-.sidr ul li span {
-  padding: 0 15px;
-  display: block;
-  text-decoration: none;
-  color: white;
+
+.sidr ul li a, .sidr ul li span {
+    padding: 0 15px;
+    display: block;
+    text-decoration: none;
+    color: white;
 }
+
 .menuTitle {
     margin-top: 34px;
     margin-left: 39px;
@@ -489,6 +491,13 @@ div {
 
 .transtext:hover {
     font-size: 30px;
+}
+
+.fbbutton {
+    position: fixed;
+    width: 260px;
+    height: 60px;
+    z-index: 1;
 }
 
 @media only screen and (min-width: 1224px) {
