@@ -499,7 +499,7 @@ function gameLoop() {
         graph.textAlign = 'center';
         graph.fillStyle = '#FFFFFF';
         graph.font = 'bold 18px sans-serif';
-        graph.fillText(me.firstName + " " + me.lastName, (global.screenWidth / 2) - 90, (global.screenHeight / 2) - 75);
+        graph.fillText(me.firstName + " " + me.lastName, (global.screenWidth / 2) - 40, (global.screenHeight / 2) - 75);
         graph.drawImage(avatar, global.screenWidth / 2 - 180, (global.screenHeight / 2) - 107, 42, 42);
         // graph.textAlign = 'center';
         // graph.fillStyle = '#FFFFFF';
