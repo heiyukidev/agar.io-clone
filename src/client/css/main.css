@@ -220,7 +220,7 @@ div {
 
 #facebook {
     position: fixed;
-    z-index: 50;
+    z-index: 1;
     color: white;
     left: 35%;
     top: 75%;
