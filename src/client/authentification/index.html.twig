@@ -67,7 +67,7 @@
 		border-radius: 10px;
 		outline: none;
 		margin-top: 405px;
-		margin-left: 238px;
+		margin-left: 230px;
 		padding-bottom: 10px;
 		color: #e4e4e4;
 		/*display: block;*/
@@ -115,17 +115,41 @@
 	}
 
 </style>
-
+<script>
+	var inputQuantity = [];
+    $(function() {
+      $("#quantity").each(function(i) {
+        inputQuantity[i]=this.defaultValue;
+         $(this).data("idx",i); // save this field's index to access later
+      });
+      $("#quantity").on("keyup", function (e) {
+        var $field = $(this),
+            val=this.value,
+            $thisIndex=parseInt($field.data("idx"),10); // retrieve the index
+//        window.console && console.log($field.is(":invalid"));
+          //  $field.is(":invalid") is for Safari, it must be the last to not error in IE8
+        if (this.validity && this.validity.badInput || isNaN(val) || $field.is(":invalid") ) {
+            this.value = inputQuantity[$thisIndex];
+            return;
+        } 
+        if (val.length > Number($field.attr("maxlength"))) {
+          val=val.slice(0, 8);
+          $field.val(val);
+        }
+        inputQuantity[$thisIndex]=val;
+      });      
+    });
+</script>
 <body>
-	<img style="margin-top:4px;margin-left:40%;" src="../img/logo_delice.png"/>
+	<img style="margin-top:4px;margin-left:40%;" src="../img/logo_delice.png" width="300px"/>
 	<div class="container">
 		<form class="formulaire" action="/auth/check" method="POST">
 			<input hidden novalidate type="text" placeholder="" required="" value="{{user.facebook.token}}" name="token" />
 			<input type="text" placeholder="Nom" required="" style="top:115px;left:130px;" class="inputfrm" value="{{user.lastName}}" name="lastName" />
 			<input type="text" placeholder="Prenom" required="" style="top:110px;left:180px;" class="inputfrm" value="{{user.firstName}}" name="firstName" />
-			<input type="email" placeholder="Email" required="" style="top:145px;left:130px;width:300px;font-size: large;" class="inputfrm" value="{{user.email}}" name="email" />
-			<input type="text" placeholder="CIN" required="" style="top:185px;left:150px;width:300px;font-size: large;" class="inputfrm" name="cin" />
-			<input type="number" placeholder="Téléphone" required="" style="top:218px;left:150px;width:250px;font-size: large;" class="inputfrm" name="phone" />
+			<input type="email"  placeholder="Email" required="email" style="top:145px;left:130px;width:300px;font-size: large;" class="inputfrm" value="{{user.email}}" name="email" />
+			<input type="text" placeholder="CIN" id="quantity" required="CIN"  maxlength="8"  style="top:185px;left:150px;width:300px;font-size: large;" class="inputfrm" name="cin" />
+			<input type="text" id="quantity" placeholder="Téléphone" maxlength="8"  required="Téléphone" style="top:218px;left:150px;width:250px;font-size: large;" class="inputfrm" name="phone" />
 			<input type="submit" value="Inscription" class="btnform">
 			<div style="position:relative;top:-140px;left:72px;">
 				<label>

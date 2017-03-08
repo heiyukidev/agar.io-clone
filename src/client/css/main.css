@@ -171,6 +171,7 @@ div {
     bottom: 48px;
     left: 45vw;
     z-index: 0;
+    transition: All 0.5s;
     color: white;
     /*position: relative;
     margin: auto;
@@ -192,6 +193,7 @@ div {
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     margin-bottom: 10px;*/
+    
 }
 
 .startButton:active, .startButton:hover {
@@ -376,6 +378,7 @@ div {
 
 .redButton {
     background-image: url('../img/menu/Red.png');
+    margin-left: 3px;
 }
 
 .yellowButton {
@@ -384,10 +387,12 @@ div {
 
 .greenButton {
     background-image: url('../img/menu/Vert.png');
+    margin-left: 3px;
 }
 
 .roseButton {
     background-image: url('../img/menu/Rose.png');
+    margin-left: 3px;
 }
 
 .menuButton {
@@ -397,6 +402,11 @@ div {
     background-repeat: no-repeat;
     background-position: center center;
     cursor: pointer;
+    transform: All 0.5s;
+}
+.menuButton:hover
+{
+	opacity: .7;
 }
 
 .textAdjust {
@@ -416,6 +426,8 @@ div {
     outline: none;
     box-shadow: 0px;
     border: 0px;
+    transition: all 0.1s;
+    
 }
 
 #sidr {
@@ -424,7 +436,7 @@ div {
     top: 0;
     height: 100%;
     z-index: 999999;
-    width: 260px;
+    width: 280px;
     overflow-x: hidden;
     overflow-y: auto;
     font-family: "comic sans ms";
@@ -463,16 +475,26 @@ div {
     display: block;
     text-decoration: none;
     color: white;
+    text-shadow: 1px 1px 1px #6a6a6a;
 }
 
 .menuTitle {
     margin-top: 34px;
     margin-left: 39px;
     font-family: "comic sans ms";
-    font-size: 36px;
+    font-size: 30px;
+    line-height: 30px;
     box-shadow: 0 0 0 0 #ebebeb inset;
 }
-
+.menuTitle  img
+{
+	padding-top: 25px;
+}
+.BtnCloseMenu
+{
+	position: absolute;
+	
+}
 .scorediv {
     position: relative;
     background: url('../img/menu/Player.png') no-repeat;
@@ -481,8 +503,12 @@ div {
     padding-top: 23px;
     padding-left: 30px;
     font-size: 10px;
+    color: white;
 }
-
+.scorediv img
+{
+	margin-right: 20px;
+}
 .trans {
     position: absolute;
     top: 45px;
@@ -496,6 +522,8 @@ div {
     font-family: "comic sans ms";
     color: #ffffff !important;
     margin-left: 85px;
+    transition: All 0.5s;
+    
 }
 
 .transtext:hover {

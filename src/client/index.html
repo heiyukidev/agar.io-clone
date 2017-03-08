@@ -13,9 +13,9 @@
     <link rel="stylesheet" href="./css/main.css" />
     <style>
         div#load_screen {
-            background: -webkit-linear-gradient(#00d9ff 0%, #527dff 100%);
-            background: -moz-linear-gradient(#00d9ff 0%, #527dff 100%);
-            background: -ms-linear-gradient(#00d9ff 0%, #527dff 100%);
+            background: -webkit-linear-gradient(#4389bc 0%, #477fa7 100%);
+            background: -moz-linear-gradient(#4389bc 0%, #477fa7 100%);
+            background: -ms-linear-gradient(#4389bc 0%, #477fa7 100%);
             opacity: 1;
             position: fixed;
             z-index: 9999999;
@@ -30,6 +30,15 @@
             height: 24px;
             margin: 300px auto;
         }
+        #txtLoading
+        {
+	        font-family: "comic sans ms";
+	        text-align: center;
+	        font-size: large;
+	        color: #FFFFFF;
+	        
+        }
+      
     </style>
     <script>
         window.addEventListener("load", function() {
@@ -46,20 +55,26 @@
 
 <body>
     <div id="load_screen">
-        <div id="loading">loading</div>
+        <div id="loading"> 
+	        <center >
+	        <img style="margin-left: -60px" src="./img/logo_delice.png"/>
+	        	<br>
+	        <h3 id="txtLoading">Chargement...</h3>
+	        </center>
+	        </div>
     </div>
     <div id="gameAreaWrapper">
         <div id="status"><span class="title">Dans l’arène</span></div>
         <div class="agarscore" id="agarscore">
             <div id="agarnumber">Score:0</div>
         </div>
-        <div id="mobile">
-            <input type="image" id="split" class="split" src="./img/split.png" alt="splitBtn">
-            <input type="image" id="feed" class="feed" src="./img/feed.png" alt="feedBtn">
+        <div id="mobile" style="opacity: 0">
+            <input type="image" id="split" class="split" src="./img/split.png" style="opacity: 0" alt="splitBtn">
+            <input type="image" id="feed" class="feed" src="./img/feed.png" style="opacity: 0" alt="feedBtn">
         </div>
         <canvas tabindex="1" id="cvs"></canvas>
     </div>
-    <div id="logo_delice" style="position:fixed;top:75vh;left:0;display:none;"><img src="./img/logo_delice.png" /></div>
+    <div id="logo_delice" style="position:fixed;bottom: 65px;left:10;display:none;"><img src="./img/logo_delice.png" width="200px" /></div>
     <div id="startMenuWrapper">
         <div id="startMenu">
             <!-- <p>Open Agar
@@ -131,7 +146,8 @@
     <a id="simple-menu" href="#sidr" style="position:fixed;z-index:9999;top:24px;left:24px;"><img src="./img/menu.png" /></a>
 
     <div id="sidr">
-        <div class="menuTitle"><img src="./img/menu/closeMenu.png">Menu</div>
+        <div class="menuTitle">
+	     <img src="./img/menu/closeMenu.png" /></div>
         <ul class="sidrMenu">
             <li><a href="#howto" rel="modal:open" class="menuButton redButton"><span class="textAdjust">Comment jouer ?</span></a></li>
             <li><a href="#classement" class="menuButton yellowButton" onclick="getScore()"><span class="textAdjust">Classement</span></a>
@@ -139,7 +155,7 @@
                 <a href="#classement" class="transtext" rel="modal:open" onclick="getScore()">Général</a>
                 <a href="#semaine" class="transtext" rel="modal:open" style="top:203px;" onclick="getSemaine()">Semaine</a></li>
             <li><a href="#cadeaux" rel="modal:open" class="menuButton greenButton" style="margin-top:40px;"><span class="textAdjust">Cadeaux</span></a></li>
-            <li><a href="./Règlement.doc" class="menuButton roseButton"><span class="textAdjust">Règlement</span></a></li>
+            <li><a href="./Règlement.pdf" target="_blank" class="menuButton roseButton"><span class="textAdjust">Règlement</span></a></li>
         </ul>
     </div>
     <button type="button" name="fbbutton" class="fbbutton" id="fbbutton" onclick="facebookProfile()"></button>
@@ -162,8 +178,8 @@
                 success: function(response) {
                     var users = response;
                     for (var i = 0; i < 9; i++) {
-                        document.getElementById("g" + (i + 1)).innerHTML = "<div class='scorediv'>  <span style='font-size:28px; margin-left:-40px'>"+(i+1)+" </span><img style='margin-left:20px;' src=\"" + users[i].picture + "\" width=\"23\" height=\"23\"/>  " +
-                          "<span style='margin-bottom:50px;margin-left:5px;font-size:13px;position:absolute;'>"+  users[i].firstName + " " + users[i].lastName + " <br> " + users[i].score + "</span> </div>";
+                        document.getElementById("g" + (i + 1)).innerHTML = "<div class='scorediv'>  <span style='font-size:28px; margin-left:-30px'>"+(i+1)+" </span><img style='bottom:20px;margin-left:5px;' src=\"" + users[i].picture + "\" width=\"23\" height=\"23\"/>  " +
+                          "<span style='margin-bottom:50px;margin-left:0px;font-size:12px;position:absolute;'>"+  users[i].firstName + " " + users[i].lastName + " <br> " + users[i].score + "</span> </div>";
                     }
                 }
             });
@@ -176,11 +192,12 @@
                 success: function(response) {
                     var users = response;
                     for (var i = 0; i < 9; i++) {
-                        document.getElementById("s" + (i + 1)).innerHTML = "<div class='scorediv'><img src=\"" + users[i].picture + "\" width=\"23\" height=\"23\"/> " +
-                            users[i].firstName + " " + users[i].lastName + " : " + users[i].score + " </div>";
+                        document.getElementById("s" + (i + 1)).innerHTML = "<div class='scorediv'>  <span style='font-size:28px; margin-left:-30px'>"+(i+1)+" </span><img style='bottom:10px;margin-left:5px;' src=\"" + users[i].picture + "\" width=\"23\" height=\"23\"/>  " +
+                          "<span style='margin-bottom:50px;margin-left:0px;font-size:13px;position:absolute;'>"+  users[i].firstName + " " + users[i].lastName + " <br> " + users[i].score + "</span> </div>";
                     }
                 }
             });
+
         }
 
         $(document).ready(function() {
