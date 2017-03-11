@@ -227,7 +227,9 @@ app.post('/auth/check', (req, res) => {
 app.get('/', (req, res) => {
     res.render('index');
 });
-
+app.post('/', (req, res) => {
+    res.render('index');
+});
 
 app.get('/getScore', (req, res) => {
     mongoose.connect(configDB.url);
