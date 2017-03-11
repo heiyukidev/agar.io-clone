@@ -733,8 +733,9 @@ io.on('connection', function(socket) {
 
 function tickPlayer(currentPlayer) {
     if (currentPlayer.lastHeartbeat < new Date().getTime() - c.maxHeartbeatInterval) {
-        sockets[currentPlayer.id].emit('kick', ' Vous avez été inactif depuis 5 secondes, vous devez vous reconnecter.');
-        sockets[currentPlayer.id].disconnect();
+        sockets[currentPlayer.id].emit('kick', " Vous avez été inactif depuis 5 secondes, vous devez vous reconnecter.");
+        sockets[currentPlayer.id].disconnect();       
+      
     }
 
     movePlayer(currentPlayer);

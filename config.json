@@ -1,6 +1,6 @@
 {
     "port": 80,
-    "foodMass": 2,
+    "foodMass": 1,
     "fireFood": 20,
     "limitSplit": 20,
     "defaultPlayerMass": 10,

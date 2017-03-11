@@ -14,6 +14,7 @@ var debug = function(args) {
 if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
     global.mobile = true;
 }
+
 /////heiyuki code
 function getUser() {
     $.ajax({
@@ -182,6 +183,8 @@ function setupSocket(socket) {
     socket.on('disconnect', function() {
         socket.close();
         global.disconnected = true;
+        
+		document.getElementById('rejouerBtn').style.display = 'block';
     });
 
     // Handle connection.

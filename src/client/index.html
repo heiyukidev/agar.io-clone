@@ -45,6 +45,11 @@
             var load_screen = document.getElementById("load_screen");
             document.body.removeChild(load_screen);
         });
+        function rejouer()
+        {
+	        window.location.href = "/";
+	        document.getElementById('spawn_cell').play();
+        }
     </script>
 </head>
 <!-- Audio -->
@@ -54,6 +59,26 @@
 <div class="loader"></div>
 
 <body>
+	<style type="text/css" media="screen">
+		#rejouerBtn
+		{
+			display: none;
+			top:65%;
+			left: 45%;
+			background:url('./img/rejouerbtn.png');
+			width: 200px;
+			background-repeat: no-repeat;
+			height: 70px;
+			border: none;
+			border: 0px;
+			box-shadow: none;
+			color: white;
+			z-index: 999999;
+			position:absolute;
+			
+		}
+	</style>
+	<center><button id="rejouerBtn" onclick="shareFB2()"></button></center>
     <div id="load_screen">
         <div id="loading"> 
 	        <center >
@@ -243,9 +268,44 @@
 
             });
         }
-
+		
+		
+		
         function facebookProfile() {
             window.open("https://www.facebook.com/" + window.killer.idf, "_blank");
+        }
+        
+        
+        
+        function shareFB2() {
+            var msg = "";
+            if (window.score == undefined) {
+                msg = "Toi aussi tu peut nous rejoindre sur El Koura 3andek!";
+            } else {
+                msg = 'Je viens d’être mangé par un autre joueur au jeu El Koura 3andek by Delice.'
+            }
+            FB.ui({
+                method: 'feed',
+                link: 'http://217.182.129.148/',
+                description: msg,
+                caption: 'El Koura 3andek by Delice',
+            }, function(response) {
+                window.location.href = "/";
+                document.getElementById('spawn_cell').play();
+                //     global.kicked = false;
+                //     document.getElementById('startButton').style.display = 'block';
+                //
+                //     document.getElementById('facebook').style.display = 'none';
+                //     document.getElementById('logo_delice').style.display = 'none';
+                //     document.getElementById('gameAreaWrapper').style.opacity = 0;
+                //     document.getElementById('startMenuWrapper').style.maxHeight = '1000px';
+                //     global.died = false;
+                //     if (global.animLoopHandle) {
+                //         window.cancelAnimationFrame(global.animLoopHandle);
+                //         global.animLoopHandle = undefined;
+                //     }
+
+            });
         }
     </script>
     <!-- MODAL-->
