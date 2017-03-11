@@ -75,7 +75,7 @@ function startGame(type) {
         document.getElementById('gameAreaWrapper').style.opacity = 1;
         if (!socket) {
             socket = io({
-                query: "type=" + type
+                query: "type=" + type, secure: true
             });
             setupSocket(socket);
         }
