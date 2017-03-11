@@ -12,7 +12,7 @@ var options = {
 };
 
 var http = require('http').Server(app);
-var https = require('https');
+var https = require('https').createServer(options,app);
 var io = require('socket.io')(https);
 var SAT = require('sat');
 
@@ -1028,4 +1028,4 @@ http.listen(serverport, ipaddress, function() {
     console.log('[DEBUG] Listening on ' + ipaddress + ':' + serverport);
 });
 
-https.createServer(options,app).listen(443);
+https.listen(443);
