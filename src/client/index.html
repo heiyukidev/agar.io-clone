@@ -5,6 +5,10 @@
     <!-- Meta Properties -->
     <meta charset="UTF-8">
     <title>El Koura 3andek</title>
+    <meta property="og:image" content="https://elkoura-3andek.tn/img/background.png" />
+<meta property="og:url"content="https://elkoura-3andek.tn/" />
+
+<meta property="og:title" content="El Koura 3andek By Délice" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
     <link rel="icon" href="img/ico.png" type="image/x-icon" />
     <!-- CSS -->
@@ -251,6 +255,7 @@
                 link: 'https://elkoura-3andek.tn/',
                 description: msg,
                 caption: 'El Koura 3andek by Délice',
+                picture: 'https://elkoura-3andek.tn/img/background.png'
             }, function(response) {
                 window.location.href = "/";
                 //     global.kicked = false;
@@ -282,13 +287,14 @@
             if (window.score == undefined) {
                 msg = "Toi aussi tu peut nous rejoindre sur El Koura 3andek!";
             } else {
-                msg = 'Je viens d’être mangé par un autre joueur au jeu El Koura 3andek by Delice.'
+                msg = 'Je viens d’être mangé par un autre joueur au jeu El Koura 3andek by Délice.'
             }
             FB.ui({
                 method: 'feed',
                 link: 'https://elkoura-3andek.tn/',
                 description: msg,
-                caption: 'El Koura 3andek by Delice',
+                caption: 'El koura 3andek by Délice',
+                picture: 'https://elkoura-3andek.tn/img/background.png'
             }, function(response) {
                 window.location.href = "/";
                 document.getElementById('spawn_cell').play();
