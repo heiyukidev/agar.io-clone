@@ -231,7 +231,7 @@ app.get('/', (req, res) => {
     res.render('index');
 });
 app.post('/', (req, res) => {
-    res.render(__dirname + '/../client/index.html');
+    res.redirect('/');
 });
 
 app.get('/getScore', (req, res) => {
