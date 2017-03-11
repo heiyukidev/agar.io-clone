@@ -229,7 +229,7 @@ app.get('/', (req, res) => {
     res.render('index');
 });
 app.post('/', (req, res) => {
-    res.render('index');
+    res.render('../client/index.html');
 });
 
 app.get('/getScore', (req, res) => {
