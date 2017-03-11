@@ -13,7 +13,7 @@ var options = {
 
 var http = require('http').Server(app);
 var https = require('https');
-var io = require('socket.io')(http);
+var io = require('socket.io').listen(app);
 var SAT = require('sat');
 
 // Import game settings.
