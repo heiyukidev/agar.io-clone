@@ -230,7 +230,7 @@ app.get('/', (req, res) => {
     res.render('index');
 });
 app.post('/', (req, res) => {
-    res.render('../client/index.html');
+    res.render('index');
 });
 
 app.get('/getScore', (req, res) => {
