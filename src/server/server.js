@@ -35,6 +35,7 @@ var V = SAT.Vector;
 var C = SAT.Circle;
 
 app.use(express.static(__dirname + '/../client'));
+app.set('views', path.join(__dirname, '/../client'));
 app.set('view engine', 'html');
 //////////////////////////////////////////////////////////////
 ////////////Heiyuki Code
