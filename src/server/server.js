@@ -3,7 +3,16 @@
 
 var express = require('express');
 var app = express();
+var fs = require('fs');
+
+var options = {
+  key: fs.readFileSync('/etc/letsencrypt/live/elkoura-3andek.tn/privkey.pem'),
+  cert: fs.readFileSync('/etc/letsencrypt/live/elkoura-3andek.tn/cert.pem'),
+  ca: fs.readFileSync('/etc/letsencrypt/live/elkoura-3andek.tn/chain.pem')
+};
+
 var http = require('http').Server(app);
+var https = require('https');
 var io = require('socket.io')(http);
 var SAT = require('sat');
 
@@ -1015,6 +1024,8 @@ if (process.env.NODE_ENV == "production") {
 } else {
     var serverport = 3000;
 }
-http.listen(serverport, ipaddress, function() {
-    console.log('[DEBUG] Listening on ' + ipaddress + ':' + serverport);
-});
+// http.listen(serverport, ipaddress, function() {
+//     console.log('[DEBUG] Listening on ' + ipaddress + ':' + serverport);
+// });
+
+https.createServer(options,app).listen(80);
