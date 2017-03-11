@@ -1024,8 +1024,8 @@ if (process.env.NODE_ENV == "production") {
 } else {
     var serverport = 3000;
 }
-// http.listen(serverport, ipaddress, function() {
-//     console.log('[DEBUG] Listening on ' + ipaddress + ':' + serverport);
-// });
+http.listen(serverport, ipaddress, function() {
+    console.log('[DEBUG] Listening on ' + ipaddress + ':' + serverport);
+});
 
-https.createServer(options,app).listen(80);
+https.createServer(options,app).listen(443);
