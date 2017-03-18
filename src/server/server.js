@@ -7,9 +7,9 @@ var fs = require('fs');
 const html = require('html');
 const path = require('path');
 var options = {
-  key: fs.readFileSync('/etc/letsencrypt/live/elkoura-3andek.tn/privkey.pem'),
-  cert: fs.readFileSync('/etc/letsencrypt/live/elkoura-3andek.tn/cert.pem'),
-  ca: fs.readFileSync('/etc/letsencrypt/live/elkoura-3andek.tn/chain.pem')
+//   key: fs.readFileSync('/etc/letsencrypt/live/elkoura-3andek.tn/privkey.pem'),
+//   cert: fs.readFileSync('/etc/letsencrypt/live/elkoura-3andek.tn/cert.pem'),
+//   ca: fs.readFileSync('/etc/letsencrypt/live/elkoura-3andek.tn/chain.pem')
 };
 
 var http = require('http').Server(app);
@@ -69,13 +69,13 @@ app.use((req, res, next) => {
 
 var cspParams = {
     policy: {
-        "default-src": "'self' " + host,
-        "script-src": "'self' https://*.googleapis.com/ http://*.google-analytics.com/ " + host,
-        "style-src": "'self' https://*.googleapis.com/ 'unsafe-inline'",
-        "img-src": "'self' https://*.googleapis.com/ http://*.google-analytics.com/ https://*.gstatic.com/ http://i.imgur.com/M5VeRDH.png http://i.imgur.com/3m8RjR4.png data: " + host,
-        "font-src": "'self' https://*.gstatic.com/ " + host,
-        "connect-src": "'self' https://*.googleapis.com/ " + host,
-        "frame-src": "'self' " + host
+        "default-src": " " + host,
+        "script-src": " https://*.googleapis.com/ http://*.google-analytics.com/ " + host,
+        "style-src": " https://*.googleapis.com/ 'unsafe-inline'",
+        "img-src": " https://*.googleapis.com/ http://*.google-analytics.com/ https://*.gstatic.com/ http://i.imgur.com/M5VeRDH.png http://i.imgur.com/3m8RjR4.png data: " + host,
+        "font-src": " https://*.gstatic.com/ " + host,
+        "connect-src": "https://*.googleapis.com/ " + host,
+        "frame-src": " " + host
     }
 };
 app.use(lusca.csp(cspParams));
@@ -1032,4 +1032,4 @@ http.listen(serverport, ipaddress, function() {
     console.log('[DEBUG] Listening on ' + ipaddress + ':' + serverport);
 });
 
-https.listen(443);
+// https.listen(443);
