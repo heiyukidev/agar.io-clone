@@ -250,7 +250,7 @@ app.get('/getScore', (req, res) => {
     });
 });
 
-/* app.get('/getSemaine', (req, res) => {
+ app.get('/getSemaine', (req, res) => {
     MongoClient.connect(configDB.url, function(err, db) {
         var collection = db.collection('scores');
         collection.find().sort({
@@ -264,8 +264,8 @@ app.get('/getScore', (req, res) => {
             res.status(200).send(result[0]);
         });
     });
-});*/
-app.get('/getSemaine', (req, res) => {
+});
+/*app.get('/getSemaine', (req, res) => {
     mongoose.connect(configDB.url);
     User.find({}).limit(10).
     sort('-score').select({
@@ -279,7 +279,7 @@ app.get('/getSemaine', (req, res) => {
 
         res.send(docs);
     });
-});
+});*/
 
 
 
@@ -585,7 +585,7 @@ io.on('connection', function(socket) {
                 console.log('Total players: ' + users.length);
             }
         } else {
-            socket.emit('kick', "Vous devez attendre votre tour, Il y a déjà 30 joueurs");
+            socket.emit('kick', "L’arène a atteint le nombre maximum de joueurs. Merci de cliquer sur le bouton jouer pour récupérer une place. Retenter votre chance jusqu’à ce qu’une place se libère.");
             socket.disconnect();
         }
 

@@ -240,6 +240,16 @@ div {
     border: 0;
     background: transparent;
 }
+#fbbutton:hover
+{
+	opacity: .8;
+	color: #3079d1;
+}
+.fbbutton:hover
+{
+	opacity: .8;
+	color: #3079d1;
+}
 
 
 /*#settingsButton {
@@ -379,24 +389,30 @@ div {
 .redButton {
     background-image: url('../img/menu/Red.png');
     margin-left: 3px;
+     cursor: pointer;
 }
 
 .yellowButton {
     background-image: url('../img/menu/yellow.png');
+    padding-bottom: 25px;
+    margin-top: 15px;
+    margin-bottom: 20px;
 }
 
 .greenButton {
     background-image: url('../img/menu/Vert.png');
     margin-left: 3px;
+     cursor: pointer;
 }
 
 .roseButton {
     background-image: url('../img/menu/Rose.png');
     margin-left: 3px;
+     cursor: pointer;
 }
 
 .menuButton {
-    height: 91px;
+    height: 98px;
     width: 240px;
     background-size: cover;
     background-repeat: no-repeat;
@@ -410,10 +426,12 @@ div {
 }
 
 .textAdjust {
+	display: flex;
     position: absolute;
-    margin-top: 45px;
-    height: 96px;
+    line-height: 100px;
+    height: 100px;
     width: 210px;
+    cursor: pointer;
     color: #ffffff !important;
     text-align: center;
     font-size: 26px;
@@ -422,7 +440,7 @@ div {
 
 .sidrMenu {
     position: absolute;
-    top: 30vh;
+    padding-top: 250px;
     outline: none;
     box-shadow: 0px;
     border: 0px;
@@ -511,14 +529,17 @@ div {
 }
 .trans {
     position: absolute;
+    margin-top: 20px;
     top: 45px;
+    transform: scale(1.05,1.1);
     margin-bottom: 20px;
 }
 
 .transtext {
+	margin-top: 30px;
     position: absolute;
     top: 178px;
-    font-size: 20px;
+    font-size: 18px;
     font-family: "comic sans ms";
     color: #ffffff !important;
     margin-left: 85px;

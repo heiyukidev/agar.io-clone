@@ -514,16 +514,16 @@ function gameLoop() {
         graph.drawImage(deathScreen, (global.screenWidth / 2) - 350, (global.screenHeight / 2) - 265);
         graph.textAlign = 'center';
         graph.fillStyle = '#FFFFFF';
-        graph.font = 'bold 18px sans-serif';
-        graph.fillText(me.firstName + " " + me.lastName, (global.screenWidth / 2) - 40, (global.screenHeight / 2) - 75);
-        graph.font = 'bold 32px sans-serif';
+        graph.font = 'bold 25px sans-serif';
+        graph.fillText(" " +me.firstName + " " + me.lastName, (global.screenWidth / 2) - 40, (global.screenHeight / 2) - 75);
+        graph.font = 'bold 36px sans-serif';
         graph.fillText(player.massMax, (global.screenWidth / 2), (global.screenHeight / 2) - 150);
         graph.drawImage(avatar, global.screenWidth / 2 - 180, (global.screenHeight / 2) - 107, 42, 42);
 
         // graph.textAlign = 'center';
         // graph.fillStyle = '#FFFFFF';
-        graph.font = 'bold 15px sans-serif';
-        graph.fillText(global.killer.name, (global.screenWidth / 2) + 10, global.screenHeight / 2 + 50);
+        graph.font = 'bold 21px sans-serif';
+        graph.fillText(" " +global.killer.name, (global.screenWidth / 2) + 10, global.screenHeight / 2 + 50);
         graph.drawImage(killeravatar, (global.screenWidth / 2) + 147, global.screenHeight / 2 + 27, 32, 32);
         var top = global.screenHeight / 2 + 20;
         var left = (global.screenWidth / 2) - 70;
@@ -570,7 +570,7 @@ function gameLoop() {
             socket.emit('0', window.canvas.target); // playerSendTarget "Heartbeat".
 
         } else {
-            graph.fillStyle = '#0096c4';
+            graph.fillStyle = '#4389BC';
             graph.fillRect(0, 0, global.screenWidth, global.screenHeight);
 
             graph.textAlign = 'center';
@@ -579,7 +579,7 @@ function gameLoop() {
             graph.fillText('El Koura 3andek!', global.screenWidth / 2, global.screenHeight / 2);
         }
     } else {
-        graph.fillStyle = '#0096c4';
+        graph.fillStyle = '#4389BC';
         graph.fillRect(0, 0, global.screenWidth, global.screenHeight);
 
         graph.textAlign = 'center';
