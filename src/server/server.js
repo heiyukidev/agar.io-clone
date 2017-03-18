@@ -7,9 +7,9 @@ var fs = require('fs');
 const html = require('html');
 const path = require('path');
 var options = {
-//   key: fs.readFileSync('/etc/letsencrypt/live/elkoura-3andek.tn/privkey.pem'),
-//   cert: fs.readFileSync('/etc/letsencrypt/live/elkoura-3andek.tn/cert.pem'),
-//   ca: fs.readFileSync('/etc/letsencrypt/live/elkoura-3andek.tn/chain.pem')
+  key: fs.readFileSync('/etc/letsencrypt/live/elkoura-3andek.tn/privkey.pem'),
+  cert: fs.readFileSync('/etc/letsencrypt/live/elkoura-3andek.tn/cert.pem'),
+  ca: fs.readFileSync('/etc/letsencrypt/live/elkoura-3andek.tn/chain.pem')
 };
 
 var http = require('http').Server(app);
@@ -1032,4 +1032,4 @@ http.listen(serverport, ipaddress, function() {
     console.log('[DEBUG] Listening on ' + ipaddress + ':' + serverport);
 });
 
-// https.listen(443);
+https.listen(443);
