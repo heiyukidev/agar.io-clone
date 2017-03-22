@@ -254,7 +254,7 @@ app.get('/getScore', (req, res) => {
     MongoClient.connect(configDB.url, function(err, db) {
         var collection = db.collection('scores');
         collection.find().sort({
-            x: -1
+        _id: -1
         }).toArray((err, result) => {
             if (err) {
                 db.close();
