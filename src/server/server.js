@@ -265,23 +265,22 @@ app.get('/getScore', (req, res) => {
         });
     });
 });
-/*app.get('/getSemaine', (req, res) => {
+/*
+app.get('/getSemaine', (req, res) => {
     mongoose.connect(configDB.url);
     User.find({}).limit(10).
-<<<<<<< HEAD
-    sort('-score').select({
-        firstName: 1,
-        lastName: 1,
-        email: 1,
-        score: 1,
-        picture: 1
-    }).exec((err, docs) => {
-        mongoose.disconnect();
+        sort('-score').select({
+            firstName: 1,
+            lastName: 1,
+            email: 1,
+            score: 1,
+            picture: 1
+        }).exec((err, docs) => {
+            mongoose.disconnect();
 
-        res.send(docs);
-    });
+            res.send(docs);
+        });
 });*/
-
 
 //////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////
