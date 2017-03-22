@@ -7,13 +7,13 @@ var fs = require('fs');
 const html = require('html');
 const path = require('path');
 var options = {
-  key: fs.readFileSync('/etc/letsencrypt/live/elkoura-3andek.tn/privkey.pem'),
-  cert: fs.readFileSync('/etc/letsencrypt/live/elkoura-3andek.tn/cert.pem'),
-  ca: fs.readFileSync('/etc/letsencrypt/live/elkoura-3andek.tn/chain.pem')
+    key: fs.readFileSync('/etc/letsencrypt/live/elkoura-3andek.tn/privkey.pem'),
+    cert: fs.readFileSync('/etc/letsencrypt/live/elkoura-3andek.tn/cert.pem'),
+    ca: fs.readFileSync('/etc/letsencrypt/live/elkoura-3andek.tn/chain.pem')
 };
 
 var http = require('http').Server(app);
-var https = require('https').createServer(options,app);
+var https = require('https').createServer(options, app);
 var io = require('socket.io')(https);
 var SAT = require('sat');
 
@@ -95,11 +95,11 @@ app.get('/auth', passport.authenticate('facebook', {
 }));
 
 function getUserFromToken(token) {
-    return new Promise(function(resolve, reject) {
+    return new Promise(function (resolve, reject) {
         mongoose.connect(configDB.url);
         User.findOne({
             'facebook.token': token
-        }, function(err, user) {
+        }, function (err, user) {
             if (err) {
                 mongoose.disconnect();
                 reject(err);
@@ -117,7 +117,7 @@ function getUserFromToken(token) {
 }
 
 function saveUser(paramuser) {
-    return new Promise(function(resolve, reject) {
+    return new Promise(function (resolve, reject) {
         getUserFromToken(paramuser.facebook.token).then((baseUser) => {
             mongoose.connect(configDB.url);
             // var user = new User();
@@ -125,28 +125,28 @@ function saveUser(paramuser) {
             User.findOneAndUpdate({
                 "facebook.token": paramuser.facebook.token
             }, {
-                $set: {
-                    cin: paramuser.cin,
-                    facebook: {
-                        id: baseUser.facebook.id,
-                        token: baseUser.facebook.token
-                    },
-                    firstName: paramuser.firstName,
-                    lastName: paramuser.lastName,
-                    email: paramuser.email,
-                    picture: paramuser.picture,
-                    phone: paramuser.phone,
-                    score: paramuser.score
+                    $set: {
+                        cin: paramuser.cin,
+                        facebook: {
+                            id: baseUser.facebook.id,
+                            token: baseUser.facebook.token
+                        },
+                        firstName: paramuser.firstName,
+                        lastName: paramuser.lastName,
+                        email: paramuser.email,
+                        picture: paramuser.picture,
+                        phone: paramuser.phone,
+                        score: paramuser.score
 
-                }
-            }, (err, u) => {
-                if (err) {
+                    }
+                }, (err, u) => {
+                    if (err) {
+                        mongoose.disconnect();
+                        reject(err);
+                    }
                     mongoose.disconnect();
-                    reject(err);
-                }
-                mongoose.disconnect();
-                resolve(u);
-            });
+                    resolve(u);
+                });
         }, (err) => {
             mongoose.disconnect();
             reject(err);
@@ -237,17 +237,17 @@ app.post('/', (req, res) => {
 app.get('/getScore', (req, res) => {
     mongoose.connect(configDB.url);
     User.find({}).limit(10).
-    sort('-score').select({
-        firstName: 1,
-        lastName: 1,
-        email: 1,
-        score: 1,
-        picture: 1
-    }).exec((err, docs) => {
-        mongoose.disconnect();
+        sort('-score').select({
+            firstName: 1,
+            lastName: 1,
+            email: 1,
+            score: 1,
+            picture: 1
+        }).exec((err, docs) => {
+            mongoose.disconnect();
 
-        res.send(docs);
-    });
+            res.send(docs);
+        });
 });
 
 /* app.get('/getSemaine', (req, res) => {
@@ -268,17 +268,17 @@ app.get('/getScore', (req, res) => {
 app.get('/getSemaine', (req, res) => {
     mongoose.connect(configDB.url);
     User.find({}).limit(10).
-    sort('-score').select({
-        firstName: 1,
-        lastName: 1,
-        email: 1,
-        score: 1,
-        picture: 1
-    }).exec((err, docs) => {
-        mongoose.disconnect();
+        sort('-score').select({
+            firstName: 1,
+            lastName: 1,
+            email: 1,
+            score: 1,
+            picture: 1
+        }).exec((err, docs) => {
+            mongoose.disconnect();
 
-        res.send(docs);
-    });
+            res.send(docs);
+        });
 });
 
 
@@ -302,9 +302,9 @@ if (process.env.NODE_ENV == "production") {
     };
     var cycleCounter = 0;
     // define handler that will always fire every cycle
-    monitor.on('monitor', function(event) {
+    monitor.on('monitor', function (event) {
         cycleCounter++;
-        usage.lookup(pid, usageOptions, function(err, result) {
+        usage.lookup(pid, usageOptions, function (err, result) {
             console.log(result);
         });
     });
@@ -468,12 +468,12 @@ function moveMass(mass) {
 function balanceMass() {
     var totalMass = food.length * c.foodMass +
         users
-        .map(function(u) {
-            return u.massTotal;
-        })
-        .reduce(function(pu, cu) {
-            return pu + cu;
-        }, 0);
+            .map(function (u) {
+                return u.massTotal;
+            })
+            .reduce(function (pu, cu) {
+                return pu + cu;
+            }, 0);
 
     var massDiff = c.gameMass - totalMass;
     var maxFoodDiff = c.maxFood - food.length;
@@ -498,7 +498,7 @@ function balanceMass() {
     }
 }
 
-io.on('connection', function(socket) {
+io.on('connection', function (socket) {
     console.log('A user connected!', socket.handshake.query.type);
 
     var type = socket.handshake.query.type;
@@ -534,7 +534,7 @@ io.on('connection', function(socket) {
         }
     };
 
-    socket.on('gotit', function(player) {
+    socket.on('gotit', function (player) {
         console.log('[INFO] Player ' + player.name + ' connecting!');
         // setTimeout(() => {
         //
@@ -591,17 +591,17 @@ io.on('connection', function(socket) {
 
     });
 
-    socket.on('pingcheck', function() {
+    socket.on('pingcheck', function () {
         socket.emit('pongcheck');
     });
 
-    socket.on('massMax', function(data) {
+    socket.on('massMax', function (data) {
         if (data.token) {
             getUserFromToken(data.token).then((user) => {
                 if (user) {
-                    if (user.score < data.value) {
+                    if (user.score < data.value && user.ban != 1) {
                         user.score = data.value;
-                        saveUser(user).then((user) => {}, (err) => {
+                        saveUser(user).then((user) => { }, (err) => {
                             console.log("[ERROR] Error In massMax Event");
                             console.log(err);
                         });
@@ -613,19 +613,19 @@ io.on('connection', function(socket) {
             });
         }
     });
-    socket.on('windowResized', function(data) {
+    socket.on('windowResized', function (data) {
         currentPlayer.screenWidth = data.screenWidth;
         currentPlayer.screenHeight = data.screenHeight;
     });
 
-    socket.on('respawn', function() {
+    socket.on('respawn', function () {
         if (util.findIndex(users, currentPlayer.id) > -1)
             users.splice(util.findIndex(users, currentPlayer.id), 1);
         socket.emit('welcome', currentPlayer);
         console.log('[INFO] User ' + currentPlayer.name + ' respawned!');
     });
 
-    socket.on('disconnect', function() {
+    socket.on('disconnect', function () {
         if (util.findIndex(users, currentPlayer.id) > -1)
             users.splice(util.findIndex(users, currentPlayer.id), 1);
         console.log('[INFO] User ' + currentPlayer.name + ' disconnected!');
@@ -635,7 +635,7 @@ io.on('connection', function(socket) {
         });
     });
 
-    socket.on('pass', function(data) {
+    socket.on('pass', function (data) {
         if (data[0] === c.adminPass) {
             console.log('[ADMIN] ' + currentPlayer.name + ' just logged in as an admin!');
             currentPlayer.admin = true;
@@ -644,7 +644,7 @@ io.on('connection', function(socket) {
         }
     });
 
-    socket.on('kick', function(data) {
+    socket.on('kick', function (data) {
         if (currentPlayer.admin) {
             var reason = '';
             var worked = false;
@@ -676,14 +676,14 @@ io.on('connection', function(socket) {
     });
 
     // Heartbeat function, update everytime.
-    socket.on('0', function(target) {
+    socket.on('0', function (target) {
         currentPlayer.lastHeartbeat = new Date().getTime();
         if (target.x !== currentPlayer.x || target.y !== currentPlayer.y) {
             currentPlayer.target = target;
         }
     });
 
-    socket.on('1', function() {
+    socket.on('1', function () {
         // Fire food.
         for (var i = 0; i < currentPlayer.cells.length; i++) {
             if (((currentPlayer.cells[i].mass >= c.defaultPlayerMass + c.fireFood) && c.fireFood > 0) || (currentPlayer.cells[i].mass >= 20 && c.fireFood === 0)) {
@@ -711,7 +711,7 @@ io.on('connection', function(socket) {
             }
         }
     });
-    socket.on('2', function(virusCell) {
+    socket.on('2', function (virusCell) {
         function splitCell(cell) {
             if (cell.mass >= c.defaultPlayerMass * 2) {
                 cell.mass = cell.mass / 2;
@@ -747,8 +747,8 @@ io.on('connection', function(socket) {
 function tickPlayer(currentPlayer) {
     if (currentPlayer.lastHeartbeat < new Date().getTime() - c.maxHeartbeatInterval) {
         sockets[currentPlayer.id].emit('kick', " Vous avez été inactif depuis 5 secondes, vous devez vous reconnecter.");
-        sockets[currentPlayer.id].disconnect();       
-      
+        sockets[currentPlayer.id].disconnect();
+
     }
 
     movePlayer(currentPlayer);
@@ -827,19 +827,19 @@ function tickPlayer(currentPlayer) {
         );
 
         var foodEaten = food.map(funcFood)
-            .reduce(function(a, b, c) {
+            .reduce(function (a, b, c) {
                 return b ? a.concat(c) : a;
             }, []);
 
         foodEaten.forEach(deleteFood);
 
         var massEaten = massFood.map(eatMass)
-            .reduce(function(a, b, c) {
+            .reduce(function (a, b, c) {
                 return b ? a.concat(c) : a;
             }, []);
 
         var virusCollision = virus.map(funcFood)
-            .reduce(function(a, b, c) {
+            .reduce(function (a, b, c) {
                 return b ? a.concat(c) : a;
             }, []);
 
@@ -859,7 +859,7 @@ function tickPlayer(currentPlayer) {
             }
         }
 
-        if (typeof(currentCell.speed) == "undefined")
+        if (typeof (currentCell.speed) == "undefined")
             currentCell.speed = 6.25;
         masaGanada += (foodEaten.length * c.foodMass);
         currentCell.mass += masaGanada;
@@ -885,7 +885,7 @@ function moveloop() {
 
 function gameloop() {
     if (users.length > 0) {
-        users.sort(function(a, b) {
+        users.sort(function (a, b) {
             return b.massTotal - a.massTotal;
         });
 
@@ -925,13 +925,13 @@ function gameloop() {
 }
 
 function sendUpdates() {
-    users.forEach(function(u) {
+    users.forEach(function (u) {
         // center the view if x/y is undefined, this will happen for spectators
         u.x = u.x || c.gameWidth / 2;
         u.y = u.y || c.gameHeight / 2;
 
         var visibleFood = food
-            .map(function(f) {
+            .map(function (f) {
                 if (f.x > u.x - u.screenWidth / 2 - 20 &&
                     f.x < u.x + u.screenWidth / 2 + 20 &&
                     f.y > u.y - u.screenHeight / 2 - 20 &&
@@ -939,12 +939,12 @@ function sendUpdates() {
                     return f;
                 }
             })
-            .filter(function(f) {
+            .filter(function (f) {
                 return f;
             });
 
         var visibleVirus = virus
-            .map(function(f) {
+            .map(function (f) {
                 if (f.x > u.x - u.screenWidth / 2 - f.radius &&
                     f.x < u.x + u.screenWidth / 2 + f.radius &&
                     f.y > u.y - u.screenHeight / 2 - f.radius &&
@@ -952,12 +952,12 @@ function sendUpdates() {
                     return f;
                 }
             })
-            .filter(function(f) {
+            .filter(function (f) {
                 return f;
             });
 
         var visibleMass = massFood
-            .map(function(f) {
+            .map(function (f) {
                 if (f.x + f.radius > u.x - u.screenWidth / 2 - 20 &&
                     f.x - f.radius < u.x + u.screenWidth / 2 + 20 &&
                     f.y + f.radius > u.y - u.screenHeight / 2 - 20 &&
@@ -965,12 +965,12 @@ function sendUpdates() {
                     return f;
                 }
             })
-            .filter(function(f) {
+            .filter(function (f) {
                 return f;
             });
 
         var visibleCells = users
-            .map(function(f) {
+            .map(function (f) {
                 for (var z = 0; z < f.cells.length; z++) {
                     if (f.cells[z].x + f.cells[z].radius > u.x - u.screenWidth / 2 - 20 &&
                         f.cells[z].x - f.cells[z].radius < u.x + u.screenWidth / 2 + 20 &&
@@ -1002,7 +1002,7 @@ function sendUpdates() {
                     }
                 }
             })
-            .filter(function(f) {
+            .filter(function (f) {
                 return f;
             });
 
@@ -1028,7 +1028,7 @@ if (process.env.NODE_ENV == "production") {
 } else {
     var serverport = 3000;
 }
-http.listen(serverport, ipaddress, function() {
+http.listen(serverport, ipaddress, function () {
     console.log('[DEBUG] Listening on ' + ipaddress + ':' + serverport);
 });
 
