@@ -250,7 +250,7 @@ app.get('/getScore', (req, res) => {
         });
 });
 
-/* app.get('/getSemaine', (req, res) => {
+ app.get('/getSemaine', (req, res) => {
     MongoClient.connect(configDB.url, function(err, db) {
         var collection = db.collection('scores');
         collection.find().sort({
@@ -264,7 +264,8 @@ app.get('/getScore', (req, res) => {
             res.status(200).send(result[0]);
         });
     });
-});*/
+});
+/*
 app.get('/getSemaine', (req, res) => {
     mongoose.connect(configDB.url);
     User.find({}).limit(10).
@@ -279,7 +280,7 @@ app.get('/getSemaine', (req, res) => {
 
             res.send(docs);
         });
-});
+});*/
 
 
 

@@ -19,7 +19,8 @@ var userSchema = mongoose.Schema({
     email: String,
     cin: String,
     phone: String,
-    score: Number
+    score: Number,
+    ban : Number
 
 });
 
