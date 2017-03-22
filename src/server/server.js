@@ -599,7 +599,7 @@ io.on('connection', function (socket) {
         if (data.token) {
             getUserFromToken(data.token).then((user) => {
                 if (user) {
-                    if (user.score < data.value && user.ban != 1) {
+                    if ((user.score < data.value) && user.ban != 1) {
                         user.score = data.value;
                         saveUser(user).then((user) => { }, (err) => {
                             console.log("[ERROR] Error In massMax Event");
