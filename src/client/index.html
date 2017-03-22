@@ -219,7 +219,7 @@
                 type: "GET",
                 url: "/getSemaine",
                 success: function(response) {
-                    var users = response;
+                    var users = response.list;
                     for (var i = 0; i < 9; i++) {
                         document.getElementById("s" + (i + 1)).innerHTML = "<div class='scorediv'>  <span style='font-size:28px; margin-left:-30px'>"+(i+1)+" </span><img style='bottom:10px;margin-left:5px;' src=\"" + users[i].picture + "\" width=\"23\" height=\"23\"/>  " +
                           "<span style='margin-bottom:50px;margin-left:0px;font-size:13px;position:absolute;'>"+  users[i].firstName + " " + users[i].lastName + " <br> " + users[i].score + "</span> </div>";
